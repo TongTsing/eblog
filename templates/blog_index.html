@@ -1,0 +1,91 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}博客首页{% endblock %}
+
+{% block main %}
+    <div class="container mt-4">
+        <div class="row mt-4">
+            <!-- 分类选择部分 -->
+            <div class="col-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <form method="GET" action="{% url 'blog:index' %}" id="category-filter-form">
+                            <div class="d-flex flex-wrap" style="gap: 8px;">
+                                <input type="radio" class="btn-check" name="category_id" id="all" autocomplete="off"
+                                       value="0" {% if not request.GET.category_id %}checked{% endif %}>
+                                <label class="btn btn-link rounded-3 text-light-gray" for="all">全部</label>
+
+                                {% for category in categories %}
+                                    <input type="radio" class="btn-check" name="category_id"
+                                           id="category-{{ category.id }}" autocomplete="off"
+                                           value="{{ category.id }}"
+                                           {% if request.GET.category_id == category.id|stringformat:"s" %}checked{% endif %}>
+                                    <label class="btn btn-link rounded-3 text-light-gray"
+                                           for="category-{{ category.id }}">{{ category.name }}</label>
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 博客列表部分 -->
+    <div class="container">
+        <div class="col-12 ms-auto me-auto d-flex">
+            <div class="row row-cols-1 row-cols-md-1 row-gap-4">
+                {% for blogDetail in blogs %}
+                    <div class="col">
+                        <div class="card shadow-sm d-flex flex-row align-items-start" style="border: none;">
+                            <!-- 水平布局 -->
+                            <!-- 博客图片 -->
+                            {% if blogDetail.image %}
+                                <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
+                                     alt="{{ blogDetail.title }}"
+                                     style="width: 150px; height: 150px; object-fit: cover; margin-right: 15px;">
+                                <!-- 固定大小 -->
+                            {% else %}
+                                <div style="width: 150px; height: 150px; background-color: #f2f2f2; margin-right: 15px; display: flex; align-items: center; justify-content: center;">
+                                    <span style="color: #bbb;">无图片</span> <!-- 显示占位符 -->
+                                </div>
+                            {% endif %}
+
+                            <div class="flex-grow-1"
+                                 style="background-color: #f9f9f9; padding: 15px; border-radius: 0.25rem;">
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
+                                       style="text-decoration: none; color: #333;">{{ blogDetail.title }}</a>
+                                </h5>
+                                <p class="card-text mb-2">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
+                                <div class="text-body-secondary d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ blogDetail.author.profile_picture.url }}"
+                                             class="rounded-circle"
+                                             width="30" height="30" alt="{{ blogDetail.author.username }}">
+                                        <span class="ms-2">{{ blogDetail.author.username }}</span>
+                                    </div>
+                                    <div>
+                                        发布时间：{{ blogDetail.pub_time|date:"Y年m月d日: h时i分" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        // 监听所有radio按钮的点击事件
+        document.querySelectorAll('input[name="category_id"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                // 提交表单
+                document.getElementById('category-filter-form').submit();
+            });
+        });
+    </script>
+
+{% endblock %}

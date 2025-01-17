@@ -1,0 +1,84 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}注册{% endblock %}
+
+{% block head %}
+    <script src="{% static 'js/blog_register.js' %}"></script>
+{% endblock %}
+
+{% block main %}
+<div style="max-width: 330px;" class="m-auto">
+        <h1>注册</h1>
+        <!-- 显示消息 -->
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <form action="" method="POST" id="register-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- 头像上传区域 -->
+            <div class="mb-3 d-flex align-items-center">
+                <!-- 头像预览 -->
+                <div id="avatar-preview" class="me-3">
+                    <img id="avatar-img" src="" alt="头像预览" class="img-fluid rounded-circle" style="max-width: 100px; display: none;">
+                </div>
+                <!-- 头像文件选择 -->
+                <div class="d-flex flex-column w-100">
+                    <label class="mb-1">上传头像</label>
+                    <input type="file" name="profile_picture" class="form-control" id="avatar" accept="image/*" onchange="previewImage(event)" style="cursor: pointer;">
+                </div>
+            </div>
+
+            <!-- 用户名输入框 -->
+            <div class="mb-3">
+                <label class="mb-1">用户名</label>
+                <input type="text" name="username" class="form-control" placeholder="用户名" id="username">
+            </div>
+
+            <!-- 邮箱输入框 -->
+            <div class="mb-3">
+                <label class="mb-1">邮箱</label>
+                <input type="email" name="email" class="form-control" placeholder="邮箱" id="email">
+            </div>
+
+            <!-- 验证码输入框 -->
+            <div class="mb-3">
+                <label class="mb-1">验证码</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="captcha" class="form-control" placeholder="验证码"
+                           aria-label="Recipient's username"
+                           aria-describedby="basic-addon2" id="captcha">
+                    <button type="button" class="input-group-text" id="captcha-btn">获取验证码</button>
+                </div>
+            </div>
+
+            <!-- 密码输入框 -->
+            <div class="mb-3">
+                <label class="mb-1">密码</label>
+                <input type="password" name="password" class="form-control" placeholder="密码" id="password">
+            </div>
+
+            <!-- 提交按钮 -->
+            <button class="btn btn-primary w-100 mb-1" type="submit">立即注册</button>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function () {
+                const img = document.getElementById('avatar-img');
+                img.src = reader.result;
+                img.style.display = 'block';
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}编辑博客{% endblock %}
+
+{% block head %}
+    <link href="{% static 'wangeditor/css/style.css' %}" rel="stylesheet">
+    <script src="{% static 'wangeditor/index.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'highlight/styles/default.min.css' %}">
+    <script src="{% static 'highlight/highlight.min.js' %}"></script>
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        #editor-wrapper {
+            border: 1px solid #ccc;
+            border-radius: 0.25rem;
+            overflow: hidden;
+        }
+
+        #toolbar-container {
+            border-bottom: 1px solid #ccc;
+            background: #f7f7f7;
+        }
+
+        #editor-container {
+            height: 400px;
+            padding: 10px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .btn-primary {
+            border-radius: 0.25rem;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            color: #fff;
+            border-radius: 0.25rem;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+        /* 上传封面图片样式 */
+        .image-upload-container {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .image-upload-container input[type="file"] {
+            padding: 12px 20px;
+            border: 2px solid #0073e6;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            margin-top: 12px;
+            max-width: 100%;
+            max-height: 150px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .image-upload-container .btn-secondary {
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+
+        .image-upload-container .btn-secondary:hover {
+            background-color: #e2e2e2;
+            border-color: #999;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container bg-light mt-5 p-4 rounded">
+        <h3 class="text-center mb-4" style="font-weight: bold; color: #333;">编辑博客</h3>
+        <form action="" method="POST" id="blog-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="form-label" for="title">标题</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ blog.title }}"
+                       placeholder="请输入博客标题">
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="category">分类</label>
+                <select name="category" id="category" class="form-select">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if blog.category.id == category.id %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">内容</label>
+                <div id="editor-wrapper">
+                    <div id="toolbar-container"></div>
+                    <div id="editor-container"></div>
+                </div>
+            </div>
+
+            <!-- 隐藏字段用于提交内容 -->
+            <input type="hidden" name="content" id="content-input">
+
+            <!-- 上传封面图片 -->
+            <div class="image-upload-container">
+                <label class="form-label" for="image">上传封面图片（可选）</label>
+                <input type="file" name="image" id="image" class="form-control" accept="image/*" onchange="previewImage()">
+                <small class="text-muted">选择一个封面图片（可选）。</small>
+
+                <!-- 如果已有封面图片，则显示该图片并触发预览 -->
+                <div id="image-preview-container" style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
+                    <img id="image-preview" class="image-preview" src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
+                    <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">删除封面</button>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mt-4">
+                <button type="button" class="btn btn-danger" id="delete-btn" data-blog-id="{{ blog.id }}">删除</button>
+                <button type="button" class="btn btn-primary" id="submit-btn">保存修改</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const {createEditor, createToolbar} = window.wangEditor;
+
+            // 初始化编辑器
+            const editor = createEditor({
+                selector: '#editor-container',
+                html: `{% autoescape off %}{{ blog.content|escapejs }}{% endautoescape %}`,
+                config: {
+                    menus: [
+                        'bold', 'italic', 'underline', 'strike', 'forecolor', 'bgcolor',
+                        'fontname', 'fontsize', 'head', 'list', 'quote', 'link', 'image', 'code'
+                    ]
+                }
+            });
+
+            createToolbar({
+                editor,
+                selector: '#toolbar-container',
+                config: {}
+            });
+
+            // 保存按钮事件
+            const submitBtn = document.querySelector('#submit-btn');
+            submitBtn.addEventListener('click', function () {
+                document.querySelector('#content-input').value = editor.getHtml();
+                const form = document.querySelector('#blog-form');
+                const formData = new FormData(form);
+
+                fetch("/blog/edit_blog/" + {{ blog.id }} + "/", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.code === 200) {
+                          alert('博客更新成功');
+                          window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
+                      } else {
+                          alert('更新失败，请稍后重试。');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                      alert('请求失败，请稍后重试。');
+                  });
+            });
+
+            // 删除按钮事件
+            const deleteBtn = document.querySelector('#delete-btn');
+            deleteBtn.addEventListener('click', function () {
+                const blogId = deleteBtn.dataset.blogId;
+
+                if (confirm('确定删除此博客吗？')) {
+                    fetch(`/blog/del_blog/${blogId}/`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    }).then(response => response.json())
+                        .then(data => {
+                            if (data.code === 200) {
+                                alert('博客已成功删除');
+                                window.location.href = '/'; // 删除成功后跳转到首页
+                            } else {
+                                alert('删除失败，请稍后重试。');
+                            }
+                        }).catch(error => {
+                        console.error('Error:', error);
+                        alert('删除请求失败，请稍后重试。');
+                    });
+                }
+            });
+        });
+
+        // 图片预览功能
+        function previewImage() {
+            const fileInput = document.getElementById('image');
+            const preview = document.getElementById('image-preview');
+            const previewContainer = document.getElementById('image-preview-container');
+            const imageUrlInput = document.getElementById('image-url');
+
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else if (imageUrlInput.value) {
+                // 如果没有选择新文件，则显示已有的封面图片
+                preview.src = "/static" + imageUrlInput.value;
+                previewContainer.style.display = 'block';
+            } else {
+                previewContainer.style.display = 'none';
+            }
+        }
+
+        // 删除封面图片
+        function removeImage() {
+            document.getElementById('image').value = ''; // 清除文件输入
+            document.getElementById('image-preview').src = ''; // 清除预览图
+            document.getElementById('image-preview-container').style.display = 'none'; // 隐藏预览容器
+        }
+    </script>
+{% endblock %}

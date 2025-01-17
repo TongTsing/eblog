@@ -1,0 +1,15 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}修改密码{% endblock %}
+
+{% block main %}
+    <div class="container bg-light rounded mt-4">
+        <form method="post" class="form-control mt-3">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Change Password</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

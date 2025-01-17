@@ -1,0 +1,122 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}博客列表{% endblock %}
+
+{% block main %}
+    <!-- 博客列表部分 -->
+    <div class="container mt-4">
+        <div class="col-12 ms-auto me-auto d-flex">
+            <div class="row row-cols-1 row-cols-md-1 row-gap-4">
+                {% for blogDetail in blogs %}
+                    <div class="col">
+                        <div class="card shadow-sm d-flex flex-row align-items-start" style="border: none;">
+                            <!-- 水平布局 -->
+                            <!-- 博客图片 -->
+                            {% if blogDetail.image %}
+                                <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
+                                     alt="{{ blogDetail.title }}"
+                                     style="width: 150px; height: 150px; object-fit: cover; margin-right: 15px;">
+                            {% else %}
+                                <div style="width: 150px; height: 150px; background-color: #f2f2f2; margin-right: 15px; display: flex; align-items: center; justify-content: center;">
+                                    <span style="color: #bbb;">无图片</span> <!-- 显示占位符 -->
+                                </div>
+                            {% endif %}
+
+                            <div class="flex-grow-1"
+                                 style="background-color: #f9f9f9; padding: 15px; border-radius: 0.25rem;">
+                                <h5 class="card-title">
+                                    <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
+                                       style="text-decoration: none; color: #333;">{{ blogDetail.title }}</a>
+                                </h5>
+                                <p class="card-text mb-2">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
+                                <div class="text-body-secondary d-flex justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ blogDetail.author.profile_picture.url   }}"
+                                             class="rounded-circle"
+                                             width="30" height="30" alt="{{ blogDetail.author.username }}">
+                                        <span class="ms-2">{{ blogDetail.author.username }}</span>
+                                    </div>
+                                    <div>
+                                        发布时间：{{ blogDetail.pub_time|date:"Y年m月d日: h时i分" }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- 分页控件放在页面底部 -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        <!-- Previous page link -->
+                        {% if blogs.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.previous_page_number }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <!-- Display page numbers -->
+                        {% for num in blogs.paginator.page_range %}
+                            {% if blogs.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        <!-- Next page link -->
+                        {% if blogs.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+                <!-- 跳转到指定页 -->
+                <div class="d-flex justify-content-center align-items-center mt-3">
+                    <form method="get" action="" class="d-flex align-items-center">
+                        <label for="page" class="me-2 mb-0">跳转到：</label>
+                        <input type="number" id="page" name="page" min="1" max="{{ blogs.paginator.num_pages }}"
+                               class="form-control" style="width: 100px;" value="{{ blogs.number }}">
+                        <button type="submit" class="btn btn-primary ms-2">跳转</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 监听所有radio按钮的点击事件
+        document.querySelectorAll('input[name="category_id"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                // 提交表单
+                document.getElementById('category-filter-form').submit();
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'blog_base.html' %}
+
+{% block title %}个人信息{% endblock %}
+
+{% block head %}
+    <style>
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    
+    <div class="profile-card mt-4">
+        {#    {% if messages %}#}
+        {#        {% for msg in messages %}#}
+        {#            #}
+        {#        {% endfor %}#}
+        {#    {% endif %}#}
+        <div class="card">
+            <img src="{{ user.profile_picture.url }}" class="rounded-circle ms-3" alt="Profile Image" width="50" height="50">
+            <div class="card-body">
+                <h5 class="card-title">{{ user.username }}</h5>
+                <p class="card-text">{{ user.first_name }} {{ user.last_name }}</p>
+                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                <p class="card-text"><strong>加入时间:</strong> {{ user.date_joined|date:"Y年m月d日" }}</p>
+                <p class="card-text"><strong>简介:</strong> {% if user.profile %} {{ user.profile }} {% else %}
+                    暂无个人简介 {% endif %}</p>
+
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'auth:edit_profile' %}" class="btn btn-warning">编辑资料</a>
+                    <a href="{% url 'auth:change_password' %}" class="btn btn-info">修改密码</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
