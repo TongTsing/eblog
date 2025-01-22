@@ -197,7 +197,7 @@ LOGGING = {
 }
 
 # 配置图片路径
-MEDIA_URL = '/media/'
+MEDIA_URL = '/blog/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 # 设置最大上传文件大小，单位是字节（例如：100MB）
