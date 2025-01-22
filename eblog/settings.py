@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'eblog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        "HOST": "127.0.0.1",
+        "HOST": "blog.hwserver.cn",
         "PORT": 3306,
         'NAME': 'eblog',
         'USER': 'root',
@@ -156,45 +156,45 @@ EMAIL_REPLY_TO = 'mr.tongtsing@gmail.com'
 
 # 日志配置
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',  # 设置日志级别，可以是 DEBUG, INFO, WARNING, ERROR, CRITICAL
-            'class': 'logging.FileHandler',
-            'filename': '/tmp/eblog/eblog.log',  # 指定日志文件路径
-            'formatter': 'verbose',
-        },
-        'console': {
-            'level': 'ERROR',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file', 'console'],  # 配置输出到文件和控制台
-            'level': 'INFO',  # 设置日志记录的最低级别
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['file', 'console'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {module} {message}',
+#             'style': '{',
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'DEBUG',  # 设置日志级别，可以是 DEBUG, INFO, WARNING, ERROR, CRITICAL
+#             'class': 'logging.FileHandler',
+#             'filename': './tmp/eblog.log',  # 指定日志文件路径
+#             'formatter': 'verbose',
+#         },
+#         'console': {
+#             'level': 'ERROR',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file', 'console'],  # 配置输出到文件和控制台
+#             'level': 'INFO',  # 设置日志记录的最低级别
+#             'propagate': True,
+#         },
+#         'django.request': {
+#             'handlers': ['file', 'console'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#     },
+# }
 
 # 配置图片路径
 MEDIA_URL = '/blog/media/'

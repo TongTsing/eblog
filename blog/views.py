@@ -17,6 +17,7 @@ from blog.models import BlogCategory
 from eblog import settings
 from .forms import PubBlogForm
 from .models import Blog, BlogComment
+from .utils import BlogViewCountSingleton
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -57,9 +58,12 @@ def blog_detail(request, blog_id: int):
         logging.warning(f"Blog with id {blog_id} does not exist")
         return render(request, "404.html", status=404)
 
-    # Access count increment
-    Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
-    logging.debug(f'博客{blog_id} 访问量增加1')
+    # 访问计数
+    blog_counter = BlogViewCountSingleton()
+    blog_counter.increment_blogview_count(blog_id)
+    blog_counter.save_to_database(blog_id)
+    # Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
+    # logging.debug(f'博客{blog_id} 访问量增加1')
 
     # Organize comments and their replies
     parent_comments = blogDetail.comments.filter(parent_comment=None, is_delete=False)
