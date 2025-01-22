@@ -11,6 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls.base import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from django.views.decorators.cache import cache_page
 
 from blog.models import BlogCategory
 from eblog import settings
@@ -30,7 +31,7 @@ def handle_markdown(coententList: list = []) -> list:
 
     return coententList
 
-
+# @cache_page(60*10)
 @require_http_methods(["GET"])
 def index(request):
     category_id = request.GET.get("category_id")
