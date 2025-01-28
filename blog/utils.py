@@ -7,8 +7,8 @@ class BlogViewCountSingleton(object):
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(PostBlogViewCountSingleton, cls).__new__(
-                *args, **kwargs
+            cls._instance = super().__new__(
+               cls, *args, **kwargs
             )
         return cls._instance
 
