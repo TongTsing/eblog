@@ -19,7 +19,7 @@ from .forms import PubBlogForm
 from .models import Blog, BlogComment
 from .utils import BlogViewCountSingleton
 
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger("django")
 
 
 # Create your views here.
@@ -37,25 +37,25 @@ def handle_markdown(coententList: list = []) -> list:
 def index(request):
     category_id = request.GET.get("category_id")
     if category_id == None or category_id == '0':
-        logging.info(f'获取全部博客信息')
+        logger.info(f'获取全部博客信息')
         blogs = Blog.objects.filter(is_delete=False).all()[:10]
         categories = BlogCategory.objects.all()
     else:
-        logging.info(f'筛选博客类别id为{category_id}的博客')
+        logger.info(f'筛选博客类别id为{category_id}的博客')
         blogs = BlogCategory.objects.get(id=int(category_id)).blogs.filter(is_delete=0).all()[:10]
         categories = BlogCategory.objects.all()
     return render(request, "blog_index.html", {"blogs": blogs, 'categories': categories})
 
 
 def blog_detail(request, blog_id: int):
-    logging.info(f"获取博客详情, blog_id: {blog_id}")
+    logger.info(f"获取博客详情, blog_id: {blog_id}")
     # Get blog details
     try:
         blogDetail = Blog.objects.get(id=blog_id)
-        logging.info(f"查询到到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
+        logger.info(f"查询到到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
     except Blog.DoesNotExist:
         blogDetail = None
-        logging.warning(f"Blog with id {blog_id} does not exist")
+        logger.warning(f"Blog with id {blog_id} does not exist")
         return render(request, "404.html", status=404)
 
     # 访问计数
@@ -63,7 +63,7 @@ def blog_detail(request, blog_id: int):
     blog_counter.increment_blogview_count(blog_id)
     blog_counter.save_to_database(blog_id)
     # Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
-    # logging.debug(f'博客{blog_id} 访问量增加1')
+    # logger.debug(f'博客{blog_id} 访问量增加1')
 
     # Organize comments and their replies
     parent_comments = blogDetail.comments.filter(parent_comment=None, is_delete=False)
@@ -100,14 +100,14 @@ def pub_blog(request):
                                        image=image)
             return JsonResponse({'code': 200, 'message': '博客发布成功', 'data': {'blog_id': blog.id}})
         else:
-            logging.error(f'博客发布失败，错误: {form.errors}')
+            logger.error(f'博客发布失败，错误: {form.errors}')
             return JsonResponse({'code': 400, 'message': 'POST参数错误'})
 
 
 @require_http_methods(['POST'])
 def pub_comment(request):
     try:
-        logging.info(f'尝试获取 blog 信息')
+        logger.info(f'尝试获取 blog 信息')
         blog_id = request.POST.get('blog_id')
         content = request.POST.get('content')
         parent_id = request.POST.get('parent_id')  # 获取是否是回复评论的父评论 ID
@@ -123,7 +123,7 @@ def pub_comment(request):
                 author=request.user,
                 parent_comment=parent_comment
             )
-            logging.info(f'{request.user.username} 回复评论：{content}')
+            logger.info(f'{request.user.username} 回复评论：{content}')
         else:
             # 普通评论
             BlogComment.objects.create(
@@ -131,10 +131,10 @@ def pub_comment(request):
                 content=content,
                 author=request.user
             )
-            logging.info(f'{request.user.username} 发布评论：{content}')
+            logger.info(f'{request.user.username} 发布评论：{content}')
 
     except Exception as e:
-        logging.error(f"{request.user.username} 发布评论失败: {content}, 错误信息: {str(e)}")
+        logger.error(f"{request.user.username} 发布评论失败: {content}, 错误信息: {str(e)}")
         return JsonResponse({"error": "评论发布失败，请稍后再试。"}, status=500)
 
     return redirect('blog:blog_detail', blog_id=blog_id)
@@ -194,14 +194,14 @@ def get_categories(request):
 
 @require_http_methods(['GET', 'POST'])
 def edit_blog(request, blog_id):
-    logging.info(f'尝试读取博客信息, blog_id: {blog_id}')
+    logger.info(f'尝试读取博客信息, blog_id: {blog_id}')
     blog = get_object_or_404(Blog, id=blog_id)
 
     # 确保只有博主可以编辑
     if request.user != blog.author:
-        logging.info(f"校验权限...")
+        logger.info(f"校验权限...")
         return redirect('blog:blog_details', blog_id=blog_id)
-    logging.info(f"权限校验完成，符合条件")
+    logger.info(f"权限校验完成，符合条件")
     # 获取分类信息
     categories = BlogCategory.objects.all()
 
@@ -216,7 +216,7 @@ def edit_blog(request, blog_id):
             # 验证id是否存在
             category = BlogCategory.objects.get(id=category_id)
             if category is None:
-                logging.info('id不存在')
+                logger.info('id不存在')
 
             blog.title = title
             blog.content = content
@@ -225,8 +225,8 @@ def edit_blog(request, blog_id):
                 # 仅当选择了image时候更新
                 blog.image = image
             blog.save()
-            logging.info(f'写入信息完成')
-        logging.info('表单校验错误，')
+            logger.info(f'写入信息完成')
+        logger.info('表单校验错误，')
         return JsonResponse({
             'code': 200,
             'message': 'success',
@@ -234,14 +234,14 @@ def edit_blog(request, blog_id):
                 'blog_id': blog_id
             }
         })
-    logging.info(f'跳转到编辑页面')
+    logger.info(f'跳转到编辑页面')
     # if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
     #     # 返回编辑页面 URL 作为 JSON 响应
     #     edit_url = reverse('blog:edit_blog', kwargs={'blog_id': blog.id})
-    #     logging.debug(f'重定向到编辑url: {edit_url}')
+    #     logger.debug(f'重定向到编辑url: {edit_url}')
     #     return JsonResponse({"redirect_url": edit_url})
 
-    logging.debug(f'title: {blog.title}-content: {blog.content}')
+    logger.debug(f'title: {blog.title}-content: {blog.content}')
     return render(request, 'blog_edit.html', {'blog': blog, 'categories': categories})
 
 
@@ -255,7 +255,7 @@ def delete_blog(request, blog_id: int = None):
     # 如果是超级管理员，可以删除
     if login_user.is_superuser:
         blog.logic_delete()
-        logging.info(f'超级管理员：{login_user} 删除了博客{login_user.email}')
+        logger.info(f'超级管理员：{login_user} 删除了博客{login_user.email}')
         return JsonResponse({
             'code': 200,
             'message': '操作成功',
@@ -271,7 +271,7 @@ def delete_blog(request, blog_id: int = None):
         try:
             blog.logic_delete()
         except Exception as e:
-            logging.error(f'删除博客失败, error:{e}')
+            logger.error(f'删除博客失败, error:{e}')
             return JsonResponse(data={
                 'code': 500,
                 'message': '后端数据错误',
@@ -280,7 +280,7 @@ def delete_blog(request, blog_id: int = None):
                 }
             }, status=500)
 
-        logging.info(f'用户：{login_user} 删除了博客{login_user.email}')
+        logger.info(f'用户：{login_user} 删除了博客{login_user.email}')
         return JsonResponse({
             'code': 200,
             'message': '操作成功',
@@ -289,7 +289,7 @@ def delete_blog(request, blog_id: int = None):
             }
         }, status=200)
 
-    logging.info(f'用户:{login_user.email}无权限操作此博客(《{blog.title}》)')
+    logger.info(f'用户:{login_user.email}无权限操作此博客(《{blog.title}》)')
     return JsonResponse({
         'code': 403,
         'message': '权限不足',
@@ -300,17 +300,17 @@ def delete_blog(request, blog_id: int = None):
 @csrf_exempt
 def upload_image(request):
     if request.method == 'POST' and request.FILES.get('file'):
-        logging.info(f'upload image...')
+        logger.info(f'upload image...')
         image = request.FILES['file']
         fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'images/'), base_url='/blog/media/images/')
         filename = fs.save(image.name, image)
         file_url = fs.url(filename)
-        logging.info(f'upload image... name={filename}, url={file_url}')
+        logger.info(f'upload image... name={filename}, url={file_url}')
         return JsonResponse({
             'errno': 0,
             'data': [{'url': file_url, 'alt': image.name}]
         })
-    logging.info(f'get')
+    logger.info(f'get')
     return JsonResponse({'errno': 1, 'message': '上传失败'})
 
 
@@ -321,10 +321,10 @@ def upload_video(request):
         fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/blog/media/videos/')
         filename = fs.save(video.name, video)
         file_url = fs.url(filename)
-        logging.info(f'upload video save succeed! name={filename}, url={file_url}')
+        logger.info(f'upload video save succeed! name={filename}, url={file_url}')
         return JsonResponse({
             'errno': 0,
             'data': {'url': file_url, 'poster': ''}
         })
-    logging.info('上传视频失败')
+    logger.info('上传视频失败')
     return JsonResponse({'errno': 1, 'message': '上传失败'})

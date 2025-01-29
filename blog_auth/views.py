@@ -16,27 +16,25 @@ from django.views.decorators.http import require_http_methods
 from .forms import registerForm, LoginForm, EditProfileForm, ChangePasswordForm
 
 User = get_user_model()
-
+logger = logging.getLogger("django")
 # Create your views here.
-logging.basicConfig(level=logging.INFO)
-
 
 @require_http_methods(["GET", "POST"])
 def blog_login(request):
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
-        logging.info("验证表单值")
+        logger.info("验证表单值")
         if login_form.is_valid():
-            logging.info("正在尝试获取登陆信息")
+            logger.info("正在尝试获取登陆信息")
             try:
                 email = login_form.cleaned_data['email']
                 password = login_form.cleaned_data['password']
                 remember = login_form.cleaned_data['remember']
-                logging.info(f"获取到的登陆信息: {email}.")
+                logger.info(f"获取到的登陆信息: {email}.")
 
                 user = User.objects.get(email=email)
                 if user and user.check_password(password):
-                    logging.info("密码验证成功")
+                    logger.info("密码验证成功")
                     login(request, user)
                     if not remember:
                         request.session.set_expiry(60 * 60)
@@ -45,15 +43,15 @@ def blog_login(request):
                     request.session.save()
                     return HttpResponseRedirect(reverse("blog:index"))
                 else:
-                    logging.info(f'用户{email}尝试登录，密码校验失败')
+                    logger.info(f'用户{email}尝试登录，密码校验失败')
                     messages.error(request, f'登录失败，请检查邮箱和密码')
                     return redirect('auth:login')
             except Exception as e:
                 messages.error(request, f'登录失败，请检查邮箱和密码')
-                logging.error(f"登录失败，错误：{e}")
+                logger.error(f"登录失败，错误：{e}")
                 return redirect('auth:login')
         # 表单验证异常
-        logging.info(f"表单验证不通过，请查看表单信息")
+        logger.info(f"表单验证不通过，请查看表单信息")
 
     return render(request, 'blog_login.html')
 
@@ -75,14 +73,14 @@ def register(request):
             profile_picture = register_form.cleaned_data['profile_picture']
             # 验证码验证逻辑
             captcha_in_redis = get_redis_cache(email)
-            logging.info(f'头像地址：{profile_picture}')
+            logger.info(f'头像地址：{profile_picture}')
             if not captcha_in_redis:
-                logging.warning("captcha is incorrect")
+                logger.warning("captcha is incorrect")
                 # 在验证码无效时返回错误信息
                 messages.error(request, "验证码无效，请重新输入")
                 return redirect(reverse('auth:register'))  # 重定向到注册页面
             if captcha_in_redis != captcha:
-                logging.info(f'输入的验证码不正确')
+                logger.info(f'输入的验证码不正确')
                 messages.error(request, message=f'验证码不正确，请重新输入')
                 return redirect(reverse('auth:register'))
 
@@ -90,7 +88,7 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.profile_picture = profile_picture
             user.save()
-            logging.info(f"registered new user: {username} successfully")
+            logger.info(f"registered new user: {username} successfully")
             # 清理验证码
 
             return redirect(reverse('auth:login'))
@@ -113,7 +111,7 @@ def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> 
     try:
         redis_client.set(key, value, timeout)
     except Exception as e:
-        logging.error(f"Error setting Redis cache: {e}")
+        logger.error(f"Error setting Redis cache: {e}")
         return 0
     return 1
 
@@ -131,14 +129,14 @@ def get_redis_cache(key: str = "", db=1) -> str:
         if result is None:
             return ""
     except Exception as e:
-        logging.error(f"Error getting Redis cache: {e}")
+        logger.error(f"Error getting Redis cache: {e}")
         return ""
     return result
 
 
 def generate_capture(length: int = 0) -> str:
     captcha = "".join(random.sample(string.ascii_letters + string.digits, length))
-    logging.info(f'Captcha generated: {captcha}')
+    logger.info(f'Captcha generated: {captcha}')
     return captcha
 
 
@@ -146,14 +144,14 @@ def generate_capture(length: int = 0) -> str:
 def send_captcha(request):
     if request.method == 'GET':  # You may consider changing to POST
         email = request.GET.get('email')
-        logging.info(f'Trying to send captcha to email: {email}')
+        logger.info(f'Trying to send captcha to email: {email}')
         if email is None:
             return JsonResponse({'code': 400, 'msg': '必须输入邮箱!'})
 
         captcha = generate_capture(6)
         if set_redis_cache(email, captcha, 300):  # Cache for 5 minutes
             mailInfo = f"【易博客】本次注册验证码：{captcha}"
-            logging.info(f"Sending captcha to {email}: {mailInfo}")
+            logger.info(f"Sending captcha to {email}: {mailInfo}")
             sendMailResult = send_mail(
                 subject="易博客注册验证码",
                 message=mailInfo,
@@ -161,10 +159,10 @@ def send_captcha(request):
                 from_email=None
             )
             if sendMailResult > 0:
-                logging.info(f"Sending mail success: {email}")
+                logger.info(f"Sending mail success: {email}")
                 return JsonResponse({"code": 200, "msg": "验证码发送成功"})
             else:
-                logging.error("Failed to send email.")
+                logger.error("Failed to send email.")
                 return JsonResponse({"code": 500, "msg": "验证码发送失败"})
         else:
             return JsonResponse({"code": 500, "msg": "缓存设置失败"})
@@ -175,7 +173,7 @@ def send_captcha(request):
 @require_http_methods(['GET'])
 def profile(request):
     userins = request.user
-    logging.info(f"username: {userins.username}, email: {userins.email}")
+    logger.info(f"username: {userins.username}, email: {userins.email}")
     # userinfo = User.objects.filter(username=userins.username)
     return render(request, 'blog_profile.html', {'user': userins})
 
@@ -196,7 +194,7 @@ def edit_profile(request):
             profile_picture = form.cleaned_data.get('profile_picture')
             email = form.cleaned_data.get('email')
             if not user.is_authenticated:
-                logging.info("未登录， 请登录后再修改个人信息")
+                logger.info("未登录， 请登录后再修改个人信息")
                 return redirect('auth:login')
             if user.email != email:
                 messages.error(request, '无法修改邮箱')
@@ -206,7 +204,7 @@ def edit_profile(request):
             # 如果没上传，则不修改头像
             if profile_picture:
                 user.profile_picture = profile_picture
-            logging.info(f'要修改的个人信息：{username}-{profile}')
+            logger.info(f'要修改的个人信息：{username}-{profile}')
             user.save()
             return redirect('auth:profile')
         messages.error(request, f'修改个人信息表单校验不通过, error:{form.errors}')
@@ -229,7 +227,7 @@ def change_password(request):
             # 判断旧秘密是否正确
             user = request.user
             if not user.check_password(old_password):
-                logging.info(
+                logger.info(
                     f'user {user.username}-{user.email} trying to change password, but old password is not match!')
                 messages.error(request, '旧密码不正确')
                 return redirect('auth:change_password')
@@ -241,7 +239,7 @@ def change_password(request):
             user.set_password(new_password)
             messages.success(request, '修改密码成功！')
             return redirect('auth:profile')
-        logging.error(f'表单校验失败')
+        logger.error(f'表单校验失败')
         messages.error(request, f'表单校验失败')
         return redirect('auth:change_password')
     if request.method == 'GET':
