@@ -1,42 +1,30 @@
 {% extends 'blog_base.html' %}
 
-{% block title %}编辑博客{% endblock %}
+{% block title %}发布博客{% endblock %}
 
 {% block head %}
     <link href="{% static 'wangeditor/css/style.css' %}" rel="stylesheet">
     <script src="{% static 'wangeditor/index.js' %}"></script>
     <link rel="stylesheet" href="{% static 'highlight/styles/default.min.css' %}">
     <script src="{% static 'highlight/highlight.min.js' %}"></script>
+    <script src="{% static 'js/pub_blog.js' %}"></script>
     <style>
-        body {
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            max-width: 800px;
-        }
-
         #editor-wrapper {
             border: 1px solid #ccc;
-            border-radius: 0.25rem;
-            overflow: hidden;
+            z-index: 100;
         }
 
         #toolbar-container {
             border-bottom: 1px solid #ccc;
-            background: #f7f7f7;
         }
 
         #editor-container {
             height: 400px;
-            padding: 10px;
-            background-color: #fff;
-            font-size: 16px;
         }
 
-        .form-label {
-            font-weight: bold;
-            color: #555;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .btn-primary {
@@ -49,43 +37,56 @@
             background-color: #0056b3;
         }
 
-        .btn-danger {
-            background-color: #d9534f;
-            color: #fff;
-            border-radius: 0.25rem;
-            padding: 10px 20px;
-            font-size: 16px;
+        .form-label {
+            font-weight: bold;
         }
 
-        .btn-danger:hover {
-            background-color: #c9302c;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        /* 上传封面图片样式 */
-        .image-upload-container {
-            margin-top: 20px;
-            padding: 16px;
+        /* CSDN风格的方形上传框 */
+        .csdn-square-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background-color: #f8f8f8;
+            padding: 16px;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
         }
 
-        .image-upload-container input[type="file"] {
-            padding: 12px 20px;
+        .csdn-square-upload input[type="file"] {
+            background-color: transparent;
             border: 2px solid #0073e6;
+            padding: 20px 40px;
             border-radius: 4px;
+            font-size: 14px;
+            width: auto;
             cursor: pointer;
         }
 
-        .image-preview {
-            margin-top: 12px;
+        .csdn-square-upload input[type="file"]:hover {
+            border-color: #005bb5;
+        }
+
+        .csdn-square-upload .form-label {
+            margin-bottom: 10px;
+        }
+
+        .csdn-square-upload .image-preview {
+            margin-top: 15px;
             max-width: 100%;
             max-height: 150px;
             border-radius: 8px;
             object-fit: contain;
         }
 
-        .image-upload-container .btn-secondary {
+        .csdn-square-upload #image-preview-container {
+            margin-top: 12px;
+        }
+
+        .csdn-square-upload .btn-secondary {
             background-color: #f1f1f1;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -93,7 +94,7 @@
             padding: 6px 12px;
         }
 
-        .image-upload-container .btn-secondary:hover {
+        .csdn-square-upload .btn-secondary:hover {
             background-color: #e2e2e2;
             border-color: #999;
         }
@@ -101,57 +102,74 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container bg-light mt-5 p-4 rounded">
-        <h3 class="text-center mb-4" style="font-weight: bold; color: #333;">编辑博客</h3>
+    <div class="container bg-light rounded mt-4">
+        <h3 class="text-center mb-4">发布博客</h3>
         <form action="" method="POST" id="blog-form" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="mb-4">
+            <!-- 标题输入 -->
+            <div class="form-group">
                 <label class="form-label" for="title">标题</label>
-                <input type="text" id="title" name="title" class="form-control" value="{{ blog.title }}"
-                       placeholder="请输入博客标题">
+                <input type="text" id="title" name="title" class="form-control" placeholder="请输入博客标题">
+                <small class="text-muted">简明扼要地描述博客内容。</small>
             </div>
-            <div class="mb-4">
+
+            <!-- 分类选择 -->
+            <div class="form-group">
                 <label class="form-label" for="category">分类</label>
                 <select name="category" id="category" class="form-select">
                     {% for category in categories %}
-                        <option value="{{ category.id }}" {% if blog.category.id == category.id %}selected{% endif %}>
-                            {{ category.name }}
-                        </option>
+                        <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
+                <small class="text-muted">选择一个最适合的分类。</small>
             </div>
-            <div class="mb-4">
+
+            <!-- 内容编辑 -->
+            <div class="form-group">
                 <label class="form-label">内容</label>
                 <div id="editor-wrapper">
                     <div id="toolbar-container"></div>
-                    <div id="editor-container"></div>
+                    <div id="editor-container" placeholder="在这里输入博客内容..."></div>
                 </div>
             </div>
 
-            <!-- 隐藏字段用于提交内容 -->
+            <!-- 隐藏字段，用于提交内容 -->
             <input type="hidden" name="content" id="content-input">
 
             <!-- 上传封面图片 -->
-            <div class="image-upload-container">
-                <label class="form-label" for="image">上传封面图片（可选）</label>
+            <div class="image-upload-container csdn-square-upload">
+                <label class="form-label" for="image">上传图片</label>
                 <input type="file" name="image" id="image" class="form-control" accept="image/*"
                        onchange="previewImage()">
                 <small class="text-muted">选择一个封面图片（可选）。</small>
-
-                <!-- 如果已有封面图片，则显示该图片并触发预览 -->
-                <div id="image-preview-container"
-                     style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
-                    <img id="image-preview" class="image-preview"
-                         src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
+                <div id="image-preview-container" style="display:none;">
+                    <img id="image-preview" class="image-preview" src="" alt="封面预览">
                     <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">
                         删除封面
                     </button>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-end gap-2 mt-4">
-                <button type="button" class="btn btn-danger" id="delete-btn" data-blog-id="{{ blog.id }}">删除</button>
-                <button type="button" class="btn btn-primary" id="submit-btn">保存修改</button>
+            <!-- 上传视频 -->
+            <div class="video-upload-container csdn-square-upload mt-4">
+                <label class="form-label" for="video">上传视频</label>
+                <input type="file" name="video" id="video" class="form-control" accept="video/*"
+                       onchange="previewVideo()">
+                <small class="text-muted">选择一个视频文件（可选）。</small>
+                <div id="video-preview-container" style="display:none;">
+                    <video id="video-preview" class="video-preview" controls>
+                        <source id="video-source" src="" type="video/mp4">
+                        您的浏览器不支持视频标签。
+                    </video>
+                    <button type="button" class="btn btn-secondary" id="remove-video-btn" onclick="removeVideo()">
+                        删除视频
+                    </button>
+                </div>
+            </div>
+
+            <!-- 发布按钮 -->
+            <div class="mt-4 text-end">
+                <button type="button" class="btn btn-primary" id="submit-btn">发布</button>
             </div>
         </form>
     </div>
@@ -160,7 +178,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             const {createEditor, createToolbar} = window.wangEditor;
 
-            // 配置上传图片
+            // 初始化编辑器
             const editorConfig = {
                 MENU_CONF: {}
             };
@@ -202,98 +220,10 @@
                     insertFn(url, alt, href); // 自定义插入图片
                 }
             };
-            'uploadVideo'
-        :
-            {
-                server: '/blog/upload_video/', // 后端上传地址
-                    timeout
-            :
-                5 * 1000, // 设置超时5秒
-                    fieldName
-            :
-                'file', // 设置上传字段名
-                    maxFileSize
-            :
-                50 * 1024 * 1024, // 限制最大上传文件大小为50MB
-                    onBeforeUpload(file)
-                {
-                    console.log('上传视频之前:', file);
-                    return file; // 返回文件，允许继续上传
-                }
-            ,
-                onProgress(progress)
-                {
-                    console.log('上传进度:', progress); // 上传进度
-                }
-            ,
-                onSuccess(file, res)
-                {
-                    console.log('上传视频成功:', file, res); // 上传成功后
-                }
-            ,
-                onFailed(file, res)
-                {
-                    alert('上传视频失败：' + res.message); // 上传失败
-                    console.log('上传视频失败:', file, res);
-                }
-            ,
-                onError(file, err, res)
-                {
-                    alert('上传视频错误：' + err.message); // 上传错误
-                    console.error('上传视频错误:', file, err, res);
-                }
-            ,
-                customInsert(res, insertFn)
-                {
-                    console.log('自定义插入视频:', res);
-                    const videoInfo = res.data[0] || {}; // 获取视频信息
-                    const {url, title} = videoInfo;
-                    if (!url) throw new Error('视频 URL 为空');
-                    console.log('视频 URL:', url);
-                    insertFn(url, title); // 将视频插入到编辑器中
-                }
-            }
-            // 配置上传视频
-            editorConfig.MENU_CONF['uploadVideo'] = {
-                server: '/blog/upload_video/',  // 修改为实际上传视频的接口
-                timeout: 5 * 1000,  // 5秒超时
-                fieldName: 'file',  // 后端接收字段名
-                meta: {token: 'xxx', a: 100},
-                metaWithUrl: true,  // 是否将参数附加到url
-                headers: {Accept: 'text/x-json'},
-                maxFileSize: 100 * 1024 * 1024,  // 100M
-                onBeforeUpload(file) {
-                    console.log('onBeforeUpload', file);
-                    return file; // 返回文件，将继续上传
-                },
-                onProgress(progress) {
-                    console.log('onProgress', progress);
-                },
-                onSuccess(file, res) {
-                    console.log('onSuccess', file, res);
-                },
-                onFailed(file, res) {
-                    alert(res.message);
-                    console.log('onFailed', file, res);
-                },
-                onError(file, err, res) {
-                    alert(err.message);
-                    console.error('onError', file, err, res);
-                },
-                customInsert(res, insertFn) {
-                    console.log('customInsert', res);
-                    const videoInfo = res.data[0] || {};
-                    const {url, alt, href} = videoInfo;
-                    if (!url) throw new Error(`Video url is empty`);
-                    console.log('Your video url ', url);
-                    insertFn(url, alt, href); // 自定义插入视频
-                }
-            };
 
-            // 初始化编辑器
             const editor = createEditor({
                 selector: '#editor-container', // 编辑区域容器
-                html: `{% autoescape off %}{{ blog.content|escapejs }}{% endautoescape %}`,
+                html: '',
                 config: editorConfig // 配置项传入
             });
 
@@ -302,14 +232,15 @@
                 selector: '#toolbar-container' // 工具栏容器
             });
 
-            // 保存按钮事件
+            // 发布按钮事件
             const submitBtn = document.querySelector('#submit-btn');
             submitBtn.addEventListener('click', function () {
+                // 提交内容和图片数据
                 document.querySelector('#content-input').value = editor.getHtml();
                 const form = document.querySelector('#blog-form');
                 const formData = new FormData(form);
 
-                fetch("/blog/edit_blog/" + {{ blog.id }} + "/", {
+                fetch("/blog/pub/", {
                     method: "POST",
                     body: formData,
                     headers: {
@@ -318,42 +249,16 @@
                 }).then(response => response.json())
                     .then(data => {
                         if (data.code === 200) {
-                            alert('博客更新成功');
-                            window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
+                            alert('博客发布成功');
+                            window.location.href = "/blog/detail/" + data.data.blog_id + "/";
                         } else {
-                            alert('更新失败，请稍后重试。');
+                            alert('发布失败，请稍后重试。');
                         }
                     })
                     .catch(error => {
                         console.error('Error:', error);
-                        alert('请求失败，请稍后重试。');
+                        alert('发布请求失败，请稍后重试。');
                     });
-            });
-
-            // 删除按钮事件
-            const deleteBtn = document.querySelector('#delete-btn');
-            deleteBtn.addEventListener('click', function () {
-                const blogId = deleteBtn.dataset.blogId;
-
-                if (confirm('确定删除此博客吗？')) {
-                    fetch(`/blog/del_blog/${blogId}/`, {
-                        method: 'DELETE',
-                        headers: {
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                        }
-                    }).then(response => response.json())
-                        .then(data => {
-                            if (data.code === 200) {
-                                alert('博客已成功删除');
-                                window.location.href = '/'; // 删除成功后跳转到首页
-                            } else {
-                                alert('删除失败，请稍后重试。');
-                            }
-                        }).catch(error => {
-                        console.error('Error:', error);
-                        alert('删除请求失败，请稍后重试。');
-                    });
-                }
             });
         });
 
@@ -362,7 +267,6 @@
             const fileInput = document.getElementById('image');
             const preview = document.getElementById('image-preview');
             const previewContainer = document.getElementById('image-preview-container');
-            const imageUrlInput = document.getElementById('image-url');
 
             const file = fileInput.files[0];
             if (file) {
@@ -372,20 +276,42 @@
                     previewContainer.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
-            } else if (imageUrlInput.value) {
-                // 如果没有选择新文件，则显示已有的封面图片
-                preview.src = "/static" + imageUrlInput.value;
-                previewContainer.style.display = 'block';
-            } else {
-                previewContainer.style.display = 'none';
             }
         }
 
-        // 删除封面图片
+        // 移除图片预览
         function removeImage() {
-            document.getElementById('image').value = ''; // 清除文件输入
-            document.getElementById('image-preview').src = ''; // 清除预览图
-            document.getElementById('image-preview-container').style.display = 'none'; // 隐藏预览容器
+            const fileInput = document.getElementById('image');
+            const previewContainer = document.getElementById('image-preview-container');
+            fileInput.value = '';  // 清空文件输入框
+            previewContainer.style.display = 'none';  // 隐藏预览
+        }
+
+        // 视频预览功能
+        function previewVideo() {
+            const fileInput = document.getElementById('video');
+            const preview = document.getElementById('video-preview');
+            const previewContainer = document.getElementById('video-preview-container');
+            const videoSource = document.getElementById('video-source');
+
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    videoSource.src = e.target.result;
+                    preview.load();
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 移除视频预览
+        function removeVideo() {
+            const fileInput = document.getElementById('video');
+            const previewContainer = document.getElementById('video-preview-container');
+            fileInput.value = '';  // 清空文件输入框
+            previewContainer.style.display = 'none';  // 隐藏预览
         }
     </script>
 {% endblock %}
