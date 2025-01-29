@@ -12,7 +12,6 @@ class BlogViewCountSingleton(object):
             )
         return cls._instance
 
-
     def get_blogview_count(self, blog_id):
         return self._BlogViewCount.get(blog_id, 0)
 
