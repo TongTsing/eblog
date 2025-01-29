@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="博客编辑功能完善图片上传${DATE}">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_pub.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_pub.html" afterDir="false" />
+    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="博客编辑功能完善图片上传">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +118,7 @@
       <updated>1737560377237</updated>
       <workItem from="1737560378516" duration="994000" />
       <workItem from="1738068282706" duration="3510000" />
-      <workItem from="1738129551180" duration="445000" />
+      <workItem from="1738129551180" duration="781000" />
     </task>
     <task id="LOCAL-00001" summary="0122login页面优化">
       <option name="closed" value="true" />
@@ -161,7 +160,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738129815815</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="博客编辑功能完善图片上传">
+      <option name="closed" value="true" />
+      <created>1738130007424</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1738130007424</updated>
+    </task>
+    <task id="LOCAL-00007" summary="博客编辑功能完善图片上传">
+      <option name="closed" value="true" />
+      <created>1738130188998</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1738130188998</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +209,7 @@
     <MESSAGE value="0122login页面优化" />
     <MESSAGE value="访问计数使用单例模式" />
     <MESSAGE value="博客编辑功能完善图片上传${DATE}" />
-    <option name="LAST_COMMIT_MESSAGE" value="博客编辑功能完善图片上传${DATE}" />
+    <MESSAGE value="博客编辑功能完善图片上传" />
+    <option name="LAST_COMMIT_MESSAGE" value="博客编辑功能完善图片上传" />
   </component>
 </project>

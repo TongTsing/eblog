@@ -302,7 +302,7 @@ def upload_image(request):
     if request.method == 'POST' and request.FILES.get('file'):
         logging.info(f'upload image...')
         image = request.FILES['file']
-        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'images/'), base_url='/media/images/')
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'images/'), base_url='/blog/media/images/')
         filename = fs.save(image.name, image)
         file_url = fs.url(filename)
         logging.info(f'upload image... name={filename}, url={file_url}')
