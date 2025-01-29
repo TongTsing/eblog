@@ -198,6 +198,42 @@
                 }
             };
 
+                        editorConfig.MENU_CONF['uploadVideo'] = {
+                server: '/blog/upload_video/',  // 修改为实际上传视频的接口
+                timeout: 5 * 60 * 60,  // 5秒超时
+                fieldName: 'file',  // 后端接收字段名
+                {#meta: { token: 'xxx', a: 100 },#}
+                metaWithUrl: true,  // 是否将参数附加到url
+                headers: { Accept: 'text/x-json' },
+                maxFileSize: 100 * 1024 * 1024,  // 100M
+                onBeforeUpload(file) {
+                    console.log('onBeforeUpload', file);
+                    return file; // 返回文件，将继续上传
+                },
+                onProgress(progress) {
+                    console.log('onProgress', progress);
+                },
+                onSuccess(file, res) {
+                    console.log('onSuccess', file, res);
+                },
+                onFailed(file, res) {
+                    alert(res.message);
+                    console.log('onFailed', file, res);
+                },
+                onError(file, err, res) {
+                    alert(err.message);
+                    console.error('onError', file, err, res);
+                },
+                customInsert(res, insertFn) {
+                    console.log('customInsert', res);
+                    const videoInfo = res.data || {};
+                    const { url, poster } = videoInfo;
+                    if (!url) throw new Error(`Video url is empty`);
+                    console.log('Your video url ', url);
+                    insertFn(url, poster); // 自定义插入视频
+                }
+            };
+
             // 初始化编辑器
             const editor = createEditor({
                 selector: '#editor-container', // 编辑区域容器
