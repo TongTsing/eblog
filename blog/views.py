@@ -318,7 +318,7 @@ def upload_image(request):
 def upload_video(request):
     if request.method == 'POST' and request.FILES.get('video'):
         video = request.FILES['video']
-        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/static/media/videos/')
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/blog/media/videos/')
         filename = fs.save(video.name, video)
         file_url = fs.url(filename)
         return JsonResponse({
