@@ -134,13 +134,18 @@
             <!-- 上传封面图片 -->
             <div class="image-upload-container">
                 <label class="form-label" for="image">上传封面图片（可选）</label>
-                <input type="file" name="image" id="image" class="form-control" accept="image/*" onchange="previewImage()">
+                <input type="file" name="image" id="image" class="form-control" accept="image/*"
+                       onchange="previewImage()">
                 <small class="text-muted">选择一个封面图片（可选）。</small>
 
                 <!-- 如果已有封面图片，则显示该图片并触发预览 -->
-                <div id="image-preview-container" style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
-                    <img id="image-preview" class="image-preview" src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
-                    <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">删除封面</button>
+                <div id="image-preview-container"
+                     style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
+                    <img id="image-preview" class="image-preview"
+                         src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
+                    <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">
+                        删除封面
+                    </button>
                 </div>
             </div>
 
@@ -153,7 +158,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const { createEditor, createToolbar } = window.wangEditor;
+            const {createEditor, createToolbar} = window.wangEditor;
 
             // 配置上传图片
             const editorConfig = {
@@ -165,9 +170,9 @@
                 server: '/blog/upload_image/', // 修改为实际上传地址
                 timeout: 5 * 1000, // 5秒超时
                 fieldName: 'file', // 后端接收字段名
-                meta: { token: 'xxx', a: 100 },
+                meta: {token: 'xxx', a: 100},
                 metaWithUrl: true, // 是否将参数附加到url
-                headers: { Accept: 'text/x-json' },
+                headers: {Accept: 'text/x-json'},
                 maxFileSize: 10 * 1024 * 1024, // 10M
                 base64LimitSize: 5 * 1024, // 小于5KB的图片使用base64格式上传
                 onBeforeUpload(file) {
@@ -191,10 +196,97 @@
                 customInsert(res, insertFn) {
                     console.log('customInsert', res);
                     const imgInfo = res.data[0] || {};
-                    const { url, alt, href } = imgInfo;
+                    const {url, alt, href} = imgInfo;
                     if (!url) throw new Error(`Image url is empty`);
                     console.log('Your image url ', url);
                     insertFn(url, alt, href); // 自定义插入图片
+                }
+            };
+            'uploadVideo'
+        :
+            {
+                server: '/blog/upload_video/', // 后端上传地址
+                    timeout
+            :
+                5 * 1000, // 设置超时5秒
+                    fieldName
+            :
+                'file', // 设置上传字段名
+                    maxFileSize
+            :
+                50 * 1024 * 1024, // 限制最大上传文件大小为50MB
+                    onBeforeUpload(file)
+                {
+                    console.log('上传视频之前:', file);
+                    return file; // 返回文件，允许继续上传
+                }
+            ,
+                onProgress(progress)
+                {
+                    console.log('上传进度:', progress); // 上传进度
+                }
+            ,
+                onSuccess(file, res)
+                {
+                    console.log('上传视频成功:', file, res); // 上传成功后
+                }
+            ,
+                onFailed(file, res)
+                {
+                    alert('上传视频失败：' + res.message); // 上传失败
+                    console.log('上传视频失败:', file, res);
+                }
+            ,
+                onError(file, err, res)
+                {
+                    alert('上传视频错误：' + err.message); // 上传错误
+                    console.error('上传视频错误:', file, err, res);
+                }
+            ,
+                customInsert(res, insertFn)
+                {
+                    console.log('自定义插入视频:', res);
+                    const videoInfo = res.data[0] || {}; // 获取视频信息
+                    const {url, title} = videoInfo;
+                    if (!url) throw new Error('视频 URL 为空');
+                    console.log('视频 URL:', url);
+                    insertFn(url, title); // 将视频插入到编辑器中
+                }
+            }
+            // 配置上传视频
+            editorConfig.MENU_CONF['uploadVideo'] = {
+                server: '/blog/upload_video/',  // 修改为实际上传视频的接口
+                timeout: 5 * 1000,  // 5秒超时
+                fieldName: 'file',  // 后端接收字段名
+                meta: {token: 'xxx', a: 100},
+                metaWithUrl: true,  // 是否将参数附加到url
+                headers: {Accept: 'text/x-json'},
+                maxFileSize: 100 * 1024 * 1024,  // 100M
+                onBeforeUpload(file) {
+                    console.log('onBeforeUpload', file);
+                    return file; // 返回文件，将继续上传
+                },
+                onProgress(progress) {
+                    console.log('onProgress', progress);
+                },
+                onSuccess(file, res) {
+                    console.log('onSuccess', file, res);
+                },
+                onFailed(file, res) {
+                    alert(res.message);
+                    console.log('onFailed', file, res);
+                },
+                onError(file, err, res) {
+                    alert(err.message);
+                    console.error('onError', file, err, res);
+                },
+                customInsert(res, insertFn) {
+                    console.log('customInsert', res);
+                    const videoInfo = res.data[0] || {};
+                    const {url, alt, href} = videoInfo;
+                    if (!url) throw new Error(`Video url is empty`);
+                    console.log('Your video url ', url);
+                    insertFn(url, alt, href); // 自定义插入视频
                 }
             };
 
@@ -224,18 +316,18 @@
                         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                     }
                 }).then(response => response.json())
-                  .then(data => {
-                      if (data.code === 200) {
-                          alert('博客更新成功');
-                          window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
-                      } else {
-                          alert('更新失败，请稍后重试。');
-                      }
-                  })
-                  .catch(error => {
-                      console.error('Error:', error);
-                      alert('请求失败，请稍后重试。');
-                  });
+                    .then(data => {
+                        if (data.code === 200) {
+                            alert('博客更新成功');
+                            window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
+                        } else {
+                            alert('更新失败，请稍后重试。');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('请求失败，请稍后重试。');
+                    });
             });
 
             // 删除按钮事件
