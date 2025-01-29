@@ -134,18 +134,13 @@
             <!-- 上传封面图片 -->
             <div class="image-upload-container">
                 <label class="form-label" for="image">上传封面图片（可选）</label>
-                <input type="file" name="image" id="image" class="form-control" accept="image/*"
-                       onchange="previewImage()">
+                <input type="file" name="image" id="image" class="form-control" accept="image/*" onchange="previewImage()">
                 <small class="text-muted">选择一个封面图片（可选）。</small>
 
                 <!-- 如果已有封面图片，则显示该图片并触发预览 -->
-                <div id="image-preview-container"
-                     style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
-                    <img id="image-preview" class="image-preview"
-                         src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
-                    <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">
-                        删除封面
-                    </button>
+                <div id="image-preview-container" style="display: {% if blog.image %}/static/{{ blog.image.url }}{% else %}none{% endif %}">
+                    <img id="image-preview" class="image-preview" src="{% if blog.image %}{{ blog.image.url }}{% endif %}" alt="封面预览">
+                    <button type="button" class="btn btn-secondary" id="remove-image-btn" onclick="removeImage()">删除封面</button>
                 </div>
             </div>
 
@@ -160,58 +155,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             const {createEditor, createToolbar} = window.wangEditor;
 
-            const editorConfig = {
-                MENU_CONF: {}
-            };
-
-            // 配置上传图片
-            editorConfig.MENU_CONF['uploadImage'] = {
-                server: '/blog/upload_image/', // 修改为实际上传地址
-                timeout: 5 * 1000, // 5秒超时
-                fieldName: 'file', // 后端接收字段名
-                meta: {token: 'xxx', a: 100},
-                metaWithUrl: true, // 是否将参数附加到url
-                headers: {Accept: 'text/x-json'},
-                maxFileSize: 10 * 1024 * 1024, // 10M
-                base64LimitSize: 5 * 1024, // 小于5KB的图片使用base64格式上传
-                onBeforeUpload(file) {
-                    console.log('onBeforeUpload', file);
-                    return file; // 返回文件，将继续上传
-                },
-                onProgress(progress) {
-                    console.log('onProgress', progress);
-                },
-                onSuccess(file, res) {
-                    console.log('onSuccess', file, res);
-                },
-                onFailed(file, res) {
-                    alert(res.message);
-                    console.log('onFailed', file, res);
-                },
-                onError(file, err, res) {
-                    alert(err.message);
-                    console.error('onError', file, err, res);
-                },
-                customInsert(res, insertFn) {
-                    console.log('customInsert', res);
-                    const imgInfo = res.data[0] || {};
-                    const {url, alt, href} = imgInfo;
-                    if (!url) throw new Error(`Image url is empty`);
-                    console.log('Your image url ', url);
-                    insertFn(url, alt, href); // 自定义插入图片
-                }
-            };
-
+            // 初始化编辑器
             const editor = createEditor({
-                selector: '#editor-container', // 编辑区域容器
-                html: '',
-                config: editorConfig // 配置项传入
+                selector: '#editor-container',
+                html: `{% autoescape off %}{{ blog.content|escapejs }}{% endautoescape %}`,
+                config: {
+                    menus: [
+                        'bold', 'italic', 'underline', 'strike', 'forecolor', 'bgcolor',
+                        'fontname', 'fontsize', 'head', 'list', 'quote', 'link', 'image', 'code'
+                    ]
+                }
             });
 
             createToolbar({
                 editor,
-                selector: '#toolbar-container' // 工具栏容器
+                selector: '#toolbar-container',
+                config: {}
             });
+
             // 保存按钮事件
             const submitBtn = document.querySelector('#submit-btn');
             submitBtn.addEventListener('click', function () {
@@ -226,18 +187,18 @@
                         'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
                     }
                 }).then(response => response.json())
-                    .then(data => {
-                        if (data.code === 200) {
-                            alert('博客更新成功');
-                            window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
-                        } else {
-                            alert('更新失败，请稍后重试。');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('请求失败，请稍后重试。');
-                    });
+                  .then(data => {
+                      if (data.code === 200) {
+                          alert('博客更新成功');
+                          window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
+                      } else {
+                          alert('更新失败，请稍后重试。');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                      alert('请求失败，请稍后重试。');
+                  });
             });
 
             // 删除按钮事件
