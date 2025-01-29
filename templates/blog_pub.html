@@ -261,109 +261,109 @@
 
                     // 创建 video 标签的 HTML 代码
                     const videoHtml = `
-            <video controls>
-                <source src="${url}" type="video/mp4">
-                您的浏览器不支持视频标签。
-            </video>
-        `;
+        <video controls>
+            <source src="${url}" type="video/mp4">
+            您的浏览器不支持视频标签。
+        </video>
+    `;
 
                     // 使用 insertFn 插入 video HTML
                     insertFn(videoHtml);
-                };
+                }
 
-                const editor = createEditor({
-                    selector: '#editor-container', // 编辑区域容器
-                    html: '',
-                    config: editorConfig // 配置项传入
-                });
+            };
 
-                createToolbar({
-                                  editor,
-                                  selector: '#toolbar-container' // 工具栏容器
-                              });
+            const editor = createEditor({
+                selector: '#editor-container', // 编辑区域容器
+                html: '',
+                config: editorConfig // 配置项传入
+            });
 
-                // 发布按钮事件
-                const submitBtn = document.querySelector('#submit-btn');
-                submitBtn.addEventListener('click', function () {
-                    // 提交内容和图片数据
-                    document.querySelector('#content-input').value = editor.getHtml();
-                    const form = document.querySelector('#blog-form');
-                    const formData = new FormData(form);
+            createToolbar({
+                editor,
+                selector: '#toolbar-container' // 工具栏容器
+            });
 
-                    fetch("/blog/pub/", {
-                        method: "POST",
-                        body: formData,
-                        headers: {
-                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            // 发布按钮事件
+            const submitBtn = document.querySelector('#submit-btn');
+            submitBtn.addEventListener('click', function () {
+                // 提交内容和图片数据
+                document.querySelector('#content-input').value = editor.getHtml();
+                const form = document.querySelector('#blog-form');
+                const formData = new FormData(form);
+
+                fetch("/blog/pub/", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.code === 200) {
+                            alert('博客发布成功');
+                            window.location.href = "/blog/detail/" + data.data.blog_id + "/";
+                        } else {
+                            alert('发布失败，请稍后重试。');
                         }
-                    }).then(response => response.json())
-                        .then(data => {
-                            if (data.code === 200) {
-                                alert('博客发布成功');
-                                window.location.href = "/blog/detail/" + data.data.blog_id + "/";
-                            } else {
-                                alert('发布失败，请稍后重试。');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            alert('发布请求失败，请稍后重试。');
-                        });
-                });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('发布请求失败，请稍后重试。');
+                    });
+            });
+        });
+
+        // 图片预览功能
+        function previewImage() {
+            const fileInput = document.getElementById('image');
+            const preview = document.getElementById('image-preview');
+            const previewContainer = document.getElementById('image-preview-container');
+
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
             }
-        )
-            ;
+        }
 
-            // 图片预览功能
-            function previewImage() {
-                const fileInput = document.getElementById('image');
-                const preview = document.getElementById('image-preview');
-                const previewContainer = document.getElementById('image-preview-container');
+        // 移除图片预览
+        function removeImage() {
+            const fileInput = document.getElementById('image');
+            const previewContainer = document.getElementById('image-preview-container');
+            fileInput.value = '';  // 清空文件输入框
+            previewContainer.style.display = 'none';  // 隐藏预览
+        }
 
-                const file = fileInput.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        preview.src = e.target.result;
-                        previewContainer.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
+        // 视频预览功能
+        function previewVideo() {
+            const fileInput = document.getElementById('video');
+            const preview = document.getElementById('video-preview');
+            const previewContainer = document.getElementById('video-preview-container');
+            const videoSource = document.getElementById('video-source');
+
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    videoSource.src = e.target.result;
+                    preview.load();
+                    previewContainer.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
             }
+        }
 
-            // 移除图片预览
-            function removeImage() {
-                const fileInput = document.getElementById('image');
-                const previewContainer = document.getElementById('image-preview-container');
-                fileInput.value = '';  // 清空文件输入框
-                previewContainer.style.display = 'none';  // 隐藏预览
-            }
-
-            // 视频预览功能
-            function previewVideo() {
-                const fileInput = document.getElementById('video');
-                const preview = document.getElementById('video-preview');
-                const previewContainer = document.getElementById('video-preview-container');
-                const videoSource = document.getElementById('video-source');
-
-                const file = fileInput.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        videoSource.src = e.target.result;
-                        preview.load();
-                        previewContainer.style.display = 'block';
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-
-            // 移除视频预览
-            function removeVideo() {
-                const fileInput = document.getElementById('video');
-                const previewContainer = document.getElementById('video-preview-container');
-                fileInput.value = '';  // 清空文件输入框
-                previewContainer.style.display = 'none';  // 隐藏预览
-            }
+        // 移除视频预览
+        function removeVideo() {
+            const fileInput = document.getElementById('video');
+            const previewContainer = document.getElementById('video-preview-container');
+            fileInput.value = '';  // 清空文件输入框
+            previewContainer.style.display = 'none';  // 隐藏预览
+        }
     </script>
 {% endblock %}
