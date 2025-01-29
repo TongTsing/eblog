@@ -188,7 +188,7 @@
                 server: '/blog/upload_image/', // 修改为实际上传地址
                 timeout: 5 * 1000, // 5秒超时
                 fieldName: 'file', // 后端接收字段名
-                meta: {token: 'xxx', a: 100},
+                {#meta: {token: 'xxx', a: 100},#}
                 metaWithUrl: true, // 是否将参数附加到url
                 headers: {Accept: 'text/x-json'},
                 maxFileSize: 10 * 1024 * 1024, // 10M
@@ -225,7 +225,7 @@
                 server: '/blog/upload_video/',  // 修改为实际上传视频的接口
                 timeout: 5 * 60 * 60,  // 5秒超时
                 fieldName: 'file',  // 后端接收字段名
-                meta: { token: 'xxx', a: 100 },
+                {#meta: { token: 'xxx', a: 100 },#}
                 metaWithUrl: true,  // 是否将参数附加到url
                 headers: { Accept: 'text/x-json' },
                 maxFileSize: 100 * 1024 * 1024,  // 100M

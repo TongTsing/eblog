@@ -321,6 +321,7 @@ def upload_video(request):
         fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/blog/media/videos/')
         filename = fs.save(video.name, video)
         file_url = fs.url(filename)
+        logging.info(f'upload video save succeed! name={filename}, url={file_url}')
         return JsonResponse({
             'errno': 0,
             'data': {'url': file_url, 'poster': ''}
