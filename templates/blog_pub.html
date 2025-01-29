@@ -223,7 +223,7 @@
 
             editorConfig.MENU_CONF['uploadVideo'] = {
                 server: '/blog/upload_video/',  // 修改为实际上传视频的接口
-                timeout: 5 * 1000,  // 5秒超时
+                timeout: 5 * 60 * 60,  // 5秒超时
                 fieldName: 'file',  // 后端接收字段名
                 meta: { token: 'xxx', a: 100 },
                 metaWithUrl: true,  // 是否将参数附加到url

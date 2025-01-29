@@ -316,8 +316,8 @@ def upload_image(request):
 
 @csrf_exempt
 def upload_video(request):
-    if request.method == 'POST' and request.FILES.get('video'):
-        video = request.FILES['video']
+    if request.method == 'POST' and request.FILES.get('file'):
+        video = request.FILES['file']
         fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/blog/media/videos/')
         filename = fs.save(video.name, video)
         file_url = fs.url(filename)
