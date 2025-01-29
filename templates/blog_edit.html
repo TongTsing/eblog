@@ -153,24 +153,61 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const {createEditor, createToolbar} = window.wangEditor;
+            const { createEditor, createToolbar } = window.wangEditor;
+
+            // 配置上传图片
+            const editorConfig = {
+                MENU_CONF: {}
+            };
+
+            // 配置上传图片
+            editorConfig.MENU_CONF['uploadImage'] = {
+                server: '/blog/upload_image/', // 修改为实际上传地址
+                timeout: 5 * 1000, // 5秒超时
+                fieldName: 'file', // 后端接收字段名
+                meta: { token: 'xxx', a: 100 },
+                metaWithUrl: true, // 是否将参数附加到url
+                headers: { Accept: 'text/x-json' },
+                maxFileSize: 10 * 1024 * 1024, // 10M
+                base64LimitSize: 5 * 1024, // 小于5KB的图片使用base64格式上传
+                onBeforeUpload(file) {
+                    console.log('onBeforeUpload', file);
+                    return file; // 返回文件，将继续上传
+                },
+                onProgress(progress) {
+                    console.log('onProgress', progress);
+                },
+                onSuccess(file, res) {
+                    console.log('onSuccess', file, res);
+                },
+                onFailed(file, res) {
+                    alert(res.message);
+                    console.log('onFailed', file, res);
+                },
+                onError(file, err, res) {
+                    alert(err.message);
+                    console.error('onError', file, err, res);
+                },
+                customInsert(res, insertFn) {
+                    console.log('customInsert', res);
+                    const imgInfo = res.data[0] || {};
+                    const { url, alt, href } = imgInfo;
+                    if (!url) throw new Error(`Image url is empty`);
+                    console.log('Your image url ', url);
+                    insertFn(url, alt, href); // 自定义插入图片
+                }
+            };
 
             // 初始化编辑器
             const editor = createEditor({
-                selector: '#editor-container',
+                selector: '#editor-container', // 编辑区域容器
                 html: `{% autoescape off %}{{ blog.content|escapejs }}{% endautoescape %}`,
-                config: {
-                    menus: [
-                        'bold', 'italic', 'underline', 'strike', 'forecolor', 'bgcolor',
-                        'fontname', 'fontsize', 'head', 'list', 'quote', 'link', 'image', 'code'
-                    ]
-                }
+                config: editorConfig // 配置项传入
             });
 
             createToolbar({
                 editor,
-                selector: '#toolbar-container',
-                config: {}
+                selector: '#toolbar-container' // 工具栏容器
             });
 
             // 保存按钮事件
