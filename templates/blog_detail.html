@@ -235,13 +235,14 @@
             $(document).on('click', '.delete-comment', function () {
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 var commentId = $(this).data('comment-id');
+                var deleteUrl = '{% url "blog:delete_comment" comment_id=0 %}'.replace('0', commentId);  // 用 commentId 替换 0
+
                 if (confirm("确定要删除此评论吗？")) {
                     $.ajax({
-                        url: '{% url "blog:delete_comment" %}',
+                        url: deleteUrl,
                         type: 'DELETE',
                         data: {
-                            'comment_id': commentId,
-                            {#'csrfmiddlewaretoken': '{{ csrf_token }}'#}
+                            {#'comment_id': commentId,#}
                         },
                         headers: {
                             'X-CSRFToken': csrfToken  // 添加 CSRF Token 到请求头

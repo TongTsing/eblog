@@ -7,7 +7,7 @@ urlpatterns = [
     path('', view=views.index, name='index'),
     path('detail/<int:blog_id>/', view=views.blog_detail.as_view(), name='blog_detail'),
     path('pub/', view=views.pub_blog, name='pub_blog'),
-    path('pub_comment/', view=views.coment_management.as_view(), name='pub_comment'),
+    path('pub_comment/<int:coment_id>/', view=views.coment_management.as_view(), name='pub_comment'),
     path('delete_comment/', view=views.coment_management.as_view(), name='delete_comment'),
     path('search/', view=views.search, name='search'),
     path('edit_blog/<int:blog_id>/', view=views.edit_blog, name='edit_blog'),
