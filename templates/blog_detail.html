@@ -236,6 +236,7 @@
             });
 
             // 提交评论表单
+            // 提交评论表单
             $("form.comment-form").submit(function (event) {
                 event.preventDefault();  // 阻止表单默认提交行为
 
@@ -250,18 +251,18 @@
                         if (response.error) {
                             alert(response.error);
                         } else {
-                            // 更新评论列表
-                            $("#comments-container").prepend(
+                            // 更新评论列表，将新评论添加到末尾
+                            $("#comments-container").append(
                                 `<div class="row mb-3">
-                                    <div class="col-auto">
-                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
-                                    </div>
-                                    <div class="col">
-                                        <h5>${response.comment.author}</h5>
-                                        <p>${response.comment.content}</p>
-                                        <small class="text-muted">${response.comment.pub_time}</small>
-                                    </div>
-                                </div>`
+                        <div class="col-auto">
+                            <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div class="col">
+                            <h5>${response.comment.author}</h5>
+                            <p>${response.comment.content}</p>
+                            <small class="text-muted">${response.comment.pub_time}</small>
+                        </div>
+                    </div>`
                             );
                             alert("发布评论成功");
                         }
@@ -271,6 +272,7 @@
                     }
                 });
             });
+
 
             // 点击删除按钮时，删除评论
             $(document).on('click', '.delete-comment', function () {
