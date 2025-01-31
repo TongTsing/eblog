@@ -11,3 +11,4 @@ def cascade_logical_delete(sender, instance, **kwargs):
     if not instance.is_delete:
         # 如果是父评论并且没有被删除，则级联逻辑删除子评论
         instance.replies.update(is_delete=True)
+        instance.save()
