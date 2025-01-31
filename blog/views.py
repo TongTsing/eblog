@@ -127,18 +127,18 @@ class coment_management(View):
 
         # 验证权限
         comment = Blog.objects.get(id=comment_id)
-        if comment.author == request.user:
-            logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
-            comment.delete()
-            JsonResponse({'success': True})
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
+            if comment.author == request.user:
+                logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
+                comment.delete()
+                JsonResponse({'success': True})
+
             if request.user.is_superuser:
                 logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
                 comment.delete()
                 JsonResponse({'success': True})
 
-        if request.user.is_authenticated():
             if request.user == comment.blog.author:
                 logger.info(f'当前登陆用户是博客作者，有权限删除...正在删除')
                 comment.delete()
