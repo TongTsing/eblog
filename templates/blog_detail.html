@@ -263,6 +263,7 @@
                                     </div>
                                 </div>`
                             );
+                            alert("发布评论成功");
                         }
                     },
                     error: function () {
@@ -291,6 +292,7 @@
                             if (response.success) {
                                 // 删除成功后，移除该评论元素
                                 $('#comment-' + commentId).remove();
+                                alert("删除评论成功")
                             } else {
                                 alert(response.error);
                             }
@@ -340,6 +342,7 @@
                                 </div>`
                             );
                             form[0].reset();  // 清空回复输入框
+                            alert("评论成功");
                         }
                     },
                     error: function () {
