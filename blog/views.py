@@ -120,7 +120,7 @@ class coment_management(View):
 
     @staticmethod
     def delete(request):
-        comment_id = request.get('comment_id')
+        comment_id = request.body().get('comment_id')
         if comment_id is None:
             logger.info(f'没有收到comment_id')
             return JsonResponse({'error': '没有权限删除该评论'}, status=403)
