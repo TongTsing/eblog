@@ -82,10 +82,90 @@
                 </div>
             </div>
 
-            <!-- 渲染评论及其回复（递归实现） -->
+            <!-- 渲染评论及其回复 -->
             <div class="comment-tree">
                 {% for comment_data in comment_tree %}
-                    {% include 'comment_tree.html' with comment_data=comment_data %}
+                    <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
+                        <div class="col-auto">
+                            <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div class="col">
+                            <h5>{{ comment_data.comment.author.username }}</h5>
+                            <p>{{ comment_data.comment.content }}</p>
+                            <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                            <!-- 判断评论作者、博客作者或管理员显示删除按钮 -->
+                            {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                <button class="btn btn-danger btn-sm delete-comment" data-comment-id="{{ comment_data.comment.id }}">删除</button>
+                            {% endif %}
+
+                            <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复</button>
+
+                            <!-- 回复评论表单 -->
+                            <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
+                                <div class="mt-2">
+                                    <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                                </div>
+                                <div class="text-end mt-2">
+                                    <button type="submit" class="btn btn-primary">回复</button>
+                                </div>
+                            </form>
+
+                            <!-- 显示该评论的所有回复（递归） -->
+                            <div id="comment-{{ comment_data.comment.id }}-replies">
+                                {% for reply in comment_data.replies %}
+                                    <div class="row mt-3 ms-4" id="comment-{{ reply.comment.id }}">
+                                        <div class="col-auto">
+                                            <img src="{{ reply.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="col">
+                                            <h5>{{ reply.comment.author.username }}</h5>
+                                            <p>{{ reply.comment.content }}</p>
+                                            <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                                            {% if reply.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                                <button class="btn btn-danger btn-sm delete-comment" data-comment-id="{{ reply.comment.id }}">删除</button>
+                                            {% endif %}
+
+                                            <button class="btn btn-link reply-btn" data-comment-id="{{ reply.comment.id }}">回复</button>
+
+                                            <!-- 回复评论表单 -->
+                                            <form class="reply-form" id="reply-form-{{ reply.comment.id }}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                                <input type="hidden" name="parent_id" value="{{ reply.comment.id }}">
+                                                <div class="mt-2">
+                                                    <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                                                </div>
+                                                <div class="text-end mt-2">
+                                                    <button type="submit" class="btn btn-primary">回复</button>
+                                                </div>
+                                            </form>
+
+                                            <!-- 显示回复的回复 -->
+                                            <div id="comment-{{ reply.comment.id }}-replies">
+                                                {% for reply2 in reply.replies %}
+                                                    <div class="row mt-3 ms-5">
+                                                        <div class="col-auto">
+                                                            <img src="{{ reply2.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                                        </div>
+                                                        <div class="col">
+                                                            <h5>{{ reply2.comment.author.username }}</h5>
+                                                            <p>{{ reply2.comment.content }}</p>
+                                                            <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
@@ -112,7 +192,7 @@
                             $("#comments-container").prepend(
                                 `<div class="row mb-3">
                                     <div class="col-auto">
-                                        <img src="/path/to/avatar.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
                                     </div>
                                     <div class="col">
                                         <h5>${response.comment.author}</h5>
@@ -127,6 +207,32 @@
                         alert("评论发布失败，请稍后再试。");
                     }
                 });
+            });
+
+            // 点击删除按钮时，删除评论
+            $(document).on('click', '.delete-comment', function () {
+                var commentId = $(this).data('comment-id');
+                if (confirm("确定要删除此评论吗？")) {
+                    $.ajax({
+                        url: '{% url "blog:delete_comment" %}',
+                        type: 'POST',
+                        data: {
+                            'comment_id': commentId,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                // 删除成功后，移除该评论元素
+                                $('#comment-' + commentId).remove();
+                            } else {
+                                alert(response.error);
+                            }
+                        },
+                        error: function() {
+                            alert("删除评论失败，请稍后再试。");
+                        }
+                    });
+                }
             });
 
             // 点击回复按钮时，显示回复表单
@@ -177,3 +283,5 @@
         });
     </script>
 {% endblock %}
+
+{#response.comment.new_comment_user_pic#}
