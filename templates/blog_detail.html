@@ -82,6 +82,7 @@
                 </div>
             </div>
 
+            <!-- 渲染评论及其回复 -->
             {% for comment_data in comment_tree %}
                 <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
                     <div class="col-auto">
@@ -107,7 +108,7 @@
                             </div>
                         </form>
 
-                        <!-- 显示该评论的所有回复 -->
+                        <!-- 显示该评论的所有回复（递归） -->
                         <div id="comment-{{ comment_data.comment.id }}-replies">
                             {% for reply in comment_data.replies %}
                                 <div class="row mt-3 ms-4" id="comment-{{ reply.comment.id }}">
@@ -134,7 +135,7 @@
                                             </div>
                                         </form>
 
-                                        <!-- 显示回复的回复 -->
+                                        <!-- 递归显示该评论的所有回复 -->
                                         <div id="comment-{{ reply.comment.id }}-replies">
                                             {% for reply2 in reply.replies %}
                                                 <div class="row mt-3 ms-5">
@@ -145,6 +146,21 @@
                                                         <h5>{{ reply2.comment.author.username }}</h5>
                                                         <p>{{ reply2.comment.content }}</p>
                                                         <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                                                        <button class="btn btn-link reply-btn" data-comment-id="{{ reply2.comment.id }}">回复</button>
+
+                                                        <!-- 回复评论表单 -->
+                                                        <form class="reply-form" id="reply-form-{{ reply2.comment.id }}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                                            <input type="hidden" name="parent_id" value="{{ reply2.comment.id }}">
+                                                            <div class="mt-2">
+                                                                <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                                                            </div>
+                                                            <div class="text-end mt-2">
+                                                                <button type="submit" class="btn btn-primary">回复</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -170,7 +186,7 @@
 
                 $.ajax({
                     url: form.attr("action"),
-                    type: "POST",  // 明确指定为 POST 请求
+                    type: "POST",
                     data: formData,
                     success: function(response) {
                         if (response.error) {
@@ -198,7 +214,7 @@
             });
 
             // 点击回复按钮时，显示回复表单
-            $('.reply-btn').click(function () {
+            $(document).on('click', '.reply-btn', function () {
                 var commentId = $(this).data('comment-id');
                 var formId = '#reply-form-' + commentId;
                 $(formId).toggle();  // 显示或隐藏回复表单
@@ -213,7 +229,7 @@
 
                 $.ajax({
                     url: form.attr("action"),
-                    type: "POST",  // 明确指定为 POST 请求
+                    type: "POST",
                     data: formData,
                     success: function(response) {
                         if (response.error) {
