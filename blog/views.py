@@ -54,16 +54,19 @@ class blog_detail(View):
 
     def get_nested_comments(self, parent_comment=None):
         comments = BlogComment.objects.filter(parent_comment=parent_comment, is_delete=False).order_by('pub_time')
-        nested_comments = []
-        for comment in comments:
-            logger.info(f"comment author: {comment.author.profile_picture.url}")
-            # 获取当前评论的所有回复
-            replies = self.get_nested_comments(parent_comment=comment)
-            nested_comments.append({
-                'comment': comment,
-                'replies': replies
-            })
-        return nested_comments
+        comment_data = [
+            {
+                'comment': {
+                    'id': comment.id,
+                    'author': comment.author.username,
+                    'content': comment.content,
+                    'pub_time': comment.pub_time,
+                },
+                'replies': process_replies(comment.replies)  # 处理每个回复
+            }
+            for comment in comments
+        ]
+        return comment_data
 
     def get(self, request, blog_id):
         logger.info(f"获取博客详情, blog_id: {blog_id}")
