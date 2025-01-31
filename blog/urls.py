@@ -11,7 +11,7 @@ urlpatterns = [
     path('delete_comment/', view=views.coment_management.as_view(), name='delete_comment'),
     path('search/', view=views.search, name='search'),
     path('edit_blog/<int:blog_id>/', view=views.edit_blog, name='edit_blog'),
-    path('<int:blog_id>/', views.get_blog_details, name='get_blog_details'),  # 获取博客详情
+    path('api/<int:blog_id>/', views.get_blog_details, name='get_blog_details'),  # 获取博客详情
     path('categories/', views.get_categories, name='get_categories'),
     path('del_blog/<int:blog_id>/', view=views.delete_blog, name='delete_blog'),
     path('blog_list/', view=views.blog_list, name='blog_list'),
