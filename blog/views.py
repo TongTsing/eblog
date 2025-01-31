@@ -126,7 +126,7 @@ class coment_management(View):
             return JsonResponse({'error': '没有权限删除该评论'}, status=403)
 
         # 验证权限
-        comment = Blog.objects.get(id=comment_id)
+        comment = BlogComment.objects.get(id=comment_id)
 
         if request.user.is_authenticated:
             if comment.author == request.user:
