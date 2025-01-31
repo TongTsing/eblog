@@ -21,7 +21,6 @@
             <div class="col-12">
                 <div class="article-info-box bg-light p-4 rounded-3 shadow-sm">
                     <div class="d-flex align-items-center">
-                        <!-- 作者头像和昵称部分 -->
                         <div class="d-flex align-items-center">
                             <img src="{{ blogDetail.author.profile_picture.url }}" class="rounded-circle me-2"
                                  width="40" height="40" alt="作者头像">
@@ -30,13 +29,11 @@
                                 {{ blogDetail.author.username }}</a>
                         </div>
 
-                        <!-- 发布时间和访问次数部分 -->
                         <div class="ms-3 d-flex align-items-center">
                             <span class="time ms-2" style="font-size: 1rem;">
                                 已于&nbsp;{{ blogDetail.pub_time|date:"Y年m月d日 H:i" }}&nbsp;修改
                             </span>
-                            <span class="views ms-3"
-                                  style="font-size: 1rem;">访问次数：{{ blogDetail.access_times }}</span>
+                            <span class="views ms-3" style="font-size: 1rem;">访问次数：{{ blogDetail.access_times }}</span>
                         </div>
                     </div>
                 </div>
@@ -47,7 +44,6 @@
         <div class="row my-4">
             <div class="col-12">
                 <div class="py-3">
-                    <!-- 保证安全输出HTML内容 -->
                     {{ blogDetail.content|safe }}
                 </div>
             </div>
@@ -68,20 +64,11 @@
             </div>
         </div>
 
-        <!-- 编辑按钮 - 仅博主可见 -->
-        {% if user == blogDetail.author %}
-            <div class="d-flex justify-content-start mt-3">
-                <button id="edit-blog-btn" class="btn btn-warning btn-sm">编辑</button>
-            </div>
-        {% endif %}
-
-        <hr>
-
         <!-- 评论模块 -->
         <div class="row mt-4">
             <div class="col-12">
                 <h3>评论（{{ blogDetail.comments.all|length }}）</h3>
-                <form action="{% url 'blog:pub_comment' %}" method="POST">
+                <form class="comment-form" action="{% url 'blog:pub_comment' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
                     <div class="mt-2">
@@ -96,49 +83,135 @@
         </div>
 
         <!-- 评论列表 -->
-        <div class="container">
-            <!-- 主评论 -->
+        <div id="comments-container" class="container">
             {% for comment_data in comment_tree %}
-            <div class="row mb-3">
+            <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
                 <div class="col-auto">
-                    <img src="{{  comment_data.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                    <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
                 </div>
                 <div class="col">
                     <h5>{{ comment_data.comment.author.username }}</h5>
                     <p>{{ comment_data.comment.content }}</p>
                     <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+                    <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复</button>
 
-                    <!-- 回复评论 -->
-                    {% if comment_data.replies %}
-                        <div class="row mt-3 ms-4">
-                            {% for reply in comment_data.replies %}
+                    <!-- 回复评论表单 -->
+                    <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                        <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
+                        <div class="mt-2">
+                            <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                        </div>
+                        <div class="text-end mt-2">
+                            <button type="submit" class="btn btn-primary">回复</button>
+                        </div>
+                    </form>
+
+                    <!-- 显示回复 -->
+                    <div id="comment-{{ comment_data.comment.id }}-replies">
+                        {% for reply in comment_data.replies %}
+                            <div class="row mt-3 ms-4">
                                 <div class="col-auto">
-                                    <img src="{{  reply.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    <img src="{{ reply.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
                                 </div>
                                 <div class="col">
                                     <h5>{{ reply.comment.author.username }}</h5>
                                     <p>{{ reply.comment.content }}</p>
                                     <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
                                 </div>
-                            {% endfor %}
-                        </div>
-                    {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
 
     <script>
         $(document).ready(function () {
-            $('#edit-blog-btn').click(function () {
-                var blogId = "{{ blogDetail.id }}";  // 获取当前博客的 ID
-                var editUrl = "{% url 'blog:edit_blog' blog_id=blogDetail.id %}";
-                window.location.href = editUrl;  // 跳转到编辑页面
+            // 提交评论表单
+            $("form.comment-form").submit(function (event) {
+                event.preventDefault();  // 阻止表单默认提交行为
+
+                var form = $(this);
+                var formData = form.serialize();  // 获取表单数据
+
+                $.ajax({
+                    url: form.attr("action"),
+                    type: "POST",  // 明确指定为 POST 请求
+                    data: formData,
+                    success: function(response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            // 更新评论列表
+                            $("#comments-container").prepend(
+                                `<div class="row mb-3">
+                                    <div class="col-auto">
+                                        <img src="/path/to/avatar.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>${response.comment.author}</h5>
+                                        <p>${response.comment.content}</p>
+                                        <small class="text-muted">${response.comment.pub_time}</small>
+                                    </div>
+                                </div>`
+                            );
+                        }
+                    },
+                    error: function() {
+                        alert("评论发布失败，请稍后再试。");
+                    }
+                });
+            });
+
+            // 点击回复按钮时，显示回复表单
+            $('.reply-btn').click(function () {
+                var commentId = $(this).data('comment-id');
+                var formId = '#reply-form-' + commentId;
+                $(formId).toggle();  // 显示或隐藏回复表单
+            });
+
+            // 提交回复表单
+            $("form.reply-form").submit(function (event) {
+                event.preventDefault();  // 阻止表单默认提交行为
+
+                var form = $(this);
+                var formData = form.serialize();  // 获取回复表单数据
+
+                $.ajax({
+                    url: form.attr("action"),
+                    type: "POST",  // 明确指定为 POST 请求
+                    data: formData,
+                    success: function(response) {
+                        if (response.error) {
+                            alert(response.error);
+                        } else {
+                            // 更新评论列表中的回复
+                            var commentId = form.find('input[name="parent_id"]').val();
+                            var replyContainer = $('#comment-' + commentId + '-replies');
+                            replyContainer.append(
+                                `<div class="row mt-3 ms-4">
+                                    <div class="col-auto">
+                                        <img src="/path/to/avatar.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>${response.comment.author}</h5>
+                                        <p>${response.comment.content}</p>
+                                        <small class="text-muted">${response.comment.pub_time}</small>
+                                    </div>
+                                </div>`
+                            );
+                            form[0].reset();  // 清空回复输入框
+                        }
+                    },
+                    error: function() {
+                        alert("回复发布失败，请稍后再试。");
+                    }
+                });
             });
         });
-
-        // 确保高亮所有代码块，包括评论中的代码
-        hljs.highlightAll();
     </script>
 {% endblock %}

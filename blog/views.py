@@ -118,35 +118,67 @@ def pub_blog(request):
 def pub_comment(request):
     try:
         logger.info(f'尝试获取 blog 信息')
+
+        # 获取表单数据
         blog_id = request.POST.get('blog_id')
         content = request.POST.get('content')
         parent_id = request.POST.get('parent_id')  # 获取是否是回复评论的父评论 ID
 
-        blog = get_object_or_404(Blog, id=blog_id)  # 获取博客信息
+        # 检查评论内容是否合法
+        if not content.strip():  # 判断评论内容是否为空
+            return JsonResponse({"error": "评论内容不能为空"}, status=400)
+
+        # 获取博客信息
+        blog = get_object_or_404(Blog, id=blog_id)
 
         # 判断是否是回复评论
         if parent_id:
+            # 获取父评论
             parent_comment = get_object_or_404(BlogComment, id=parent_id)
-            BlogComment.objects.create(
+
+            # 创建回复评论
+            new_comment = BlogComment.objects.create(
                 blog=blog,
                 content=content,
-                author=request.user,
+                author=request.user if request.user.is_authenticated else None,
                 parent_comment=parent_comment
             )
             logger.info(f'{request.user.username} 回复评论：{content}')
+
+            # 返回 JSON 响应（例如页面不刷新）
+            return JsonResponse({
+                "message": "评论回复成功",
+                "comment": {
+                    "author": new_comment.author.username,
+                    "content": new_comment.content,
+                    "pub_time": new_comment.pub_time.strftime("%Y年%m月%d日 %H:%M"),
+                }
+            })
         else:
-            # 普通评论
-            BlogComment.objects.create(
+            # 创建普通评论
+            new_comment = BlogComment.objects.create(
                 blog=blog,
                 content=content,
                 author=request.user
             )
             logger.info(f'{request.user.username} 发布评论：{content}')
 
+            # 返回 JSON 响应
+            return JsonResponse({
+                "message": "评论发布成功",
+                "comment": {
+                    "author": new_comment.author.username,
+                    "content": new_comment.content,
+                    "pub_time": new_comment.pub_time.strftime("%Y年%m月%d日 %H:%M"),
+                }
+            })
+
     except Exception as e:
+        # 捕获并记录异常
         logger.error(f"{request.user.username} 发布评论失败: {content}, 错误信息: {str(e)}")
         return JsonResponse({"error": "评论发布失败，请稍后再试。"}, status=500)
 
+    # 若不使用 AJAX，可以继续使用原来的重定向
     return redirect('blog:blog_detail', blog_id=blog_id)
 
 
