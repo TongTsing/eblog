@@ -1,39 +1,167 @@
-<div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
-    <div class="col-auto">
-        <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
-    </div>
-    <div class="col">
-        <h5>{{ comment_data.comment.author.username }}</h5>
-        <p>{{ comment_data.comment.content }}</p>
-        <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
-
-        <!-- 删除按钮 -->
-        {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
-            <button class="btn btn-danger btn-sm delete-comment" data-comment-id="{{ comment_data.comment.id }}">删除</button>
-        {% endif %}
-
-        <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复</button>
-
-        <!-- 回复评论表单 -->
-        <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
-            <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
-            <div class="mt-2">
-                <input type="text" class="form-control" placeholder="请输入回复" name="content">
+<div class="comment-tree">
+    {% for comment_data in comment_tree %}
+        <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
+            <div class="col-auto">
+                <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像"
+                     class="rounded-circle" width="40" height="40">
             </div>
-            <div class="text-end mt-2">
-                <button type="submit" class="btn btn-primary">回复</button>
-            </div>
-        </form>
-    </div>
+            <div class="col">
+                <h5>{{ comment_data.comment.author.username }}</h5>
+                <p>{{ comment_data.comment.content }}</p>
+                <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
 
-    <!-- 渲染回复（递归） -->
-    {% if comment_data.replies %}
+                <!-- 判断评论作者、博客作者或管理员显示删除按钮 -->
+                {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
+                    <button class="btn btn-danger btn-sm delete-comment"
+                            data-comment-id="{{ comment_data.comment.id }}">删除
+                    </button>
+                {% endif %}
+
+                <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">
+                    回复
+                </button>
+
+                <!-- 回复评论表单 -->
+                <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}"
+                      style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                    <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
+                    <div class="mt-2">
+                        <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                    </div>
+                    <div class="text-end mt-2">
+                        <button type="submit" class="btn btn-primary">回复</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 递归显示所有回复 -->
         <div class="replies-container ms-4">
             {% for reply in comment_data.replies %}
-                {% include 'comment_tree.html' with comment_data=reply %}
+                <div class="row mb-3" id="comment-{{ reply.comment.id }}">
+                    <div class="col-auto">
+                        <img src="{{ reply.comment.author.profile_picture.url }}" alt="用户头像"
+                             class="rounded-circle" width="40" height="40">
+                    </div>
+                    <div class="col">
+                        <h5>{{ reply.comment.author.username }}</h5>
+                        <p>{{ reply.comment.content }}</p>
+                        <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                        <!-- 判断评论作者、博客作者或管理员显示删除按钮 -->
+                        {% if reply.comment.author == user or blogDetail.author == user or user.is_staff %}
+                            <button class="btn btn-danger btn-sm delete-comment"
+                                    data-comment-id="{{ reply.comment.id }}">删除
+                            </button>
+                        {% endif %}
+
+                        <button class="btn btn-link reply-btn" data-comment-id="{{ reply.comment.id }}">
+                            回复
+                        </button>
+
+                        <!-- 回复评论表单 -->
+                        <form class="reply-form" id="reply-form-{{ reply.comment.id }}"
+                              style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                            <input type="hidden" name="parent_id" value="{{ reply.comment.id }}">
+                            <div class="mt-2">
+                                <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                            </div>
+                            <div class="text-end mt-2">
+                                <button type="submit" class="btn btn-primary">回复</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 递归显示更多层级的回复 -->
+                <div class="replies-container ms-4">
+                    {% for reply2 in reply.replies %}
+                        <div class="row mb-3" id="comment-{{ reply2.comment.id }}">
+                            <div class="col-auto">
+                                <img src="{{ reply2.comment.author.profile_picture.url }}" alt="用户头像"
+                                     class="rounded-circle" width="40" height="40">
+                            </div>
+                            <div class="col">
+                                <h5>{{ reply2.comment.author.username }}</h5>
+                                <p>{{ reply2.comment.content }}</p>
+                                <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                                {% if reply2.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                    <button class="btn btn-danger btn-sm delete-comment"
+                                            data-comment-id="{{ reply2.comment.id }}">删除
+                                    </button>
+                                {% endif %}
+
+                                <button class="btn btn-link reply-btn" data-comment-id="{{ reply2.comment.id }}">
+                                    回复
+                                </button>
+
+                                <!-- 回复评论表单 -->
+                                <form class="reply-form" id="reply-form-{{ reply2.comment.id }}"
+                                      style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                    <input type="hidden" name="parent_id" value="{{ reply2.comment.id }}">
+                                    <div class="mt-2">
+                                        <input type="text" class="form-control" placeholder="请输入回复"
+                                               name="content">
+                                    </div>
+                                    <div class="text-end mt-2">
+                                        <button type="submit" class="btn btn-primary">回复</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- 递归显示更多层级的回复 -->
+                        <div class="replies-container ms-4">
+                            {% for reply3 in reply2.replies %}
+                                <div class="row mb-3" id="comment-{{ reply3.comment.id }}">
+                                    <div class="col-auto">
+                                        <img src="{{ reply3.comment.author.profile_picture.url }}" alt="用户头像"
+                                             class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>{{ reply3.comment.author.username }}</h5>
+                                        <p>{{ reply3.comment.content }}</p>
+                                        <small class="text-muted">{{ reply3.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                                        {% if reply3.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                            <button class="btn btn-danger btn-sm delete-comment"
+                                                    data-comment-id="{{ reply3.comment.id }}">删除
+                                            </button>
+                                        {% endif %}
+
+                                        <button class="btn btn-link reply-btn" data-comment-id="{{ reply3.comment.id }}">
+                                            回复
+                                        </button>
+
+                                        <!-- 回复评论表单 -->
+                                        <form class="reply-form" id="reply-form-{{ reply3.comment.id }}"
+                                              style="display: none;" action="{% url 'blog:pub_comment' %}"
+                                              method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                            <input type="hidden" name="parent_id" value="{{ reply3.comment.id }}">
+                                            <div class="mt-2">
+                                                <input type="text" class="form-control" placeholder="请输入回复"
+                                                       name="content">
+                                            </div>
+                                            <div class="text-end mt-2">
+                                                <button type="submit" class="btn btn-primary">回复</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
         </div>
-    {% endif %}
+    {% endfor %}
 </div>

@@ -71,12 +71,13 @@
                 <button id="edit-blog-btn" class="btn btn-warning btn-sm">编辑</button>
             </div>
         {% endif %}
+        <hr>
 
         <!-- 评论模块 -->
         <div id="comments-container" class="container">
             <div class="row mb-3">
                 <div class="col-12">
-                    <h3>评论（{{ blogDetail.comments.all|length }}）</h3>
+                    <h3>评论（{{ comment_count }}）</h3>
                     <form class="comment-form" action="{% url 'blog:pub_comment' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
@@ -227,6 +228,14 @@
 
     <script>
         $(document).ready(function () {
+            // 编辑博客
+            $('#edit-blog-btn').click(function () {
+                var blogId = "{{ blogDetail.id }}";  // 获取当前博客的 ID
+                var editUrl = "{% url 'blog:edit_blog' blog_id=blogDetail.id %}";
+                window.location.href = editUrl;  // 跳转到编辑页面
+            });
+
+            // 提交评论表单
             // 提交评论表单
             $("form.comment-form").submit(function (event) {
                 event.preventDefault();  // 阻止表单默认提交行为
@@ -242,19 +251,20 @@
                         if (response.error) {
                             alert(response.error);
                         } else {
-                            // 更新评论列表
-                            $("#comments-container").prepend(
+                            // 更新评论列表，将新评论添加到末尾
+                            $("#comments-container").append(
                                 `<div class="row mb-3">
-                                    <div class="col-auto">
-                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
-                                    </div>
-                                    <div class="col">
-                                        <h5>${response.comment.author}</h5>
-                                        <p>${response.comment.content}</p>
-                                        <small class="text-muted">${response.comment.pub_time}</small>
-                                    </div>
-                                </div>`
+                        <div class="col-auto">
+                            <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div class="col">
+                            <h5>${response.comment.author}</h5>
+                            <p>${response.comment.content}</p>
+                            <small class="text-muted">${response.comment.pub_time}</small>
+                        </div>
+                    </div>`
                             );
+                            alert("发布评论成功");
                         }
                     },
                     error: function () {
@@ -262,6 +272,7 @@
                     }
                 });
             });
+
 
             // 点击删除按钮时，删除评论
             $(document).on('click', '.delete-comment', function () {
@@ -283,6 +294,7 @@
                             if (response.success) {
                                 // 删除成功后，移除该评论元素
                                 $('#comment-' + commentId).remove();
+                                alert("删除评论成功")
                             } else {
                                 alert(response.error);
                             }
@@ -332,6 +344,7 @@
                                 </div>`
                             );
                             form[0].reset();  // 清空回复输入框
+                            alert("评论成功");
                         }
                     },
                     error: function () {
