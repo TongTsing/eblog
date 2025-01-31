@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="评论展示">
-      <change beforePath="$PROJECT_DIR$/templates/comment_tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comment_tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,15 +130,7 @@
       <workItem from="1738129551180" duration="4948000" />
       <workItem from="1738149355989" duration="54000" />
       <workItem from="1738149421752" duration="465000" />
-      <workItem from="1738302947684" duration="23493000" />
-    </task>
-    <task id="LOCAL-00064" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738329301394</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1738329301394</updated>
+      <workItem from="1738302947684" duration="23847000" />
     </task>
     <task id="LOCAL-00065" summary="评论展示">
       <option name="closed" value="true" />
@@ -524,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738346175329</updated>
     </task>
-    <option name="localTasksCounter" value="113" />
+    <task id="LOCAL-00113" summary="评论展示">
+      <option name="closed" value="true" />
+      <created>1738346316605</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1738346316605</updated>
+    </task>
+    <option name="localTasksCounter" value="114" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
