@@ -100,9 +100,7 @@
                                     <div class="comment-content ms-3">
                                         <div class="d-flex justify-content-between">
                                             <h5>{{ comment_data.comment.author.username }}</h5>
-                                            <small class="text-muted" style="font-size: 0.85rem;">
-                                                {{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}
-                                            </small>
+                                            <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
                                         </div>
                                         <p>{{ comment_data.comment.content }}</p>
 
@@ -144,9 +142,7 @@
                                                                 <div class="comment-content ms-3">
                                                                     <div class="d-flex justify-content-between">
                                                                         <h5>{{ reply.comment.author.username }}</h5>
-                                                                        <small class="text-muted" style="font-size: 0.85rem;">
-                                                                            {{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}
-                                                                        </small>
+                                                                        <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
                                                                     </div>
                                                                     <p>{{ reply.comment.content }}</p>
 
@@ -174,9 +170,7 @@
                                                                                             <div class="comment-content ms-3">
                                                                                                 <div class="d-flex justify-content-between">
                                                                                                     <h5>{{ reply2.comment.author.username }}</h5>
-                                                                                                    <small class="text-muted" style="font-size: 0.85rem;">
-                                                                                                        {{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}
-                                                                                                    </small>
+                                                                                                    <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
                                                                                                 </div>
                                                                                                 <p>{{ reply2.comment.content }}</p>
                                                                                             </div>
@@ -232,9 +226,7 @@
                                                 <div class="comment-content ms-3">
                                                     <div class="d-flex justify-content-between">
                                                         <h5>${response.comment.author}</h5>
-                                                        <small class="text-muted" style="font-size: 0.85rem;">
-                                                            ${response.comment.pub_time}
-                                                        </small>
+                                                        <small class="text-muted">${response.comment.pub_time}</small>
                                                     </div>
                                                     <p>${response.comment.content}</p>
                                                 </div>
