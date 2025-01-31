@@ -95,9 +95,45 @@
             <!-- 渲染评论及其回复（递归） -->
             <div class="comment-tree">
                 {% for comment_data in comment_tree %}
-                    <div class="comment-container" id="comment-{{ comment_data.comment.id }}">
-                        {% include 'blog/comment.html' %}
+                    <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
+                        <div class="col-auto">
+                            <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像"
+                                 class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div class="col">
+                            <h5>{{ comment_data.comment.author.username }}</h5>
+                            <p>{{ comment_data.comment.content }}</p>
+                            <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                            <!-- 删除按钮 -->
+                            {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                <button class="btn btn-danger btn-sm delete-comment"
+                                        data-comment-id="{{ comment_data.comment.id }}">删除
+                                </button>
+                            {% endif %}
+
+                            <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">
+                                回复
+                            </button>
+
+                            <!-- 回复评论表单 -->
+                            <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;"
+                                  action="{% url 'blog:pub_comment' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
+                                <div class="mt-2">
+                                    <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                                </div>
+                                <div class="text-end mt-2">
+                                    <button type="submit" class="btn btn-primary">回复</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
+
+                    <!-- 递归显示回复 -->
+                    {% include 'comment_tree.html' with replies=comment_data.replies %}
                 {% endfor %}
             </div>
         </div>
@@ -129,8 +165,18 @@
                             alert(response.error);
                         } else {
                             // 更新评论列表
-                            var newCommentHtml = generateCommentHtml(response.comment);
-                            $("#comments-container").append(newCommentHtml);
+                            $("#comments-container").append(
+                                `<div class="row mb-3" id="comment-${response.comment.id}">
+                                    <div class="col-auto">
+                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>${response.comment.author}</h5>
+                                        <p>${response.comment.content}</p>
+                                        <small class="text-muted">${response.comment.pub_time}</small>
+                                    </div>
+                                </div>`
+                            );
                             // 清空评论输入框
                             $("input[name='content']").val("");
                         }
@@ -152,8 +198,8 @@
                         if (response.error) {
                             alert(response.error);
                         } else {
+                            // 更新回复列表
                             var commentId = form.find("input[name='parent_id']").val();
-                            var newReplyHtml = generateCommentHtml(response.comment);
                             var repliesContainer = $("#comment-" + commentId).find(".replies-container");
 
                             if (!repliesContainer.length) {
@@ -161,39 +207,24 @@
                                 $("#comment-" + commentId).append(repliesContainer);
                             }
 
-                            repliesContainer.append(newReplyHtml);
+                            repliesContainer.append(
+                                `<div class="row mb-3" id="comment-${response.comment.id}">
+                                    <div class="col-auto">
+                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>${response.comment.author}</h5>
+                                        <p>${response.comment.content}</p>
+                                        <small class="text-muted">${response.comment.pub_time}</small>
+                                    </div>
+                                </div>`
+                            );
                             // 清空回复输入框
                             form.find("input[name='content']").val("");
                         }
                     }
                 });
             });
-
-            function generateCommentHtml(comment) {
-                return `<div class="row mb-3" id="comment-${comment.id}">
-                            <div class="col-auto">
-                                <img src="${comment.profile_picture}" alt="用户头像" class="rounded-circle" width="40" height="40">
-                            </div>
-                            <div class="col">
-                                <h5>${comment.author}</h5>
-                                <p>${comment.content}</p>
-                                <small class="text-muted">${comment.pub_time}</small>
-                                <button class="btn btn-link reply-btn" data-comment-id="${comment.id}">回复</button>
-                                <form class="reply-form" id="reply-form-${comment.id}" style="display: none;" action="{% url 'blog:pub_comment' %}" method="POST">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
-                                    <input type="hidden" name="parent_id" value="${comment.id}">
-                                    <div class="mt-2">
-                                        <input type="text" class="form-control" placeholder="请输入回复" name="content">
-                                    </div>
-                                    <div class="text-end mt-2">
-                                        <button type="submit" class="btn btn-primary">回复</button>
-                                    </div>
-                                </form>
-                                <div class="replies-container"></div>
-                            </div>
-                        </div>`;
-            }
         });
     </script>
 {% endblock %}
