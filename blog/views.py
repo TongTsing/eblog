@@ -138,7 +138,7 @@ class coment_management(View):
                 return JsonResponse({'success': True})
 
             if request.user.is_superuser:
-                logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
+                logger.info(f'当前登陆用户是超级管理员，有权限删除...正在删除')
                 comment.delete()
                 return JsonResponse({'success': True})
 

@@ -4,10 +4,11 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from .models import *
+from blog.views import logger
 
 
 @receiver(post_delete, sender=BlogComment)
 def cascade_logical_delete(sender, instance, **kwargs):
     if not instance.is_delete:
-        # 如果是父评论并且没有被删除，则级联逻辑删除子评论
+        logger.info(f"Deleting {instance}")
         instance.replies.delete(is_delete=True)
