@@ -237,81 +237,96 @@
 
             // 提交评论表单
             // 提交评论表单
-            $("form.comment-form").submit(function (event) {
-                event.preventDefault();  // 阻止表单默认提交行为
+            $(document).ready(function () {
+                // 提交评论表单
+                $("form.comment-form").submit(function (event) {
+                    event.preventDefault();  // 阻止表单默认提交行为
 
-                var form = $(this);
-                var formData = form.serialize();  // 获取表单数据
+                    var form = $(this);
+                    var formData = form.serialize();  // 获取表单数据
 
-                $.ajax({
-                    url: form.attr("action"),
-                    type: "POST",
-                    data: formData,
-                    success: function (response) {
-                        if (response.error) {
-                            alert(response.error);
-                        } else {
-                            // 更新评论列表，将新评论添加到末尾
-                            $("#comments-container").append(
-                                `<div class="row mb-3">
-                        <div class="col-auto">
-                            <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
-                        </div>
-                        <div class="col">
-                            <h5>${response.comment.author}</h5>
-                            <p>${response.comment.content}</p>
-                            <small class="text-muted">${response.comment.pub_time}</small>
-                        </div>
-                    </div>`
-                            );
-                            alert("发布评论成功");
-                        }
-                    },
-                    error: function () {
-                        alert("评论发布失败，请稍后再试。");
-                    }
-                });
-            });
-
-
-            // 点击删除按钮时，删除评论
-            $(document).on('click', '.delete-comment', function () {
-                var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                var commentId = $(this).data('comment-id');
-                var deleteUrl = '{% url "blog:delete_comment" comment_id=0 %}'.replace('0', commentId);  // 用 commentId 替换 0
-
-                if (confirm("确定要删除此评论吗？")) {
                     $.ajax({
-                        url: deleteUrl,
-                        type: 'DELETE',
-                        data: {
-                            {#'comment_id': commentId,#}
-                        },
-                        headers: {
-                            'X-CSRFToken': csrfToken  // 添加 CSRF Token 到请求头
-                        },
+                        url: form.attr("action"),
+                        type: "POST",
+                        data: formData,
                         success: function (response) {
-                            if (response.success) {
-                                // 删除成功后，移除该评论元素
-                                $('#comment-' + commentId).remove();
-                                alert("删除评论成功")
-                            } else {
+                            if (response.error) {
                                 alert(response.error);
+                            } else {
+                                // 更新评论列表
+                                $("#comments-container").append(
+                                    `<div class="row mb-3" id="comment-${response.comment.id}">
+                            <div class="col-auto">
+                                <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                            </div>
+                            <div class="col">
+                                <h5>${response.comment.author}</h5>
+                                <p>${response.comment.content}</p>
+                                <small class="text-muted">${response.comment.pub_time}</small>
+                            </div>
+                        </div>`
+                                );
+                                alert("发布评论成功");
                             }
                         },
                         error: function () {
-                            alert("删除评论失败，请稍后再试。");
+                            alert("评论发布失败，请稍后再试。");
                         }
                     });
-                }
+                });
+
+                // 提交回复评论表单
+                $("form.reply-form").submit(function (event) {
+                    event.preventDefault();  // 阻止表单默认提交行为
+
+                    var form = $(this);
+                    var formData = form.serialize();  // 获取回复表单数据
+
+                    $.ajax({
+                        url: form.attr("action"),
+                        type: "POST",
+                        data: formData,
+                        success: function (response) {
+                            if (response.error) {
+                                alert(response.error);
+                            } else {
+                                // 找到回复对应的评论
+                                var commentId = form.find('input[name="parent_id"]').val();
+                                var replyContainer = $('#replies-' + commentId);
+
+                                // 将新回复添加到回复区域
+                                replyContainer.append(
+                                    `<div class="row mb-3" id="comment-${response.comment.id}">
+                            <div class="col-auto">
+                                <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                            </div>
+                            <div class="col">
+                                <h5>${response.comment.author}</h5>
+                                <p>${response.comment.content}</p>
+                                <small class="text-muted">${response.comment.pub_time}</small>
+                            </div>
+                        </div>`
+                                );
+
+                                // 清空回复表单
+                                form[0].reset();
+                                alert("回复成功");
+                            }
+                        },
+                        error: function () {
+                            alert("回复发布失败，请稍后再试。");
+                        }
+                    });
+                });
+
+                // 回复按钮点击事件
+                $(document).on('click', '.reply-btn', function () {
+                    var commentId = $(this).data('comment-id');
+                    var formId = '#reply-form-' + commentId;
+                    $(formId).toggle();  // 显示或隐藏回复表单
+                });
             });
 
-            // 点击回复按钮时，显示回复表单
-            $(document).on('click', '.reply-btn', function () {
-                var commentId = $(this).data('comment-id');
-                var formId = '#reply-form-' + commentId;
-                $(formId).toggle();  // 显示或隐藏回复表单
-            });
 
             // 提交回复表单
             $("form.reply-form").submit(function (event) {
