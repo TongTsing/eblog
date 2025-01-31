@@ -233,6 +233,7 @@
 
             // 点击删除按钮时，删除评论
             $(document).on('click', '.delete-comment', function () {
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 var commentId = $(this).data('comment-id');
                 if (confirm("确定要删除此评论吗？")) {
                     $.ajax({
