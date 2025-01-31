@@ -7,6 +7,11 @@
         <p>{{ comment_data.comment.content }}</p>
         <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
 
+        <!-- 删除按钮 -->
+        {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
+            <button class="btn btn-danger btn-sm delete-comment" data-comment-id="{{ comment_data.comment.id }}">删除</button>
+        {% endif %}
+
         <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复</button>
 
         <!-- 回复评论表单 -->
@@ -21,12 +26,14 @@
                 <button type="submit" class="btn btn-primary">回复</button>
             </div>
         </form>
+    </div>
 
-        <!-- 显示该评论的所有回复（递归） -->
-        <div id="comment-{{ comment_data.comment.id }}-replies">
+    <!-- 渲染回复（递归） -->
+    {% if comment_data.replies %}
+        <div class="replies-container ms-4">
             {% for reply in comment_data.replies %}
-                {% include 'comment_tree.html' with comment_data=reply %}
+                {% include 'blog/comment_thread.html' with comment_data=reply %}
             {% endfor %}
         </div>
-    </div>
+    {% endif %}
 </div>
