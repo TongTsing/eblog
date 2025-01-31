@@ -228,6 +228,13 @@
 
     <script>
         $(document).ready(function () {
+            // 编辑博客
+            $('#edit-blog-btn').click(function () {
+                var blogId = "{{ blogDetail.id }}";  // 获取当前博客的 ID
+                var editUrl = "{% url 'blog:edit_blog' blog_id=blogDetail.id %}";
+                window.location.href = editUrl;  // 跳转到编辑页面
+            });
+
             // 提交评论表单
             $("form.comment-form").submit(function (event) {
                 event.preventDefault();  // 阻止表单默认提交行为
