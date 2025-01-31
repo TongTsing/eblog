@@ -215,7 +215,7 @@
                 if (confirm("确定要删除此评论吗？")) {
                     $.ajax({
                         url: '{% url "blog:delete_comment" %}',
-                        type: 'POST',
+                        type: 'DELETE',
                         data: {
                             'comment_id': commentId,
                             'csrfmiddlewaretoken': '{{ csrf_token }}'
@@ -283,5 +283,3 @@
         });
     </script>
 {% endblock %}
-
-{#response.comment.new_comment_user_pic#}

@@ -118,8 +118,35 @@ def pub_blog(request):
 
 class coment_management(View):
 
-    def delete(self, request):
-        pass
+    @staticmethod
+    def delete(request):
+        comment_id = request.DELETE.get('comment_id')
+        if comment_id is None:
+            return JsonResponse({'error': '没有权限删除该评论'}, status=403)
+
+        # 验证权限
+        comment = Blog.objects.get(id=comment_id)
+        if comment.author == request.user:
+            logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
+            comment.delete()
+            JsonResponse({'success': True})
+
+        if request.user.is_authenticated():
+            if request.user.is_superuser:
+                logger.info(f'当前登陆用户是评论作者，有权限删除...正在删除')
+                comment.delete()
+                JsonResponse({'success': True})
+
+        if request.user.is_authenticated():
+            if request.user == comment.blog.author:
+                logger.info(f'当前登陆用户是博客作者，有权限删除...正在删除')
+                comment.delete()
+                JsonResponse({'success': True})
+
+        return JsonResponse({'error': '没有权限删除该评论'}, status=403)
+
+
+
 
     def post(self, request):
         try:
