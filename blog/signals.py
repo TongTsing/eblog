@@ -21,3 +21,4 @@ def cascade_logical_delete(sender, instance, **kwargs):
         logger.info(f"Deleting {instance}")
         cascade_delete_replies(instance)
 
+
