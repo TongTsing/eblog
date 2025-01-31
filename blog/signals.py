@@ -11,4 +11,6 @@ from blog.views import logger
 def cascade_logical_delete(sender, instance, **kwargs):
     if instance and instance.is_delete:
         logger.info(f"Deleting {instance}")
-        instance.replies.delete()
+        # 获取与该评论相关的所有回复，并将它们标记为删除
+        instance.replies.update(is_delete=True)
+
