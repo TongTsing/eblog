@@ -57,8 +57,9 @@ class BlogComment(models.Model):
         verbose_name_plural = verbose_name
 
     def delete(self):
-        self.is_delete = True
-        self.save()
+        if not self.is_delete:
+            self.is_delete = True
+            self.save()
 
     def restore(self):
         self.is_delete = False
