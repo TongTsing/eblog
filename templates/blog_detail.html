@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block main %}
+
     <div class="container mt-4">
         <!-- 文章标题 -->
         <div class="row">
@@ -85,110 +86,104 @@
                 </div>
             </div>
 
-            <!-- 评论树 -->
+            <!-- 渲染评论及其回复 -->
             <div class="comment-tree">
                 {% for comment_data in comment_tree %}
                     <!-- 根评论 -->
                     <div class="row mb-3 root-comment" id="comment-{{ comment_data.comment.id }}">
-                        <div class="col-12">
-                            <div class="comment-box">
-                                <div class="d-flex">
-                                    <div class="comment-avatar">
-                                        <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像"
-                                             class="rounded-circle" width="40" height="40">
-                                    </div>
-                                    <div class="comment-content ms-3">
-                                        <div class="d-flex justify-content-between">
-                                            <h5>{{ comment_data.comment.author.username }}</h5>
-                                            <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+                        <div class="col-auto">
+                            <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像"
+                                 class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div class="col">
+                            <h5>{{ comment_data.comment.author.username }}</h5>
+                            <p>{{ comment_data.comment.content }}</p>
+                            <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                            <!-- 判断评论作者、博客作者或管理员显示删除按钮 -->
+                            {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                <button class="btn btn-danger btn-sm delete-comment"
+                                        data-comment-id="{{ comment_data.comment.id }}">删除
+                                </button>
+                            {% endif %}
+
+                            <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复
+                            </button>
+
+                            <!-- 回复评论表单 -->
+                            <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;"
+                                  action="{% url 'blog:pub_comment' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
+                                <div class="mt-2">
+                                    <input type="text" class="form-control" placeholder="请输入回复" name="content">
+                                </div>
+                                <div class="text-end mt-2">
+                                    <button type="submit" class="btn btn-primary">回复</button>
+                                </div>
+                            </form>
+
+                            <!-- 显示该评论的所有回复（递归） -->
+                            <div id="comment-{{ comment_data.comment.id }}-replies">
+                                {% for reply in comment_data.replies %}
+                                    <!-- 回复评论 -->
+                                    <div class="row mt-3 ms-4" id="comment-{{ reply.comment.id }}">
+                                        <div class="col-auto">
+                                            <img src="{{ reply.comment.author.profile_picture.url }}" alt="用户头像"
+                                                 class="rounded-circle" width="40" height="40">
                                         </div>
-                                        <p>{{ comment_data.comment.content }}</p>
+                                        <div class="col">
+                                            <h5>{{ reply.comment.author.username }}</h5>
+                                            <p>{{ reply.comment.content }}</p>
+                                            <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
 
-                                        <!-- 删除按钮 -->
-                                        {% if comment_data.comment.author == user or blogDetail.author == user or user.is_staff %}
-                                            <button class="btn btn-danger btn-sm delete-comment"
-                                                    data-comment-id="{{ comment_data.comment.id }}">删除
+                                            {% if reply.comment.author == user or blogDetail.author == user or user.is_staff %}
+                                                <button class="btn btn-danger btn-sm delete-comment"
+                                                        data-comment-id="{{ reply.comment.id }}">删除
+                                                </button>
+                                            {% endif %}
+
+                                            <button class="btn btn-link reply-btn"
+                                                    data-comment-id="{{ reply.comment.id }}">回复
                                             </button>
-                                        {% endif %}
 
-                                        <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">回复
-                                        </button>
+                                            <!-- 回复评论表单 -->
+                                            <form class="reply-form" id="reply-form-{{ reply.comment.id }}" style="display: none;"
+                                                  action="{% url 'blog:pub_comment' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                                                <input type="hidden" name="parent_id" value="{{ reply.comment.id }}">
+                                                <div class="mt-2">
+                                                    <input type="text" class="form-control" placeholder="请输入回复"
+                                                           name="content">
+                                                </div>
+                                                <div class="text-end mt-2">
+                                                    <button type="submit" class="btn btn-primary">回复</button>
+                                                </div>
+                                            </form>
 
-                                        <!-- 回复评论表单 -->
-                                        <form class="reply-form" id="reply-form-{{ comment_data.comment.id }}" style="display: none;"
-                                              action="{% url 'blog:pub_comment' %}" method="POST">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
-                                            <input type="hidden" name="parent_id" value="{{ comment_data.comment.id }}">
-                                            <div class="mt-2">
-                                                <input type="text" class="form-control" placeholder="请输入回复" name="content">
-                                            </div>
-                                            <div class="text-end mt-2">
-                                                <button type="submit" class="btn btn-primary">回复</button>
-                                            </div>
-                                        </form>
-
-                                        <!-- 回复列表 -->
-                                        <div class="replies ms-4">
-                                            {% for reply in comment_data.replies %}
-                                                <div class="row mb-3 reply" id="comment-{{ reply.comment.id }}">
-                                                    <div class="col-12">
-                                                        <div class="comment-box">
-                                                            <div class="d-flex">
-                                                                <div class="comment-avatar">
-                                                                    <img src="{{ reply.comment.author.profile_picture.url }}" alt="用户头像"
-                                                                         class="rounded-circle" width="40" height="40">
-                                                                </div>
-                                                                <div class="comment-content ms-3">
-                                                                    <div class="d-flex justify-content-between">
-                                                                        <h5>{{ reply.comment.author.username }}</h5>
-                                                                        <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
-                                                                    </div>
-                                                                    <p>{{ reply.comment.content }}</p>
-
-                                                                    {% if reply.comment.author == user or blogDetail.author == user or user.is_staff %}
-                                                                        <button class="btn btn-danger btn-sm delete-comment"
-                                                                                data-comment-id="{{ reply.comment.id }}">删除
-                                                                        </button>
-                                                                    {% endif %}
-
-                                                                    <button class="btn btn-link reply-btn"
-                                                                            data-comment-id="{{ reply.comment.id }}">回复
-                                                                    </button>
-
-                                                                    <!-- 回复的回复 -->
-                                                                    <div class="replies ms-5">
-                                                                        {% for reply2 in reply.replies %}
-                                                                            <div class="row mb-3 reply" id="comment-{{ reply2.comment.id }}">
-                                                                                <div class="col-12">
-                                                                                    <div class="comment-box">
-                                                                                        <div class="d-flex">
-                                                                                            <div class="comment-avatar">
-                                                                                                <img src="{{ reply2.comment.author.profile_picture.url }}"
-                                                                                                     alt="用户头像" class="rounded-circle" width="40" height="40">
-                                                                                            </div>
-                                                                                            <div class="comment-content ms-3">
-                                                                                                <div class="d-flex justify-content-between">
-                                                                                                    <h5>{{ reply2.comment.author.username }}</h5>
-                                                                                                    <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
-                                                                                                </div>
-                                                                                                <p>{{ reply2.comment.content }}</p>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        {% endfor %}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                            <!-- 显示回复的回复 -->
+                                            <div id="comment-{{ reply.comment.id }}-replies">
+                                                {% for reply2 in reply.replies %}
+                                                    <div class="row mt-3 ms-5">
+                                                        <div class="col-auto">
+                                                            <img src="{{ reply2.comment.author.profile_picture.url }}"
+                                                                 alt="用户头像" class="rounded-circle" width="40"
+                                                                 height="40">
+                                                        </div>
+                                                        <div class="col">
+                                                            <h5>{{ reply2.comment.author.username }}</h5>
+                                                            <p>{{ reply2.comment.content }}</p>
+                                                            <small class="text-muted">
+                                                                {{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            {% endfor %}
+                                                {% endfor %}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -217,21 +212,13 @@
                             // 更新评论列表
                             $("#comments-container").prepend(
                                 `<div class="row mb-3">
-                                    <div class="col-12">
-                                        <div class="comment-box">
-                                            <div class="d-flex">
-                                                <div class="comment-avatar">
-                                                    <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
-                                                </div>
-                                                <div class="comment-content ms-3">
-                                                    <div class="d-flex justify-content-between">
-                                                        <h5>${response.comment.author}</h5>
-                                                        <small class="text-muted">${response.comment.pub_time}</small>
-                                                    </div>
-                                                    <p>${response.comment.content}</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="col-auto">
+                                        <img src="${response.comment.new_comment_user_pic}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    </div>
+                                    <div class="col">
+                                        <h5>${response.comment.author}</h5>
+                                        <p>${response.comment.content}</p>
+                                        <small class="text-muted">${response.comment.pub_time}</small>
                                     </div>
                                 </div>`
                             );
