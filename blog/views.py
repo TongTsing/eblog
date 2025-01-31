@@ -1,5 +1,6 @@
 import logging
 import os
+from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import FileSystemStorage
@@ -49,6 +50,19 @@ def index(request):
 
 
 class blog_detail(View):
+
+    def get_nested_comments(self, parent_comment=None):
+        comments = BlogComment.objects.filter(parent_comment=parent_comment, is_delete=False).order_by('pub_time')
+        nested_comments = []
+        for comment in comments:
+            # 获取当前评论的所有回复
+            replies = self.get_nested_comments(parent_comment=comment)
+            nested_comments.append({
+                'comment': comment,
+                'replies': replies
+            })
+        return nested_comments
+
     def get(self, request, blog_id):
         logger.info(f"获取博客详情, blog_id: {blog_id}")
         # Get blog details
@@ -64,22 +78,16 @@ class blog_detail(View):
         blog_counter = BlogViewCountSingleton()
         blog_counter.increment_blogview_count(blog_id)
         blog_counter.save_to_database(blog_id)
-        # Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
-        # logger.debug(f'博客{blog_id} 访问量增加1')
 
-        # Organize comments and their replies
-        parent_comments = blogDetail.comments.filter(parent_comment=None, is_delete=False)
-        replies = blogDetail.comments.filter(parent_comment__isnull=False, is_delete=False)
+        # 获取评论树
+        comment_tree = self.get_nested_comments(parent_comment=None)
+        logger.info(f"get comments for blog_id: {blog_id}\ndetail: {comment_tree}")
 
-        # Organize replies by parent comment id
-        parent_comments_dict = {}
-        for parent_comment in parent_comments:
-            parent_comments_dict[parent_comment.id] = replies.filter(parent_comment=parent_comment)
 
         # Render the blog detail template with the comments and replies
         return render(request, "blog_detail.html", context={
             "blogDetail": blogDetail,
-            "parent_comments_dict": parent_comments_dict
+            "comment_tree": comment_tree
         })
 
 

@@ -98,28 +98,34 @@
         <!-- 评论列表 -->
         <div class="container">
             <!-- 主评论 -->
+            {% for comment_data in comment_tree %}
             <div class="row mb-3">
                 <div class="col-auto">
-                    <img src="avatar1.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                    <img src="{{ comment_data.author.profile_pic.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
                 </div>
                 <div class="col">
-                    <h5>用户名 1</h5>
-                    <p>这是主评论内容。</p>
-                    <small class="text-muted">2023年10月10日 14:30</small>
+                    <h5>{{ comment_data.comment.author.username }}</h5>
+                    <p>{{ comment_data.comment.content }}</p>
+                    <small class="text-muted">{{ comment_data.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
 
                     <!-- 回复评论 -->
-                    <div class="row mt-3 ms-4">
-                        <div class="col-auto">
-                            <img src="avatar2.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                    {% if comment_data.replies %}
+                        <div class="row mt-3 ms-4">
+                            {% for reply in comment_data.replies %}
+                                <div class="col-auto">
+                                    <img src="avatar2.jpg" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                </div>
+                                <div class="col">
+                                    <h5>{{ reply.comment.author.username }}</h5>
+                                    <p>{{ reply.comment.content }}</p>
+                                    <small class="text-muted">{{ reply.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+                                </div>
+                            {% endfor %}
                         </div>
-                        <div class="col">
-                            <h5>用户名 2</h5>
-                            <p>这是对主评论的回复。</p>
-                            <small class="text-muted">2023年10月10日 15:00</small>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
+        {% endfor %}
         </div>
     </div>
 
