@@ -120,10 +120,7 @@
                 if (confirm("确定要删除此评论吗？")) {
                     $.ajax({
                         url: deleteUrl,
-                        type: 'DELETE',
-                        data: {
-                            {#'comment_id': commentId,#}
-                        },
+                        type: 'DELETE',  // 使用 DELETE 请求
                         headers: {
                             'X-CSRFToken': csrfToken  // 添加 CSRF Token 到请求头
                         },
@@ -132,7 +129,7 @@
                                 // 删除成功后，移除该评论元素
                                 $('#comment-' + commentId).remove();
                             } else {
-                                alert(response.error);
+                                alert(response.error);  // 提示删除失败原因
                             }
                         },
                         error: function () {
