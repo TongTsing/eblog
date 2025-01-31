@@ -55,6 +55,7 @@ class blog_detail(View):
         comments = BlogComment.objects.filter(parent_comment=parent_comment, is_delete=False).order_by('pub_time')
         nested_comments = []
         for comment in comments:
+            logger.info(f"comment author: {comment.author}")
             # 获取当前评论的所有回复
             replies = self.get_nested_comments(parent_comment=comment)
             nested_comments.append({
