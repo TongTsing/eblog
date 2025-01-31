@@ -62,7 +62,7 @@ class blog_detail(View):
                     'content': comment.content,
                     'pub_time': comment.pub_time,
                 },
-                'replies': process_replies(comment.replies)  # 处理每个回复
+                'replies': self.get_nested_comments(comment.replies)  # 处理每个回复
             }
             for comment in comments
         ]
