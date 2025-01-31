@@ -66,6 +66,11 @@
                 </div>
             </div>
         </div>
+        {% if user == blogDetail.author %}
+            <div class="d-flex justify-content-start mt-3">
+                <button id="edit-blog-btn" class="btn btn-warning btn-sm">编辑</button>
+            </div>
+        {% endif %}
 
         <!-- 评论模块 -->
         <div id="comments-container" class="container">
