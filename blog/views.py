@@ -60,7 +60,7 @@ class blog_detail(View):
             {
                 'comment': {
                     'id': comment.id,
-                    'author': comment.author.username,
+                    'author': comment.author,
                     'content': comment.content,
                     'pub_time': comment.pub_time,
                 },
