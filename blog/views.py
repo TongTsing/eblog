@@ -146,9 +146,6 @@ class coment_management(View):
 
         return JsonResponse({'error': '没有权限删除该评论'}, status=403)
 
-
-
-
     def post(self, request):
         try:
             logger.info(f'尝试获取 blog 信息')

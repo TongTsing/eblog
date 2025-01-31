@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="评论展示">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,15 +130,7 @@
       <workItem from="1738129551180" duration="4948000" />
       <workItem from="1738149355989" duration="54000" />
       <workItem from="1738149421752" duration="465000" />
-      <workItem from="1738302947684" duration="11561000" />
-    </task>
-    <task id="LOCAL-00011" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <option name="closed" value="true" />
-      <created>1738131338302</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1738131338302</updated>
+      <workItem from="1738302947684" duration="11574000" />
     </task>
     <task id="LOCAL-00012" summary="上传视频">
       <option name="closed" value="true" />
@@ -525,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738328478180</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="评论展示">
+      <option name="closed" value="true" />
+      <created>1738328647698</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1738328647698</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
