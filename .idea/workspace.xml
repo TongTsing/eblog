@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="评论展示">
-      <change beforePath="$PROJECT_DIR$/templates/comment_tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/comment_tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,15 +131,7 @@
       <workItem from="1738129551180" duration="4948000" />
       <workItem from="1738149355989" duration="54000" />
       <workItem from="1738149421752" duration="465000" />
-      <workItem from="1738302947684" duration="21884000" />
-    </task>
-    <task id="LOCAL-00056" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738328145743</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1738328145743</updated>
+      <workItem from="1738302947684" duration="22157000" />
     </task>
     <task id="LOCAL-00057" summary="评论展示">
       <option name="closed" value="true" />
@@ -524,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738344633518</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="评论展示">
+      <option name="closed" value="true" />
+      <created>1738344704184</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1738344704184</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

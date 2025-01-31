@@ -104,13 +104,44 @@
 
 {% block javascript %}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // 处理评论回复按钮显示与隐藏
-            $(".reply-btn").click(function() {
+            $(".reply-btn").click(function () {
                 var commentId = $(this).data("comment-id");
                 var replyForm = $("#reply-form-" + commentId);
                 replyForm.toggle();
             });
+
+            $(document).on('click', '.delete-comment', function () {
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                var commentId = $(this).data('comment-id');
+                var deleteUrl = '{% url "blog:delete_comment" comment_id=0 %}'.replace('0', commentId);  // 用 commentId 替换 0
+
+                if (confirm("确定要删除此评论吗？")) {
+                    $.ajax({
+                        url: deleteUrl,
+                        type: 'DELETE',
+                        data: {
+                            {#'comment_id': commentId,#}
+                        },
+                        headers: {
+                            'X-CSRFToken': csrfToken  // 添加 CSRF Token 到请求头
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                // 删除成功后，移除该评论元素
+                                $('#comment-' + commentId).remove();
+                            } else {
+                                alert(response.error);
+                            }
+                        },
+                        error: function () {
+                            alert("删除评论失败，请稍后再试。");
+                        }
+                    });
+                }
+            });
+
 
             // 提交评论表单
             $("form.comment-form").submit(function (event) {
