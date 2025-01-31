@@ -65,27 +65,24 @@
         </div>
 
         <!-- 评论模块 -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <h3>评论（{{ blogDetail.comments.all|length }}）</h3>
-                <form class="comment-form" action="{% url 'blog:pub_comment' %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
-                    <div class="mt-2">
-                        <input type="text" class="form-control" placeholder="请输入评论" name="content"
-                               title="请输入评论内容">
-                    </div>
-                    <div class="text-end mt-2">
-                        <button type="submit" class="btn btn-primary">评论</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- 评论列表 -->
         <div id="comments-container" class="container">
+            <div class="row mb-3">
+                <div class="col-12">
+                    <h3>评论（{{ blogDetail.comments.all|length }}）</h3>
+                    <form class="comment-form" action="{% url 'blog:pub_comment' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">
+                        <div class="mt-2">
+                            <input type="text" class="form-control" placeholder="请输入评论" name="content" title="请输入评论内容">
+                        </div>
+                        <div class="text-end mt-2">
+                            <button type="submit" class="btn btn-primary">评论</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             {% for comment_data in comment_tree %}
-                <!-- 递归显示每个评论以及其回复 -->
                 <div class="row mb-3" id="comment-{{ comment_data.comment.id }}">
                     <div class="col-auto">
                         <img src="{{ comment_data.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
@@ -138,7 +135,20 @@
                                         </form>
 
                                         <!-- 显示回复的回复 -->
-                                        <div id="comment-{{ reply.comment.id }}-replies"></div>
+                                        <div id="comment-{{ reply.comment.id }}-replies">
+                                            {% for reply2 in reply.replies %}
+                                                <div class="row mt-3 ms-5">
+                                                    <div class="col-auto">
+                                                        <img src="{{ reply2.comment.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>{{ reply2.comment.author.username }}</h5>
+                                                        <p>{{ reply2.comment.content }}</p>
+                                                        <small class="text-muted">{{ reply2.comment.pub_time|date:"Y年m月d日 H:i" }}</small>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
                             {% endfor %}
