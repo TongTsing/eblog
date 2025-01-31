@@ -112,6 +112,7 @@
                                 </button>
                             {% endif %}
 
+                            <!-- 回复按钮 -->
                             <button class="btn btn-link reply-btn" data-comment-id="{{ comment_data.comment.id }}">
                                 回复
                             </button>
@@ -129,11 +130,32 @@
                                     <button type="submit" class="btn btn-primary">回复</button>
                                 </div>
                             </form>
+
+                            <!-- 渲染回复 -->
+                            <div class="replies-container ms-4">
+                                {% for reply in comment_data.replies %}
+                                    <div class="row mb-3" id="comment-{{ reply.id }}">
+                                        <div class="col-auto">
+                                            <img src="{{ reply.author.profile_picture.url }}" alt="用户头像"
+                                                 class="rounded-circle" width="40" height="40">
+                                        </div>
+                                        <div class="col">
+                                            <h5>{{ reply.author.username }}</h5>
+                                            <p>{{ reply.content }}</p>
+                                            <small class="text-muted">{{ reply.pub_time|date:"Y年m月d日 H:i" }}</small>
+
+                                            <!-- 删除回复按钮 -->
+                                            {% if reply.author == user or blogDetail.author == user or user.is_staff %}
+                                                <button class="btn btn-danger btn-sm delete-comment"
+                                                        data-comment-id="{{ reply.id }}">删除
+                                                </button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-
-                    <!-- 递归显示回复 -->
-                    {% include 'comment_tree.html' with replies=comment_data.replies %}
                 {% endfor %}
             </div>
         </div>
