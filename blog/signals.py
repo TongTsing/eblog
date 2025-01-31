@@ -9,6 +9,6 @@ from blog.views import logger
 
 @receiver(post_save, sender=BlogComment)
 def cascade_logical_delete(sender, instance, **kwargs):
-    if instance.is_delete:
+    if instance and instance.is_delete:
         logger.info(f"Deleting {instance}")
         instance.replies.delete()
