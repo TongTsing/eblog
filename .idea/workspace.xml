@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;templates/blog_pub.html">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
+    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="评论展示">
       <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +123,7 @@
       <workItem from="1738129551180" duration="4948000" />
       <workItem from="1738149355989" duration="54000" />
       <workItem from="1738149421752" duration="465000" />
-      <workItem from="1738302947684" duration="2574000" />
+      <workItem from="1738302947684" duration="2753000" />
     </task>
     <task id="LOCAL-00001" summary="0122login页面优化">
       <option name="closed" value="true" />
@@ -319,7 +317,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738304298450</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="评论展示">
+      <option name="closed" value="true" />
+      <created>1738305559724</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1738305559724</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,6 +365,7 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;templates/blog_pub.html" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;templates/blog_pub.html" />
+    <MESSAGE value="评论展示" />
+    <option name="LAST_COMMIT_MESSAGE" value="评论展示" />
   </component>
 </project>
