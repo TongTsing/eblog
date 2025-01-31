@@ -51,9 +51,11 @@ def index(request):
 
 
 class blog_detail(View):
-
     def get_nested_comments(self, parent_comment=None):
+        # 获取父评论的所有子评论
         comments = BlogComment.objects.filter(parent_comment=parent_comment, is_delete=False).order_by('pub_time')
+
+        # 遍历评论，构建嵌套数据结构
         comment_data = [
             {
                 'comment': {
@@ -62,7 +64,7 @@ class blog_detail(View):
                     'content': comment.content,
                     'pub_time': comment.pub_time,
                 },
-                'replies': self.get_nested_comments(comment.replies)  # 处理每个回复
+                'replies': self.get_nested_comments(comment)  # 递归调用，获取该评论的回复
             }
             for comment in comments
         ]
@@ -70,28 +72,29 @@ class blog_detail(View):
 
     def get(self, request, blog_id):
         logger.info(f"获取博客详情, blog_id: {blog_id}")
-        # Get blog details
+
+        # 获取博客详情
         try:
             blogDetail = Blog.objects.get(id=blog_id)
-            logger.info(f"查询到到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
+            logger.info(f"查询到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
         except Blog.DoesNotExist:
             blogDetail = None
             logger.warning(f"Blog with id {blog_id} does not exist")
             return render(request, "404.html", status=404)
 
-        # 访问计数
+        # 增加访问计数
         blog_counter = BlogViewCountSingleton()
         blog_counter.increment_blogview_count(blog_id)
         blog_counter.save_to_database(blog_id)
 
         # 获取评论树
         comment_tree = self.get_nested_comments(parent_comment=None)
-        logger.info(f"get comments for blog_id: {blog_id}\ndetail: {comment_tree}")
+        logger.info(f"获取到评论树: {comment_tree}")
 
-        # 评论数量:
+        # 获取评论数量
         comment_count = blogDetail.comments.filter(is_delete=False).count()
 
-        # Render the blog detail template with the comments and replies
+        # 渲染博客详情模板
         return render(request, "blog_detail.html", context={
             "blogDetail": blogDetail,
             "comment_tree": comment_tree,
