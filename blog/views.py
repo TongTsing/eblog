@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from django.urls.base import reverse_lazy
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.cache import cache_page
@@ -47,39 +48,39 @@ def index(request):
     return render(request, "blog_index.html", {"blogs": blogs, 'categories': categories})
 
 
-def blog_detail(request, blog_id: int):
-    logger.info(f"获取博客详情, blog_id: {blog_id}")
-    # Get blog details
-    try:
-        blogDetail = Blog.objects.get(id=blog_id)
-        logger.info(f"查询到到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
-    except Blog.DoesNotExist:
-        blogDetail = None
-        logger.warning(f"Blog with id {blog_id} does not exist")
-        return render(request, "404.html", status=404)
+class blog_detail(View):
+    def get(self, request, blog_id):
+        logger.info(f"获取博客详情, blog_id: {blog_id}")
+        # Get blog details
+        try:
+            blogDetail = Blog.objects.get(id=blog_id)
+            logger.info(f"查询到到博客信息: {blogDetail.title}-{blogDetail.pub_time}-{blogDetail.author}")
+        except Blog.DoesNotExist:
+            blogDetail = None
+            logger.warning(f"Blog with id {blog_id} does not exist")
+            return render(request, "404.html", status=404)
 
-    # 访问计数
-    blog_counter = BlogViewCountSingleton()
-    blog_counter.increment_blogview_count(blog_id)
-    blog_counter.save_to_database(blog_id)
-    # Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
-    # logger.debug(f'博客{blog_id} 访问量增加1')
+        # 访问计数
+        blog_counter = BlogViewCountSingleton()
+        blog_counter.increment_blogview_count(blog_id)
+        blog_counter.save_to_database(blog_id)
+        # Blog.objects.filter(id=blog_id).update(access_times=F('access_times') + 1)
+        # logger.debug(f'博客{blog_id} 访问量增加1')
 
-    # Organize comments and their replies
-    parent_comments = blogDetail.comments.filter(parent_comment=None, is_delete=False)
-    replies = blogDetail.comments.filter(parent_comment__isnull=False, is_delete=False)
+        # Organize comments and their replies
+        parent_comments = blogDetail.comments.filter(parent_comment=None, is_delete=False)
+        replies = blogDetail.comments.filter(parent_comment__isnull=False, is_delete=False)
 
-    # Organize replies by parent comment id
-    parent_comments_dict = {}
-    for parent_comment in parent_comments:
-        parent_comments_dict[parent_comment.id] = replies.filter(parent_comment=parent_comment)
+        # Organize replies by parent comment id
+        parent_comments_dict = {}
+        for parent_comment in parent_comments:
+            parent_comments_dict[parent_comment.id] = replies.filter(parent_comment=parent_comment)
 
-    # Render the blog detail template with the comments and replies
-    return render(request, "blog_detail.html", context={
-        "blogDetail": blogDetail,
-        "parent_comments_dict": parent_comments_dict
-    })
-
+        # Render the blog detail template with the comments and replies
+        return render(request, "blog_detail.html", context={
+            "blogDetail": blogDetail,
+            "parent_comments_dict": parent_comments_dict
+        })
 
 
 @require_http_methods(['GET', 'POST'])
