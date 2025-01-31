@@ -202,6 +202,7 @@ class coment_management(View):
                         "author": new_comment.author.username,
                         "content": new_comment.content,
                         "pub_time": new_comment.pub_time.strftime("%Y年%m月%d日 %H:%M"),
+                        "new_comment_user_pic": new_comment.author.profile_picture.url
                     }
                 })
 
