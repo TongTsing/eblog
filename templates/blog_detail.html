@@ -77,7 +77,7 @@
         <div id="comments-container" class="container">
             <div class="row mb-3">
                 <div class="col-12">
-                    <h3>评论（{{ blogDetail.comments.all|length }}）</h3>
+                    <h3>评论（{{ comment_count }}）</h3>
                     <form class="comment-form" action="{% url 'blog:pub_comment' %}" method="POST">
                         {% csrf_token %}
                         <input type="hidden" name="blog_id" value="{{ blogDetail.id }}">

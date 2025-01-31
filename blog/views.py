@@ -85,11 +85,14 @@ class blog_detail(View):
         comment_tree = self.get_nested_comments(parent_comment=None)
         logger.info(f"get comments for blog_id: {blog_id}\ndetail: {comment_tree}")
 
+        # 评论数量:
+        comment_count = blogDetail.comments.filter(is_delete=False).count()
 
         # Render the blog detail template with the comments and replies
         return render(request, "blog_detail.html", context={
             "blogDetail": blogDetail,
-            "comment_tree": comment_tree
+            "comment_tree": comment_tree,
+            "comment_count": comment_count,
         })
 
 
