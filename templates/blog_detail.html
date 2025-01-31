@@ -113,7 +113,7 @@
                         <div class="row mt-3 ms-4">
                             {% for reply in comment_data.replies %}
                                 <div class="col-auto">
-                                    <img src="{{ comment_data.comment.author.profile_pic.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
+                                    <img src="{{  blogDetail.author.profile_picture.url }}" alt="用户头像" class="rounded-circle" width="40" height="40">
                                 </div>
                                 <div class="col">
                                     <h5>{{ reply.comment.author.username }}</h5>
