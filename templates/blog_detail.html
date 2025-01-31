@@ -95,7 +95,7 @@
             <!-- 递归渲染评论及其所有回复 -->
             <div class="comment-tree">
                 {% for comment_data in comment_tree %}
-                    {% include 'blog/comment_tree.html' with comment_data=comment_data %}
+                    {% include 'comment_tree.html' with comment_data=comment_data %}
                 {% endfor %}
             </div>
         </div>

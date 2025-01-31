@@ -33,7 +33,7 @@
     <!-- 递归显示所有回复 -->
     <div class="replies-container ms-4">
         {% for reply in comment_data.replies %}
-            {% include 'blog/comment_tree.html' with comment_data=reply %}
+            {% include 'comment_tree.html' with comment_data=reply %}
         {% endfor %}
     </div>
 </div>
