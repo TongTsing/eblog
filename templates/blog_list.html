@@ -99,14 +99,17 @@
                 </nav>
 
                 <!-- 跳转到指定页 -->
+                <!-- 跳转到指定页 -->
                 <div class="d-flex justify-content-center align-items-center mt-3">
-                    <form method="get" action="?q={{ query_string }}" class="d-flex align-items-center">
+                    <form method="get" action="?q={{ query_string }}&page=" class="d-flex align-items-center"
+                          id="paginationForm">
                         <label for="page" class="me-2 mb-0">跳转到：</label>
                         <input type="number" id="page" name="page" min="1" max="{{ blogs.paginator.num_pages }}"
                                class="form-control" style="width: 100px;" value="{{ blogs.number }}">
                         <button type="submit" class="btn btn-primary ms-2">跳转</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
@@ -122,15 +125,13 @@
 
         function updateActionAndSubmit() {
             var form = document.getElementById('paginationForm');
-            var searchQuery = document.getElementById('searchQuery').value; // 获取搜索框的输入内容
+            {#var searchQuery = document.getElementById('page').value; // 获取搜索框的输入内容#}
 
             // 获取表单原始的action URL
             var actionUrl = form.action;
 
             // 如果搜索框中有内容，将其作为查询参数附加到 action URL
-            if (searchQuery) {
-                actionUrl += "&page=" + encodeURIComponent(searchQuery);
-            }
+            actionUrl += "&page=" + encodeURIComponent(searchQuery);
 
             // 更新表单的 action URL
             form.action = actionUrl;
