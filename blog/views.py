@@ -255,7 +255,6 @@ def blog_list(request):
     page_obj = paginator.get_page(page_number)
     return render(request, 'blog_list.html', {"blogs": page_obj, 'categories': categories})
 
-
 @require_http_methods(['GET'])
 def get_blog_details(request, blog_id):
     try:
