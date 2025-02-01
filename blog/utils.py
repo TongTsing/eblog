@@ -1,4 +1,7 @@
+import redis
+
 from blog.models import Blog
+from blog_auth.views import logger
 
 
 class BlogViewCountSingleton(object):

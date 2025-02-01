@@ -204,3 +204,10 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
 
 CORS_ALLOW_ALL_ORIGINS = True  # 允许所有来源的跨域请求
+
+# redis
+redis = {
+    'ip': "ip.hwserver.cn",
+    'port': 6379,
+    'passwd': 'tq113211',
+}

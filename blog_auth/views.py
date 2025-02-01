@@ -11,17 +11,31 @@ from django.core.mail import send_mail
 from django.http.response import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views.decorators.http import require_http_methods
+from django.views import View
+from urllib3 import request
 
+from utils.utils import redisMixin
 from .forms import registerForm, LoginForm, EditProfileForm, ChangePasswordForm
 
 User = get_user_model()
 logger = logging.getLogger("django")
+
+
 # Create your views here.
 
-@require_http_methods(["GET", "POST"])
-def blog_login(request):
-    if request.method == 'POST':
+class blog_login(View):
+
+    # 覆盖View的dispatch方法，并且使用装饰器
+    @method_decorator(require_http_methods(["GET", "POST"]))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return render(request, 'blog_login.html')
+
+    def post(self, request):
         login_form = LoginForm(request.POST)
         logger.info("验证表单值")
         if login_form.is_valid():
@@ -53,17 +67,30 @@ def blog_login(request):
         # 表单验证异常
         logger.info(f"表单验证不通过，请查看表单信息")
 
-    return render(request, 'blog_login.html')
 
 
-def blog_logout(request):
-    logout(request)
-    return redirect('blog:index')
+
+class blog_logout(View):
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        logger.info(f'user {request.user.username} logged out!')
+        logout(request)
+        return redirect('blog:index')
 
 
-@require_http_methods(["GET", "POST"])
-def register(request):
-    if request.method == 'POST':
+class register_view(redisMixin, View):
+    @method_decorator(require_http_methods(["GET", "POST"]))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        return render(request, 'blog_register.html')
+
+    def post(self, request):
         register_form = registerForm(request.POST, request.FILES)
         if register_form.is_valid():
             username = register_form.cleaned_data['username']
@@ -72,10 +99,10 @@ def register(request):
             captcha = register_form.cleaned_data['captcha']  # 获取验证码
             profile_picture = register_form.cleaned_data['profile_picture']
             # 验证码验证逻辑
-            captcha_in_redis = get_redis_cache(email)
+            captcha_in_redis = self.get_redis_cache(email)
             logger.info(f'头像地址：{profile_picture}')
             if not captcha_in_redis:
-                logger.warning("captcha is incorrect")
+                logger.warning("没有在redis中找到key")
                 # 在验证码无效时返回错误信息
                 messages.error(request, "验证码无效，请重新输入")
                 return redirect(reverse('auth:register'))  # 重定向到注册页面
@@ -97,12 +124,10 @@ def register(request):
         messages.error(request, f"请检查表单填写项, error:{register_form.errors}")
         return redirect(reverse('auth:register'))
 
-    return render(request, 'blog_register.html')
-
 
 def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> int:
     redis_client = redis.StrictRedis(
-        host='127.0.0.1',  # Redis 主机地址
+        host='ip.hwserver.cn',  # Redis 主机地址
         port=6379,  # Redis 端口
         password='tq113211',
         db=db,  # 数据库编号
@@ -118,7 +143,7 @@ def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> 
 
 def get_redis_cache(key: str = "", db=1) -> str:
     redis_client = redis.StrictRedis(
-        host='127.0.0.1',  # Redis 主机地址
+        host='ip.hwserver.cn',  # Redis 主机地址
         port=6379,  # Redis 端口
         password='tq113211',
         db=db,  # 数据库编号
@@ -129,7 +154,7 @@ def get_redis_cache(key: str = "", db=1) -> str:
         if result is None:
             return ""
     except Exception as e:
-        logger.error(f"Error getting Redis cache: {e}")
+        logger.error(f"getting Redis cache failed: {e}")
         return ""
     return result
 

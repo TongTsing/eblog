@@ -239,7 +239,7 @@ def search(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, "blog_list.html", {"blogs": page_obj, 'categories': categories})
+    return render(request, "blog_list.html", {"blogs": page_obj, 'categories': categories, 'query_string': q})
 
 
 # q = request.GET.get('q')

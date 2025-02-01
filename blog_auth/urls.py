@@ -7,9 +7,9 @@ from . import views
 app_name = 'auth'
 
 urlpatterns = [
-    path('login/', view=views.blog_login, name='login'),
-    path('logout', view=views.blog_logout, name='logout'),
-    path('register/', view=views.register, name='register'),
+    path('login/', view=views.blog_login.as_view(), name='login'),
+    path('logout', view=views.blog_logout.as_view(), name='logout'),
+    path('register/', view=views.register_view.as_view(), name='register'),
     path('captcha/', view=views.send_captcha, name='send_capcha'),
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
