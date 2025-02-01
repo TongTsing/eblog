@@ -99,16 +99,19 @@
                 </nav>
 
                 <!-- 跳转到指定页 -->
-                <!-- 跳转到指定页 -->
                 <div class="d-flex justify-content-center align-items-center mt-3">
-                    <form method="get" action="?q={{ query_string }}&page=" class="d-flex align-items-center"
-                          id="paginationForm">
+                    <form method="get" action="" class="d-flex align-items-center" id="paginationForm">
                         <label for="page" class="me-2 mb-0">跳转到：</label>
                         <input type="number" id="page" name="page" min="1" max="{{ blogs.paginator.num_pages }}"
                                class="form-control" style="width: 100px;" value="{{ blogs.number }}">
+
+                        <!-- Hidden input to carry the query string value -->
+                        <input type="hidden" name="q" value="{{ query_string }}">
+
                         <button type="submit" class="btn btn-primary ms-2">跳转</button>
                     </form>
                 </div>
+
 
             </div>
         </div>
