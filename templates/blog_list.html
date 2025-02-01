@@ -31,7 +31,7 @@
                                 <p class="card-text mb-2">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
                                 <div class="text-body-secondary d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ blogDetail.author.profile_picture.url   }}"
+                                        <img src="{{ blogDetail.author.profile_picture.url }}"
                                              class="rounded-circle"
                                              width="30" height="30" alt="{{ blogDetail.author.username }}">
                                         <span class="ms-2">{{ blogDetail.author.username }}</span>
@@ -83,12 +83,14 @@
                         <!-- Next page link -->
                         {% if blogs.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?q={{ query_string }}&page={{ blogs.next_page_number }}" aria-label="Next">
+                                <a class="page-link" href="?q={{ query_string }}&page={{ blogs.next_page_number }}"
+                                   aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?q={{ query_string }}&page={{ blogs.paginator.num_pages }}" aria-label="Last">
+                                <a class="page-link" href="?q={{ query_string }}&page={{ blogs.paginator.num_pages }}"
+                                   aria-label="Last">
                                     <span aria-hidden="true">&raquo;&raquo;</span>
                                 </a>
                             </li>
@@ -98,7 +100,7 @@
 
                 <!-- 跳转到指定页 -->
                 <div class="d-flex justify-content-center align-items-center mt-3">
-                    <form method="get" action="?q={{ query_string }}&page={{ blogs.next_page_number }}" class="d-flex align-items-center">
+                    <form method="get" action="?q={{ query_string }}" class="d-flex align-items-center">
                         <label for="page" class="me-2 mb-0">跳转到：</label>
                         <input type="number" id="page" name="page" min="1" max="{{ blogs.paginator.num_pages }}"
                                class="form-control" style="width: 100px;" value="{{ blogs.number }}">
@@ -117,6 +119,25 @@
                 document.getElementById('category-filter-form').submit();
             });
         });
+
+        function updateActionAndSubmit() {
+            var form = document.getElementById('paginationForm');
+            var searchQuery = document.getElementById('searchQuery').value; // 获取搜索框的输入内容
+
+            // 获取表单原始的action URL
+            var actionUrl = form.action;
+
+            // 如果搜索框中有内容，将其作为查询参数附加到 action URL
+            if (searchQuery) {
+                actionUrl += "&page=" + encodeURIComponent(searchQuery);
+            }
+
+            // 更新表单的 action URL
+            form.action = actionUrl;
+
+            // 提交表单
+            form.submit();
+        }
     </script>
 
 {% endblock %}
