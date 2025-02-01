@@ -122,23 +122,6 @@
                 document.getElementById('category-filter-form').submit();
             });
         });
-
-        function updateActionAndSubmit() {
-            var form = document.getElementById('paginationForm');
-            {#var searchQuery = document.getElementById('page').value; // 获取搜索框的输入内容#}
-
-            // 获取表单原始的action URL
-            var actionUrl = form.action;
-
-            // 如果搜索框中有内容，将其作为查询参数附加到 action URL
-            actionUrl += "&page=" + encodeURIComponent(searchQuery);
-
-            // 更新表单的 action URL
-            form.action = actionUrl;
-
-            // 提交表单
-            form.submit();
-        }
     </script>
 
 {% endblock %}
