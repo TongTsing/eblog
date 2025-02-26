@@ -45,9 +45,13 @@ def index(request):
         categories = BlogCategory.objects.all()
     else:
         logger.info(f'筛选博客类别id为{category_id}的博客')
-        blogs = BlogCategory.objects.get(id=int(category_id)).blogs.filter(is_delete=0).all()[:10]
+        blogs = BlogCategory.objects.get(id=int(category_id)).blogs.filter(is_delete=0).all()
         categories = BlogCategory.objects.all()
-    return render(request, "blog_index.html", {"blogs": blogs, 'categories': categories})
+
+    paginator = Paginator(blogs, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "blog_index.html", {"blogs": page_obj, 'categories': categories})
 
 
 class blog_detail(View):

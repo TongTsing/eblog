@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="评论展示和级联删除">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +38,7 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -41,12 +46,12 @@
     &quot;assignee&quot;: &quot;TongTsing&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/TongTsing/eblog.git",
-    "accountId": "132d4122-cd7c-49bd-aa27-e44f4832bc04"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/TongTsing/eblog.git&quot;,
+    &quot;accountId&quot;: &quot;132d4122-cd7c-49bd-aa27-e44f4832bc04&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -131,15 +136,9 @@
       <workItem from="1738149355989" duration="54000" />
       <workItem from="1738149421752" duration="465000" />
       <workItem from="1738302947684" duration="25664000" />
-      <workItem from="1738479453170" duration="56000" />
-    </task>
-    <task id="LOCAL-00079" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738338680809</created>
-      <option name="number" value="00079" />
-      <option name="presentableId" value="LOCAL-00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1738338680809</updated>
+      <workItem from="1738479453170" duration="1546000" />
+      <workItem from="1740127192628" duration="7000" />
+      <workItem from="1740533143863" duration="198000" />
     </task>
     <task id="LOCAL-00080" summary="评论展示">
       <option name="closed" value="true" />
@@ -525,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738421177615</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="评论展示和级联删除">
+      <option name="closed" value="true" />
+      <created>1738479560727</created>
+      <option name="number" value="00128" />
+      <option name="presentableId" value="LOCAL-00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1738479560727</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,8 +573,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;templates/blog_pub.html" />
     <MESSAGE value="评论展示" />
-    <MESSAGE value="评论展示和级联删除" />
     <MESSAGE value="搜索结果分页跳转" />
-    <option name="LAST_COMMIT_MESSAGE" value="搜索结果分页跳转" />
+    <MESSAGE value="评论展示和级联删除" />
+    <option name="LAST_COMMIT_MESSAGE" value="评论展示和级联删除" />
   </component>
 </project>

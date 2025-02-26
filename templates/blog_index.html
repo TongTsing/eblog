@@ -30,6 +30,7 @@
             </div>
         </div>
     </div>
+
     <!-- 博客列表部分 -->
     <div class="container">
         <div class="col-12 ms-auto me-auto d-flex">
@@ -43,7 +44,6 @@
                                 <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
                                      alt="{{ blogDetail.title }}"
                                      style="width: 150px; height: 150px; object-fit: cover; margin-right: 15px;">
-                                <!-- 固定大小 -->
                             {% else %}
                                 <div style="width: 150px; height: 150px; background-color: #f2f2f2; margin-right: 15px; display: flex; align-items: center; justify-content: center;">
                                     <span style="color: #bbb;">无图片</span> <!-- 显示占位符 -->
@@ -74,7 +74,44 @@
                 {% endfor %}
             </div>
 
+            <!-- 分页部分 -->
+            <div class="pagination-container mt-4">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if blogs.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </span>
+                            </li>
+                        {% endif %}
 
+                        <li class="page-item disabled">
+                            <span class="page-link">Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}</span>
+                        </li>
+
+                        {% if blogs.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 
@@ -87,5 +124,4 @@
             });
         });
     </script>
-
 {% endblock %}

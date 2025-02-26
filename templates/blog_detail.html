@@ -102,7 +102,9 @@
     </div>
 
     <script>
+    
         $(document).ready(function () {
+            hljs.highlightAll();
             // 编辑博客
             $('#edit-blog-btn').click(function () {
                 var blogId = "{{ blogDetail.id }}";  // 获取当前博客的 ID
@@ -223,6 +225,5 @@
                 });
             });
         });
-        hljs.highlightAll();
     </script>
 {% endblock %}
