@@ -4,11 +4,11 @@
   "PORT": 3306,
   "NAME": "eblog",
   "USER": "root",
-  "PASSWORD": "Tq@113211"
+  "PASSWORD": ""
   },
   "Redis": {
     "ip": "ip.hwserver.cn",
     "port": 6379,
-    "passwd": "tq113211"
+    "passwd": ""
   }
 }
