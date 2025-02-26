@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
-    'blog_auth'
+    'blog_auth',
+    'django_cron',
 ]
 
 MIDDLEWARE = [
@@ -211,3 +212,9 @@ redis = {
     'port': 6379,
     'passwd': 'tq113211',
 }
+
+# 配置celery和redis
+# CELERY_BROKER_URL = 'redis://:tq113211@localhost:6379/0'  # 使用 Redis 作为消息中间件
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+

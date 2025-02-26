@@ -1,4 +1,7 @@
+from os import access
+
 import redis
+from django.db.models import F
 
 from blog.models import Blog
 from blog_auth.views import logger
@@ -27,7 +30,5 @@ class BlogViewCountSingleton(object):
         blogview_count = self.get_blogview_count(blog_id)
 
         if blogview_count > 0:
-            blog = Blog.objects.get(id=blog_id)
-            blog.access_times += blogview_count
-            blog.save()
+            Blog.objects.filter(id=blog_id).update(access_times=F("access_times")+blogview_count)
             self._BlogViewCount[blog_id] = 0
