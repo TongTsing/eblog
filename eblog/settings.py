@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import json
 import os
 from pathlib import Path
 
@@ -81,15 +82,17 @@ WSGI_APPLICATION = 'eblog.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+Config = json.load(open(BASE_DIR / 'conf/conf.json'))
+MysqlConfig = Config["Mysql"]
+RedisConfig = Config["Redis"]
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        "HOST": "blog.hwserver.cn",
+        "HOST": MysqlConfig["HOST"],
         "PORT": 3306,
         'NAME': 'eblog',
         'USER': 'root',
-        'PASSWORD': 'Tq@113211',
+        'PASSWORD': MysqlConfig["PASSWORD"],
         'CREATE_DB': True,
     }
 }
@@ -207,14 +210,10 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
 CORS_ALLOW_ALL_ORIGINS = True  # 允许所有来源的跨域请求
 
 # redis
-redis = {
-    'ip': "ip.hwserver.cn",
-    'port': 6379,
-    'passwd': 'tq113211',
-}
+redis = RedisConfig
 
 # 配置celery和redis
-# CELERY_BROKER_URL = 'redis://:tq113211@localhost:6379/0'  # 使用 Redis 作为消息中间件
+# CELERY_BROKER_URL = 'redis://:passwd1@localhost:6379/0'  # 使用 Redis 作为消息中间件
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 
