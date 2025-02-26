@@ -73,47 +73,59 @@
                     </div>
                 {% endfor %}
             </div>
-
-            <!-- 分页部分 -->
-            <div class="pagination-container mt-4">
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        {% if blogs.has_previous %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </span>
-                            </li>
-                        {% endif %}
-
-                        <li class="page-item disabled">
-                            <span class="page-link">Page {{ blogs.number }} of {{ blogs.paginator.num_pages }}</span>
-                        </li>
-
-                        {% if blogs.has_next %}
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="page-item disabled">
-                                <span class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </span>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </nav>
-            </div>
         </div>
     </div>
+
+    <!-- 分页部分 (Moved to the Bottom) -->
+    <div class="pagination-container mt-4">
+        <nav>
+            <ul class="pagination justify-content-center">
+                <!-- 处理 "上一页" 按钮 -->
+                {% if blogs.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                    <span class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </span>
+                    </li>
+                {% endif %}
+
+                <!-- 页码列表 -->
+                {% for i in blogs.paginator.page_range %}
+                    <li class="page-item {% if blogs.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}&category_id={{ request.GET.category_id }}">
+                            {{ i }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+                <!-- 处理 "下一页" 按钮 -->
+                {% if blogs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                    <span class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+
 
     <script>
         // 监听所有radio按钮的点击事件

@@ -38,19 +38,31 @@ def handle_markdown(coententList: list = []) -> list:
 # @cache_page(60*10)
 @require_http_methods(["GET"])
 def index(request):
-    category_id = request.GET.get("category_id")
-    if category_id == None or category_id == '0':
-        logger.info(f'获取全部博客信息')
-        blogs = Blog.objects.filter(is_delete=False).all()[:10]
-        categories = BlogCategory.objects.all()
-    else:
-        logger.info(f'筛选博客类别id为{category_id}的博客')
-        blogs = BlogCategory.objects.get(id=int(category_id)).blogs.filter(is_delete=0).all()
-        categories = BlogCategory.objects.all()
+    # 获取category_id参数，如果没有则默认为空字符串
+    category_id = request.GET.get("category_id", '')
 
-    paginator = Paginator(blogs, 10)
+    # 如果category_id为空或无效，查询所有博客
+    if category_id == '' or not category_id.isdigit():
+        logger.info('获取全部博客信息')
+        blogs = Blog.objects.filter(is_delete=False).all()
+    else:
+        # 否则，按照category_id筛选博客
+        try:
+            category = BlogCategory.objects.get(id=int(category_id))
+            blogs = category.blogs.filter(is_delete=False)
+        except BlogCategory.DoesNotExist:
+            # 如果category_id无效（即没有找到对应的分类），则查询所有博客
+            logger.error(f"无效的category_id: {category_id}")
+            blogs = Blog.objects.filter(is_delete=False).all()
+
+    # 分页
+    paginator = Paginator(blogs, 10)  # 每页显示10篇博客
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+
+    # 获取所有博客分类，供筛选使用
+    categories = BlogCategory.objects.all()
+
     return render(request, "blog_index.html", {"blogs": page_obj, 'categories': categories})
 
 
