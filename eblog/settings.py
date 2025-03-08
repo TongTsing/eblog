@@ -94,6 +94,9 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': MysqlConfig["PASSWORD"],
         'CREATE_DB': True,
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
@@ -133,9 +136,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/blog/static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'static',  # If you have a global static folder
-# ]
+#STATICFILES_DIRS = [
+#     BASE_DIR / 'staticfiles',  # If you have a global static folder
+#]
 STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
@@ -197,6 +200,11 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': False,
         },
+        'django_cron': {
+            'handlers': ['file', ],
+            'level': 'DEBUG',
+            'propagate': False,
+        }
     },
 }
 
@@ -217,3 +225,7 @@ redis = RedisConfig
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 
+
+CRON_CLASSES = [
+    "blog.cron.BlogAccessCron",
+]

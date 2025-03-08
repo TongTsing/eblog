@@ -1,13 +1,16 @@
 from django_cron import CronJobBase, Schedule
 from .utils import BlogViewCountSingleton
-from .models import *
-from django.db.models import Q, F
+import logging
+
+
+logger = logging.getLogger('django_cron')
 
 class BlogAccessCron(CronJobBase):
-    scheduler = Schedule(run_every_mins=1)
+    schedule = Schedule(run_every_mins=1)
     code = "blog.cron.accesstimes"
 
     def do(self):
+        logger.log("Starting Cron")
         blogcount = BlogViewCountSingleton()
 
         for blog_id, access_times in blogcount.items():
