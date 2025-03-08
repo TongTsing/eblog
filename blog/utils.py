@@ -1,11 +1,10 @@
+import logging
 import threading
-from os import access
 
-import redis
 from django.db.models import F
 
 from blog.models import Blog
-from blog_auth.views import logger
+logger = logging.getLogger("django")
 
 
 class BlogViewCountSingleton(object):
