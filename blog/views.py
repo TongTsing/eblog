@@ -100,7 +100,7 @@ class blog_detail(View):
         blog_counter.increment_blogview_count(blog_id)
 
         # 获取评论树
-        comment_tree = self.get_nested_comments(parent_comment=blogDetail.comments.filter(is_delete=False, parent_comment__author__isnull=True))
+        comment_tree = self.get_nested_comments(parent_comment=blogDetail.comments.get(is_delete=False, parent_comment__author__isnull=True))
         logger.info(f"获取到评论树: {comment_tree}")
 
         # 获取评论数量
