@@ -28,6 +28,7 @@ class BlogViewCountSingleton(object):
             self._BlogViewCount[blog_id] += 1
 
     def save_to_database(self, blog_id=None):
+        print("saving blog visit count to database")
         with self._lock:
             if blog_id:
                 # Update only the specified blog
