@@ -30,6 +30,7 @@ class BlogViewCountSingleton(object):
 
     def save_to_database(self, blog_id):
         with self._lock:
+            logger.info(f"get lock")
             blogview_count = self.get_blogview_count(blog_id)
             if blogview_count > 0:
                 Blog.objects.filter(id=blog_id).update(access_times=F("access_times")+blogview_count)
