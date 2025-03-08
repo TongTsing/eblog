@@ -19,8 +19,7 @@ class BlogViewCountSingleton(object):
         return cls._instance
 
     def get_blogview_count(self, blog_id):
-        with self._lock:
-            return self._BlogViewCount.get(blog_id, 0)
+        return self._BlogViewCount.get(blog_id, 0)
 
     def increment_blogview_count(self, blog_id):
         with self._lock:
