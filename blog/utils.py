@@ -45,5 +45,6 @@ class BlogViewCountSingleton(object):
                     print("yes+++++++")
                     if count > 0:
                         logger.info(f"更新博客 {blog_id} 的访问计数")
+                        print(f"更新博客 {blog_id} 的访问计数: {count}")
                         Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
                         self._BlogViewCount[blog_id] = 0

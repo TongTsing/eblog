@@ -140,15 +140,7 @@
       <workItem from="1741316483398" duration="2000" />
       <workItem from="1741410456850" duration="2393000" />
       <workItem from="1741420338218" duration="4074000" />
-      <workItem from="1741426462828" duration="2505000" />
-    </task>
-    <task id="LOCAL-00115" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738346782039</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1738346782039</updated>
+      <workItem from="1741426462828" duration="2642000" />
     </task>
     <task id="LOCAL-00116" summary="评论展示">
       <option name="closed" value="true" />
@@ -534,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741428935191</updated>
     </task>
-    <option name="localTasksCounter" value="164" />
+    <task id="LOCAL-00164" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1741428976333</created>
+      <option name="number" value="00164" />
+      <option name="presentableId" value="LOCAL-00164" />
+      <option name="project" value="LOCAL" />
+      <updated>1741428976333</updated>
+    </task>
+    <option name="localTasksCounter" value="165" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
