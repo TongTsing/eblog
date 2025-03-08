@@ -64,12 +64,12 @@ def index(request):
 
 
 class blog_detail(View):
-    def get_nested_comments(self, parent_comment=None):
+    def get_nested_comments(self, parent_comment=None, blog_id=None):
         #
         logger.info(f"父评论：{parent_comment.id}")
 
         # 获取父评论的所有子评论
-        comments = BlogComment.objects.filter(parent_comment=parent_comment, is_delete=False).order_by('pub_time')
+        comments = BlogComment.objects.filter(parent_comment=parent_comment, blog_id=blog_id, is_delete=False).order_by('pub_time')
 
         # 遍历评论，构建嵌套数据结构
         comment_data = [
@@ -80,7 +80,7 @@ class blog_detail(View):
                     'content': comment.content,
                     'pub_time': comment.pub_time,
                 },
-                'replies': self.get_nested_comments(comment)  # 递归调用，获取该评论的回复
+                'replies': self.get_nested_comments(comment, blog_id)  # 递归调用，获取该评论的回复
             }
             for comment in comments
         ]
@@ -103,7 +103,7 @@ class blog_detail(View):
         blog_counter.increment_blogview_count(blog_id)
 
         # 获取评论树
-        comment_tree = self.get_nested_comments(parent_comment=blogDetail.comments.get(is_delete=False, parent_comment__author__isnull=True))
+        comment_tree = self.get_nested_comments(parent_comment=None, blog_id=blog_id)
         logger.info(f"获取到评论树: {comment_tree}")
 
         # 获取评论数量
