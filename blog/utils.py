@@ -27,12 +27,12 @@ class BlogViewCountSingleton(object):
                 self._BlogViewCount[blog_id] = 0
             self._BlogViewCount[blog_id] += 1
 
-    def save_to_database(self, blog_id):
+    def save_to_database(self, blog_id=None):
         with self._lock:
             logger.info(f"get lock")
             blogview_count = self.get_blogview_count(blog_id)
-            for blog in Blog.objects.filter(blog_id=blog_id):
-                if blogview_count > 0:
+            for blog_id, count in self._BlogViewCount.items():
+                if count > 0:
                     logger.info(f"save lock")
                     Blog.objects.filter(id=blog_id).update(access_times=F("access_times")+blogview_count)
-                        self._BlogViewCount[blog_id] = 0
+                    self._BlogViewCount[blog_id] = 0
