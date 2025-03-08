@@ -22,29 +22,28 @@ class BlogViewCountSingleton(object):
         return self._BlogViewCount.get(blog_id, 0)
 
     def increment_blogview_count(self, blog_id):
-        with self._lock:
-            if blog_id not in self._BlogViewCount:
-                self._BlogViewCount[blog_id] = 0
-            self._BlogViewCount[blog_id] += 1
+        if blog_id not in self._BlogViewCount:
+            self._BlogViewCount[blog_id] = 0
+        self._BlogViewCount[blog_id] += 1
 
     def save_to_database(self, blog_id=None):
         print("saving blog visit count to database")
-        with self._lock:
-            if blog_id:
-                print(f"saving blog id: {blog_id} visit count to database")
-                # Update only the specified blog
-                count = self._BlogViewCount.get(blog_id, 0)
-                print('count is ', count)
+
+        if blog_id:
+            print(f"saving blog id: {blog_id} visit count to database")
+            # Update only the specified blog
+            count = self._BlogViewCount.get(blog_id, 0)
+            print('count is ', count)
+            if count > 0:
+                logger.info(f"更新博客 {blog_id} 的访问计数")
+                Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
+                self._BlogViewCount[blog_id] = 0
+        else:
+            # Update all blogs with positive counts
+            for blog_id, count in self._BlogViewCount.items():
+                print("yes+++++++")
                 if count > 0:
                     logger.info(f"更新博客 {blog_id} 的访问计数")
+                    print(f"更新博客 {blog_id} 的访问计数: {count}")
                     Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
                     self._BlogViewCount[blog_id] = 0
-            else:
-                # Update all blogs with positive counts
-                for blog_id, count in self._BlogViewCount.items():
-                    print("yes+++++++")
-                    if count > 0:
-                        logger.info(f"更新博客 {blog_id} 的访问计数")
-                        print(f"更新博客 {blog_id} 的访问计数: {count}")
-                        Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
-                        self._BlogViewCount[blog_id] = 0
