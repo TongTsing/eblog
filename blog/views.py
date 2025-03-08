@@ -101,6 +101,7 @@ class blog_detail(View):
         blog_counter = BlogViewCountSingleton()
         blog_counter.increment_blogview_count(blog_id)
         logger.info(f"更新计数器完成")
+
         # 获取评论树
         comment_tree = self.get_nested_comments(parent_comment=None, blog_id=blog_id)
         logger.info(f"获取到评论树: {comment_tree}")

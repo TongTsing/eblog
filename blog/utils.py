@@ -14,8 +14,9 @@ class BlogViewCountSingleton(object):
     _lock = threading.Lock()  # 用于线程安全
 
     def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super().__new__(cls, *args, **kwargs)
+        with cls._lock:
+            if not cls._instance:
+                cls._instance = super().__new__(cls, *args, **kwargs)
         return cls._instance
 
     def get_blogview_count(self, blog_id):
@@ -29,10 +30,17 @@ class BlogViewCountSingleton(object):
 
     def save_to_database(self, blog_id=None):
         with self._lock:
-            logger.info(f"get lock")
-            blogview_count = self.get_blogview_count(blog_id)
-            for blog_id, count in self._BlogViewCount.items():
+            if blog_id:
+                # Update only the specified blog
+                count = self._BlogViewCount.get(blog_id, 0)
                 if count > 0:
                     logger.info(f"更新博客 {blog_id} 的访问计数")
-                    Blog.objects.filter(id=blog_id).update(access_times=F("access_times")+blogview_count)
+                    Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
                     self._BlogViewCount[blog_id] = 0
+            else:
+                # Update all blogs with positive counts
+                for blog_id, count in self._BlogViewCount.items():
+                    if count > 0:
+                        logger.info(f"更新博客 {blog_id} 的访问计数")
+                        Blog.objects.filter(id=blog_id).update(access_times=F("access_times") + count)
+                        self._BlogViewCount[blog_id] = 0
