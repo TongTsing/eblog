@@ -10,7 +10,7 @@ class BlogAccessCron(CronJobBase):
     code = "blog.cron.accesstimes"
 
     def do(self):
-        logger.log("Starting Cron")
+        logger.info("startting BlogAccessCron")
         blogcount = BlogViewCountSingleton()
 
         for blog_id, access_times in blogcount.items():
