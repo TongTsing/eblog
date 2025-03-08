@@ -10,6 +10,7 @@ class BlogAccessCron(CronJobBase):
     code = "blog.cron.accesstimes"
 
     def do(self):
+        print("do")
         logger.info("startting BlogAccessCron")
         blogcount = BlogViewCountSingleton()
         blogcount.save_to_database()
