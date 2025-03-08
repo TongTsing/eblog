@@ -31,6 +31,7 @@ class BlogViewCountSingleton(object):
         print("saving blog visit count to database")
         with self._lock:
             if blog_id:
+                print(f"saving blog id: {blog_id} visit count to database")
                 # Update only the specified blog
                 count = self._BlogViewCount.get(blog_id, 0)
                 if count > 0:
