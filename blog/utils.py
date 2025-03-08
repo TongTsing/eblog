@@ -33,6 +33,6 @@ class BlogViewCountSingleton(object):
             blogview_count = self.get_blogview_count(blog_id)
             for blog_id, count in self._BlogViewCount.items():
                 if count > 0:
-                    logger.info(f"save lock")
+                    logger.info(f"更新博客 {blog_id} 的访问计数")
                     Blog.objects.filter(id=blog_id).update(access_times=F("access_times")+blogview_count)
                     self._BlogViewCount[blog_id] = 0
