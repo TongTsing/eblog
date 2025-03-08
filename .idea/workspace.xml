@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/cron.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/cron.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -139,15 +138,7 @@
       <workItem from="1740552219614" duration="3405000" />
       <workItem from="1741313441103" duration="630000" />
       <workItem from="1741316483398" duration="2000" />
-      <workItem from="1741410456850" duration="2025000" />
-    </task>
-    <task id="LOCAL-00087" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738340596992</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1738340596992</updated>
+      <workItem from="1741410456850" duration="2085000" />
     </task>
     <task id="LOCAL-00088" summary="评论展示">
       <option name="closed" value="true" />
@@ -533,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741412422339</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1741412495624</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1741412495624</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

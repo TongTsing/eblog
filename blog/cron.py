@@ -13,6 +13,6 @@ class BlogAccessCron(CronJobBase):
         logger.info("startting BlogAccessCron")
         blogcount = BlogViewCountSingleton()
 
-        for blog_id, access_times in blogcount.items():
+        for blog_id, access_times in blogcount._BlogViewCount.items():
             if access_times:
                 blogcount.save_to_database(blog_id)
