@@ -65,7 +65,7 @@ def index(request):
 
 class blog_detail(View):
     def get_nested_comments(self, parent_comment=None, blog_id=None):
-
+        logger.info(f"获取博客的评论列表")
         # 获取父评论的所有子评论
         comments = BlogComment.objects.filter(parent_comment=parent_comment, blog_id=blog_id, is_delete=False).order_by('pub_time')
 
@@ -97,9 +97,10 @@ class blog_detail(View):
             return render(request, "404.html", status=404)
 
         # 增加访问计数
+        logger.info(f"更新计数器")
         blog_counter = BlogViewCountSingleton()
         blog_counter.increment_blogview_count(blog_id)
-        logger.info(f"更新计数器")
+        logger.info(f"更新计数器完成")
         blog_counter.save_to_database(blog_id)
 
         # 获取评论树
