@@ -65,8 +65,6 @@ def index(request):
 
 class blog_detail(View):
     def get_nested_comments(self, parent_comment=None, blog_id=None):
-        #
-        logger.info(f"父评论：{parent_comment.id}")
 
         # 获取父评论的所有子评论
         comments = BlogComment.objects.filter(parent_comment=parent_comment, blog_id=blog_id, is_delete=False).order_by('pub_time')
