@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="博客访问计数使用单例模式+django_cron优化数据库操作次数">
-      <change afterPath="$PROJECT_DIR$/conf/conf.json" afterDir="false" />
+    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="config文件">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/mysql.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eblog/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/eblog/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,15 +136,9 @@
       <workItem from="1738479453170" duration="1546000" />
       <workItem from="1740127192628" duration="7000" />
       <workItem from="1740533143863" duration="1960000" />
-      <workItem from="1740552219614" duration="2598000" />
-    </task>
-    <task id="LOCAL-00083" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738339823480</created>
-      <option name="number" value="00083" />
-      <option name="presentableId" value="LOCAL-00083" />
-      <option name="project" value="LOCAL" />
-      <updated>1738339823481</updated>
+      <workItem from="1740552219614" duration="3405000" />
+      <workItem from="1741313441103" duration="630000" />
+      <workItem from="1741316483398" duration="2000" />
     </task>
     <task id="LOCAL-00084" summary="评论展示">
       <option name="closed" value="true" />
@@ -532,7 +524,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740554282730</updated>
     </task>
-    <option name="localTasksCounter" value="132" />
+    <task id="LOCAL-00132" summary="config文件">
+      <option name="closed" value="true" />
+      <created>1740554840367</created>
+      <option name="number" value="00132" />
+      <option name="presentableId" value="LOCAL-00132" />
+      <option name="project" value="LOCAL" />
+      <updated>1740554840367</updated>
+    </task>
+    <option name="localTasksCounter" value="133" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,6 +577,7 @@
     <MESSAGE value="评论展示和级联删除" />
     <MESSAGE value="首页分页" />
     <MESSAGE value="博客访问计数使用单例模式+django_cron优化数据库操作次数" />
-    <option name="LAST_COMMIT_MESSAGE" value="博客访问计数使用单例模式+django_cron优化数据库操作次数" />
+    <MESSAGE value="config文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="config文件" />
   </component>
 </project>
