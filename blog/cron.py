@@ -12,4 +12,4 @@ class BlogAccessCron(CronJobBase):
     def do(self):
         print("do")
         blogcount = BlogViewCountSingleton()
-        print("blogcount.count", blogcount.get_blogview_count())
+        print("blogcount.count", blogcount.get_blogview_count(blog_id=1))

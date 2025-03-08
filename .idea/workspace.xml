@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/cron.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/cron.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,15 +140,7 @@
       <workItem from="1741316483398" duration="2000" />
       <workItem from="1741410456850" duration="2393000" />
       <workItem from="1741420338218" duration="4074000" />
-      <workItem from="1741426462828" duration="2931000" />
-    </task>
-    <task id="LOCAL-00118" summary="评论展示">
-      <option name="closed" value="true" />
-      <created>1738347142095</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1738347142095</updated>
+      <workItem from="1741426462828" duration="2943000" />
     </task>
     <task id="LOCAL-00119" summary="评论展示">
       <option name="closed" value="true" />
@@ -535,7 +526,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741429296957</updated>
     </task>
-    <option name="localTasksCounter" value="167" />
+    <task id="LOCAL-00167" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1741429403558</created>
+      <option name="number" value="00167" />
+      <option name="presentableId" value="LOCAL-00167" />
+      <option name="project" value="LOCAL" />
+      <updated>1741429403558</updated>
+    </task>
+    <option name="localTasksCounter" value="168" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
