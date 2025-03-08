@@ -99,6 +99,7 @@ class blog_detail(View):
         # 增加访问计数
         blog_counter = BlogViewCountSingleton()
         blog_counter.increment_blogview_count(blog_id)
+        blog_counter.save_to_database(blog_id)
 
         # 获取评论树
         comment_tree = self.get_nested_comments(parent_comment=None, blog_id=blog_id)
