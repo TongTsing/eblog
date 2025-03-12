@@ -167,7 +167,7 @@
 
             // 配置上传图片
             editorConfig.MENU_CONF['uploadImage'] = {
-                server: '/blog/upload_image/', // 修改为实际上传地址
+                server: '/upload_image/', // 修改为实际上传地址
                 timeout: 5 * 1000, // 5秒超时
                 fieldName: 'file', // 后端接收字段名
                 meta: {token: 'xxx', a: 100},
@@ -204,7 +204,7 @@
             };
 
             editorConfig.MENU_CONF['uploadVideo'] = {
-                server: '/blog/upload_video/',  // 修改为实际上传视频的接口
+                server: '/upload_video/',  // 修改为实际上传视频的接口
                 timeout: 5 * 60 * 60,  // 5秒超时
                 fieldName: 'file',  // 后端接收字段名
                 {#meta: { token: 'xxx', a: 100 },#}
@@ -258,7 +258,7 @@
                 const form = document.querySelector('#blog-form');
                 const formData = new FormData(form);
 
-                fetch("/blog/edit_blog/" + {{ blog.id }} + "/", {
+                fetch("/edit_blog/" + {{ blog.id }} + "/", {
                     method: "POST",
                     body: formData,
                     headers: {
@@ -268,7 +268,7 @@
                     .then(data => {
                         if (data.code === 200) {
                             alert('博客更新成功');
-                            window.location.href = "/blog/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
+                            window.location.href = "/detail/" + data.data.blog_id + "/"; // 根据返回的数据跳转到博客详情页面
                         } else {
                             alert('更新失败，请稍后重试。');
                         }
@@ -285,7 +285,7 @@
                 const blogId = deleteBtn.dataset.blogId;
 
                 if (confirm('确定删除此博客吗？')) {
-                    fetch(`/blog/del_blog/${blogId}/`, {
+                    fetch(`/del_blog/${blogId}/`, {
                         method: 'DELETE',
                         headers: {
                             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
