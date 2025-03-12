@@ -65,4 +65,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     EMAIL_FIELD = "email"
     USERNAME_FIELD = "email" # 使用email登录
-    REQUIRED_FIELDS = ["name"]
+    REQUIRED_FIELDS = ["username"]

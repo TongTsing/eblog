@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eblog/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/eblog/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog_auth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog_auth/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,15 +143,7 @@
       <workItem from="1741420338218" duration="4074000" />
       <workItem from="1741426462828" duration="7928000" />
       <workItem from="1741675432710" duration="66000" />
-      <workItem from="1741778182955" duration="922000" />
-    </task>
-    <task id="LOCAL-00123" summary="搜索结果分页跳转">
-      <option name="closed" value="true" />
-      <created>1738418110333</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1738418110333</updated>
+      <workItem from="1741778182955" duration="1303000" />
     </task>
     <task id="LOCAL-00124" summary="搜索结果分页跳转">
       <option name="closed" value="true" />
@@ -537,7 +529,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741779003372</updated>
     </task>
-    <option name="localTasksCounter" value="172" />
+    <task id="LOCAL-00172" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1741779118479</created>
+      <option name="number" value="00172" />
+      <option name="presentableId" value="LOCAL-00172" />
+      <option name="project" value="LOCAL" />
+      <updated>1741779118479</updated>
+    </task>
+    <option name="localTasksCounter" value="173" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
