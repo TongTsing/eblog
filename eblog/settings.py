@@ -135,7 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/blog/static/'
+STATIC_URL = '/static/'
 #STATICFILES_DIRS = [
 #     BASE_DIR / 'staticfiles',  # If you have a global static folder
 #]
@@ -209,7 +209,7 @@ LOGGING = {
 }
 
 # 配置图片路径
-MEDIA_URL = '/blog/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 # 设置最大上传文件大小，单位是字节（例如：100MB）
