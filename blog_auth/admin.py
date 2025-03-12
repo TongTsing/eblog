@@ -8,8 +8,25 @@ from .models import User
 class EblogUserAdmin(UserAdmin):
     model = User
     list_display = ('email', 'username', 'is_superuser', 'is_staff', 'date_joined')
-    # 默认的user中是有first_name和second_name的，自定义user模型中如果删除了这两个字段，需要排除
+
+    # 排除 first_name 和 last_name 字段
     exclude = ('first_name', 'last_name')
-    list_display = ('email', 'username', 'is_superuser', 'is_staff', 'date_joined')
+
+    # 自定义字段集，不包括 first_name 和 last_name
+    fieldsets = (
+        (None, {'fields': ('email', 'username', 'password')}),
+        ('Personal info', {'fields': ('profile', 'profile_picture')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+        ('Important dates', {'fields': ('last_login', 'date_joined')}),
+    )
+
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'username', 'password1', 'password2'),
+        }),
+        ('Personal info', {'fields': ('profile', 'profile_picture')}),
+        ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
+    )
 
 admin.site.register(User, EblogUserAdmin)

@@ -101,7 +101,14 @@ class EditProfileForm(forms.Form):
 class ChangePasswordForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = []
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'first_name' in self.fields:
+            del self.fields['first_name']
+        if 'last_name' in self.fields:
+            del self.fields['last_name']
 
     old_password = forms.CharField(widget=forms.PasswordInput, label="Old Password")
     new_password = forms.CharField(widget=forms.PasswordInput, label="New Password")
