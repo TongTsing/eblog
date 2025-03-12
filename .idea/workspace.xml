@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eblog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/eblog/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_pub.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_pub.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pub_blog.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pub_blog.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,15 +142,7 @@
       <workItem from="1741420338218" duration="4074000" />
       <workItem from="1741426462828" duration="7928000" />
       <workItem from="1741675432710" duration="66000" />
-      <workItem from="1741778182955" duration="511000" />
-    </task>
-    <task id="LOCAL-00121" summary="评论展示和级联删除">
-      <option name="closed" value="true" />
-      <created>1738347547038</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1738347547038</updated>
+      <workItem from="1741778182955" duration="812000" />
     </task>
     <task id="LOCAL-00122" summary="搜索结果分页跳转">
       <option name="closed" value="true" />
@@ -543,7 +528,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741429494743</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1741778727889</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1741778727889</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
