@@ -428,7 +428,7 @@ def upload_video(request):
     return JsonResponse({'errno': 1, 'message': '上传失败'})
 
 
-# @require_http_methods(['POST'])
+@csrf_exempt
 def requestDebugger(request):
     request_data = {
         'method': request.method,
