@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 
@@ -435,7 +436,7 @@ def requestDebugger(request):
         'path': request.path,
         'headers': dict(request.headers),
         'GET': request.GET.dict(),
-        'POST': request.POST.items()
+        'POST': request.POST.get("data")
     }
 
     # 返回请求的相关信息作为JSON响应
