@@ -431,23 +431,34 @@ def upload_video(request):
 
 @csrf_exempt
 def requestDebugger(request):
-    # 提取 GET 和 POST 数据
     if request.method == "POST":
-        # 检查是否有请求体内容
-        if request.body:
-            try:
-                post_data = json.loads(request.body.decode('utf-8'))  # 解码为字符串
-            except json.JSONDecodeError:
-                post_data = {}  # 如果解码失败，返回空字典
+        # 获取请求的头部信息
+        headers = dict(request.headers)
+
+        # 检查 Content-Type，判断是表单数据还是 JSON 数据
+        content_type = request.META.get('CONTENT_TYPE', '')
+
+        # 如果是 multipart/form-data 请求
+        if 'multipart/form-data' in content_type:
+            post_data = dict(request.POST)  # 获取表单数据
+            files_data = {key: [file.name for file in request.FILES.getlist(key)] for key in request.FILES}  # 获取文件数据
         else:
-            post_data = {}  # 如果请求体为空，返回空字典
+            # 处理 JSON 数据
+            if request.body:
+                try:
+                    post_data = json.loads(request.body.decode('utf-8'))  # 解码 JSON 数据
+                except json.JSONDecodeError:
+                    post_data = {}  # 如果解码失败，返回空字典
+            else:
+                post_data = {}
 
         request_data = {
             'method': request.method,
             'path': request.path,
-            'headers': dict(request.headers),
+            'headers': headers,
             'GET': dict(request.GET),
-            'POST': post_data
+            'POST': post_data,
+            'FILES': files_data if 'files_data' in locals() else {}
         }
     else:
         request_data = {
@@ -455,7 +466,8 @@ def requestDebugger(request):
             'path': request.path,
             'headers': dict(request.headers),
             'GET': dict(request.GET),
-            'POST': {}
+            'POST': {},
+            'FILES': {}
         }
 
     return JsonResponse(request_data)
