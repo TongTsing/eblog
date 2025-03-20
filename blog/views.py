@@ -430,11 +430,6 @@ def upload_video(request):
 
 
 @csrf_exempt
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-
-@csrf_exempt
 def requestDebugger(request):
     # 提取 GET 和 POST 数据
     if request.method == "POST":
