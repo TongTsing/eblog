@@ -146,15 +146,7 @@
       <workItem from="1742449097870" duration="1347000" />
       <workItem from="1742464348399" duration="89000" />
       <workItem from="1742464595618" duration="697000" />
-      <workItem from="1742467255219" duration="1537000" />
-    </task>
-    <task id="LOCAL-00135" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741412422339</created>
-      <option name="number" value="00135" />
-      <option name="presentableId" value="LOCAL-00135" />
-      <option name="project" value="LOCAL" />
-      <updated>1741412422339</updated>
+      <workItem from="1742467255219" duration="1660000" />
     </task>
     <task id="LOCAL-00136" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -540,7 +532,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742468312383</updated>
     </task>
-    <option name="localTasksCounter" value="184" />
+    <task id="LOCAL-00184" summary="新增web调试器接口">
+      <option name="closed" value="true" />
+      <created>1742468802110</created>
+      <option name="number" value="00184" />
+      <option name="presentableId" value="LOCAL-00184" />
+      <option name="project" value="LOCAL" />
+      <updated>1742468802110</updated>
+    </task>
+    <option name="localTasksCounter" value="185" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

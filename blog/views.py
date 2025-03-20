@@ -430,14 +430,38 @@ def upload_video(request):
 
 
 @csrf_exempt
-def requestDebugger(request):
-    request_data = {
-        'method': request.method,
-        'path': request.path,
-        'headers': dict(request.headers),
-        'GET': request.GET,
-        'POST': json.loads(request.body.decode('utf-8'))
-    }
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-    # 返回请求的相关信息作为JSON响应
+@csrf_exempt
+def requestDebugger(request):
+    # 提取 GET 和 POST 数据
+    if request.method == "POST":
+        # 检查是否有请求体内容
+        if request.body:
+            try:
+                post_data = json.loads(request.body.decode('utf-8'))  # 解码为字符串
+            except json.JSONDecodeError:
+                post_data = {}  # 如果解码失败，返回空字典
+        else:
+            post_data = {}  # 如果请求体为空，返回空字典
+
+        request_data = {
+            'method': request.method,
+            'path': request.path,
+            'headers': dict(request.headers),
+            'GET': dict(request.GET),
+            'POST': post_data
+        }
+    else:
+        request_data = {
+            'method': request.method,
+            'path': request.path,
+            'headers': dict(request.headers),
+            'GET': dict(request.GET),
+            'POST': {}
+        }
+
     return JsonResponse(request_data)
+
