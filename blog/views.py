@@ -426,3 +426,17 @@ def upload_video(request):
         })
     logger.info('上传视频失败')
     return JsonResponse({'errno': 1, 'message': '上传失败'})
+
+
+# @require_http_methods(['POST'])
+def requestDebugger(request):
+    request_data = {
+        'method': request.method,
+        'path': request.path,
+        'headers': dict(request.headers),
+        'GET': request.GET.dict(),
+        'POST': request.POST.dict(),
+    }
+
+    # 返回请求的相关信息作为JSON响应
+    return JsonResponse(request_data)
