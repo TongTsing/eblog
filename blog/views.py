@@ -435,8 +435,8 @@ def requestDebugger(request):
         'method': request.method,
         'path': request.path,
         'headers': dict(request.headers),
-        'GET': request.GET.dict(),
-        'POST': request.POST.get("data")
+        'GET': dict(request.GET),
+        'POST': dict(request.POST)
     }
 
     # 返回请求的相关信息作为JSON响应
