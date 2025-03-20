@@ -19,5 +19,5 @@ urlpatterns = [
     path('upload_image/', views.upload_image, name='upload_image'),
     # 视频上传路由
     path('upload_video/', views.upload_video, name='upload_video'),
-    path('requestDebugger/', views.request_debugger, name='request_debugger'),
+    path('requestDebugger/', views.requestDebugger, name='request_debugger'),
 ]
