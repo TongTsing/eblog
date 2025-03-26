@@ -42,7 +42,7 @@ def index(request):
     # 如果category_id为空或无效，查询所有博客
     if category_id == '' or not category_id.isdigit():
         logger.info('获取全部博客信息')
-        blogs = Blog.objects.filter(is_delete=False).all()
+        blogs = Blog.objects.filter(is_delete=False).order_by("-pub_time",).all()
     else:
         # 否则，按照category_id筛选博客
         try:
@@ -263,7 +263,7 @@ def search(request):
 # return render(request, 'blog_index.html', {'blogs': blogs})
 
 def blog_list(request):
-    blogs = Blog.objects.filter(is_delete=0)
+    blogs = Blog.objects.filter(is_delete=0).order_by('-pub_time').all()
     categories = BlogCategory.objects.all()
 
     paginator = Paginator(blogs, 10)
