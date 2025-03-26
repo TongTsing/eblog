@@ -43,6 +43,7 @@ def index(request):
     if category_id == '' or not category_id.isdigit():
         logger.info('获取全部博客信息')
         blogs = Blog.objects.filter(is_delete=False).order_by("-pub_time",).all()
+        logger.info(f"get {len(blogs)} blogs...")
     else:
         # 否则，按照category_id筛选博客
         try:
