@@ -26,7 +26,10 @@
                                  style="background-color: #f9f9f9; padding: 15px; border-radius: 0.25rem;">
                                 <h5 class="card-title">
                                     <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
-                                       style="text-decoration: none; color: #333;">{{ blogDetail.title }}</a>
+                                       style="text-decoration: none; color: #333;"
+                                       class="text-primary  p-2">>
+                                        {{ blogDetail.title }}
+                                    </a>
                                 </h5>
                                 <p class="card-text mb-2">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
                                 <div class="text-body-secondary d-flex justify-content-between">
