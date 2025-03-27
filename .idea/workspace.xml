@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="搜索、首页使用博客发布时间倒序">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index博客标题样式">
       <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -150,15 +149,7 @@
       <workItem from="1742467255219" duration="2098000" />
       <workItem from="1742976594755" duration="1496000" />
       <workItem from="1742982335039" duration="1584000" />
-      <workItem from="1743042597121" duration="248000" />
-    </task>
-    <task id="LOCAL-00141" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741421754884</created>
-      <option name="number" value="00141" />
-      <option name="presentableId" value="LOCAL-00141" />
-      <option name="project" value="LOCAL" />
-      <updated>1741421754884</updated>
+      <workItem from="1743042597121" duration="392000" />
     </task>
     <task id="LOCAL-00142" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -544,7 +535,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742982383784</updated>
     </task>
-    <option name="localTasksCounter" value="190" />
+    <task id="LOCAL-00190" summary="更改index博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743042867686</created>
+      <option name="number" value="00190" />
+      <option name="presentableId" value="LOCAL-00190" />
+      <option name="project" value="LOCAL" />
+      <updated>1743042867686</updated>
+    </task>
+    <option name="localTasksCounter" value="191" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,6 +594,7 @@
     <MESSAGE value="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
     <MESSAGE value="新增web调试器接口" />
     <MESSAGE value="搜索、首页使用博客发布时间倒序" />
-    <option name="LAST_COMMIT_MESSAGE" value="搜索、首页使用博客发布时间倒序" />
+    <MESSAGE value="更改index博客标题样式" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改index博客标题样式" />
   </component>
 </project>
