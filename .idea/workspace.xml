@@ -149,15 +149,7 @@
       <workItem from="1742467255219" duration="2098000" />
       <workItem from="1742976594755" duration="1496000" />
       <workItem from="1742982335039" duration="1584000" />
-      <workItem from="1743042597121" duration="1191000" />
-    </task>
-    <task id="LOCAL-00149" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741426789443</created>
-      <option name="number" value="00149" />
-      <option name="presentableId" value="LOCAL-00149" />
-      <option name="project" value="LOCAL" />
-      <updated>1741426789444</updated>
+      <workItem from="1743042597121" duration="1229000" />
     </task>
     <task id="LOCAL-00150" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -543,7 +535,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743043736592</updated>
     </task>
-    <option name="localTasksCounter" value="198" />
+    <task id="LOCAL-00198" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743043798395</created>
+      <option name="number" value="00198" />
+      <option name="presentableId" value="LOCAL-00198" />
+      <option name="project" value="LOCAL" />
+      <updated>1743043798395</updated>
+    </task>
+    <option name="localTasksCounter" value="199" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
