@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index博客标题样式">
-      <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,15 +149,7 @@
       <workItem from="1742467255219" duration="2098000" />
       <workItem from="1742976594755" duration="1496000" />
       <workItem from="1742982335039" duration="1584000" />
-      <workItem from="1743042597121" duration="479000" />
-    </task>
-    <task id="LOCAL-00143" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741422002203</created>
-      <option name="number" value="00143" />
-      <option name="presentableId" value="LOCAL-00143" />
-      <option name="project" value="LOCAL" />
-      <updated>1741422002203</updated>
+      <workItem from="1743042597121" duration="629000" />
     </task>
     <task id="LOCAL-00144" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -543,7 +535,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743043020477</updated>
     </task>
-    <option name="localTasksCounter" value="192" />
+    <task id="LOCAL-00192" summary="更改index博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743043085004</created>
+      <option name="number" value="00192" />
+      <option name="presentableId" value="LOCAL-00192" />
+      <option name="project" value="LOCAL" />
+      <updated>1743043085004</updated>
+    </task>
+    <option name="localTasksCounter" value="193" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
