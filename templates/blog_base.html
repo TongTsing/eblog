@@ -8,40 +8,32 @@
     <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block head %}{% endblock %}
-
 </head>
 <body>
 <header class="p-3 bg-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start ">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+    <div class="container-fluid">
+        <div class="d-flex flex-wrap align-items-center justify-content-between">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
                 <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
             </a>
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 <li><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark">首页</a></li>
                 <li><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-dark">发布博客</a></li>
-
                 <li><a href="/blog_list" class="nav-link px-2 text-dark">博客列表</a></li>
             </ul>
 
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search' %}"
-                  method="get">
-                <input type="search" class="form-control" placeholder="搜索..."
-                       aria-label="Search" name="q">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search' %}" method="get">
+                <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
             </form>
 
             {% if user.is_authenticated %}
             <div class="dropdown text-end">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
-                   data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src={{ user.profile_picture.url }} alt={{ user.username }} width="32" height="32"
-                         class="rounded-circle">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="{% url 'auth:profile' %}">个人信息</a></li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'auth:logout' %}">退出登录</a></li>
                 </ul>
             </div>

@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
-      <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/eblog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eblog.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +36,6 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="SIGN_OFF_COMMIT" value="true" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -83,7 +84,31 @@
     ]
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Django 服务器.eblog">
+    <configuration name="eblog" type="Python.DjangoServer" factoryName="Django server">
+      <module name="eblog" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="tx-django" type="Python.DjangoServer" factoryName="Django server">
       <module name="eblog" />
       <option name="ENV_FILES" value="" />
@@ -150,6 +175,8 @@
       <workItem from="1742976594755" duration="1496000" />
       <workItem from="1742982335039" duration="1584000" />
       <workItem from="1743042597121" duration="1293000" />
+      <workItem from="1743143009430" duration="31000" />
+      <workItem from="1743143042900" duration="101000" />
     </task>
     <task id="LOCAL-00151" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
