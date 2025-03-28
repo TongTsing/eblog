@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
-      <change beforePath="$PROJECT_DIR$/.idea/eblog.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/eblog.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -176,15 +174,7 @@
       <workItem from="1742982335039" duration="1584000" />
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
-      <workItem from="1743143042900" duration="101000" />
-    </task>
-    <task id="LOCAL-00151" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741426907569</created>
-      <option name="number" value="00151" />
-      <option name="presentableId" value="LOCAL-00151" />
-      <option name="project" value="LOCAL" />
-      <updated>1741426907569</updated>
+      <workItem from="1743143042900" duration="206000" />
     </task>
     <task id="LOCAL-00152" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -570,7 +560,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743043840721</updated>
     </task>
-    <option name="localTasksCounter" value="200" />
+    <task id="LOCAL-00200" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743143159446</created>
+      <option name="number" value="00200" />
+      <option name="presentableId" value="LOCAL-00200" />
+      <option name="project" value="LOCAL" />
+      <updated>1743143159446</updated>
+    </task>
+    <option name="localTasksCounter" value="201" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
