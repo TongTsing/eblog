@@ -19,9 +19,10 @@
                     <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32">
                 </a>
                 <ul class="nav flex-nowrap mb-2 ms-1">
-                    <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-3 text-dark">首页</a></li>
-                    <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-3 text-dark">发布博客</a></li>
-                    <li class="nav-item"><a href="/blog_list" class="nav-link px-3 text-dark">博客列表</a></li>
+                    <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark fs-5">首页</a></li>
+                    <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-dark fs-5">发布博客</a></li>
+                    <li class="nav-item"><a href="/blog_list" class="nav-link px-2 text-dark fs-5">博客列表</a></li>
+                    <li class="nav-item"><a href="/categories" class="nav-link px-2 text-dark fs-5">分类</a></li>
                 </ul>
             </div>
 
@@ -52,6 +53,7 @@
         </div>
     </div>
 </header>
+
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
