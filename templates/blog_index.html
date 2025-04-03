@@ -33,30 +33,30 @@
         <!-- 博客列表部分 -->
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for blogDetail in blogs %}
-                <div class="col">
-                    <div class="card shadow-lg border-0 rounded-3">
+                <div class="col d-flex">
+                    <div class="card shadow-lg border-0 rounded-3 d-flex flex-column">
                         <div class="row g-0">
-                            {% if blogDetail.image %}
-                                <div class="col-md-4">
+                            <div class="col-md-4">
+                                {% if blogDetail.image %}
                                     <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
                                          alt="{{ blogDetail.title }}"
                                          style="object-fit: cover; height: 200px;">
-                                </div>
-                            {% else %}
-                                <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
-                                    <span class="text-muted">无图片</span>
-                                </div>
-                            {% endif %}
+                                {% else %}
+                                    <div class="d-flex justify-content-center align-items-center bg-light" style="height: 200px;">
+                                        <span class="text-muted">无图片</span>
+                                    </div>
+                                {% endif %}
+                            </div>
                             <div class="col-md-8">
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">
                                         <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
                                            class="text-dark text-decoration-none">
                                             {{ blogDetail.title }}
                                         </a>
                                     </h5>
-                                    <p class="card-text mb-3">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
-                                    <div class="d-flex justify-content-between text-muted">
+                                    <p class="card-text mb-3 text-muted">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
+                                    <div class="d-flex justify-content-between text-muted mt-auto">
                                         <div class="d-flex align-items-center">
                                             <img src="{{ blogDetail.author.profile_picture.url }}"
                                                  class="rounded-circle" width="30" height="30"
@@ -133,6 +133,20 @@
             background-color: #007bff;
             color: white;
             border-color: #007bff;
+        }
+
+        /* 使每个卡片大小一致 */
+        .card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* 图片区域大小自适应 */
+        .card img {
+            object-fit: cover;
+            height: 200px;
+            width: 100%;
         }
 
         /* 优化分页按钮的样式 */
