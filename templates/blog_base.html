@@ -10,15 +10,13 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-3 bg-white shadow-sm rounded-3">
-    <div class="container-fluid">
+<header class="p-3 bg-white shadow-sm rounded-3 position-relative">
+    <div class="container-fluid position-relative" style="z-index: 2;">
         <div class="d-flex justify-content-between align-items-center">
             <!-- Logo and Blog Title -->
             <div class="d-flex align-items-center">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="max-width: 40px; height: auto;">
-                    <!-- Adjusted quote text -->
-                    <p class="mb-0 fw-bold text-primary" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">“无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。”</p>
                 </a>
             </div>
 
@@ -63,45 +61,28 @@
 </header>
 
 <style>
-    /* Ensure blog.jpg doesn't overflow its container */
-    header img {
-        max-width: 40px; /* Limit width to 40px */
-        height: auto; /* Maintain aspect ratio */
+    /* 背景文字 */
+    header::before {
+        content: "无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.1);  /* 透明度 */
+        white-space: nowrap;
+        z-index: 1;
+        pointer-events: none;  /* 避免影响交互 */
     }
 
-    /* Ensure the quote text doesn't take too much space and doesn't interfere */
-    header p {
-        max-width: 250px;
-        white-space: nowrap; /* Avoid text wrapping */
-        overflow: hidden;
-        text-overflow: ellipsis; /* Add ellipsis if the text overflows */
-        margin-bottom: 0;
-    }
-
-    /* Hover effect on nav links */
-    .nav-link:hover {
-        color: #007bff;
-        text-decoration: underline;
-    }
-
-    /* Button hover effect */
-    .btn-outline-primary:hover {
-        background-color: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
-
-    .btn-outline-warning:hover {
-        background-color: #f39c12;
-        color: white;
-        border-color: #f39c12;
-    }
-
-    /* Dropdown user avatar border effect */
-    .dropdown-toggle:hover img {
-        border-color: #007bff;
+    /* 确保 header 里的内容在背景文字之上 */
+    header .container-fluid {
+        position: relative;
+        z-index: 2;
     }
 </style>
+π
 
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
