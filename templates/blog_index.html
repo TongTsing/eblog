@@ -3,24 +3,24 @@
 {% block title %}博客首页{% endblock %}
 
 {% block main %}
-    <div class="container mt-4">
+    <div class="container mt-5">
         <!-- 分类选择部分 -->
         <div class="row mt-4">
             <div class="col-12 mb-4">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg border-0">
                     <div class="card-body">
                         <form method="GET" action="{% url 'blog:index' %}" id="category-filter-form">
-                            <div class="d-flex flex-wrap" style="gap: 8px;">
+                            <div class="d-flex flex-wrap" style="gap: 12px;">
                                 <input type="radio" class="btn-check" name="category_id" id="all" autocomplete="off"
                                        value="0" {% if not request.GET.category_id %}checked{% endif %}>
-                                <label class="btn btn-link rounded-3 text-light-gray" for="all">全部</label>
+                                <label class="btn btn-outline-primary rounded-pill px-4 py-2" for="all">全部</label>
 
                                 {% for category in categories %}
                                     <input type="radio" class="btn-check" name="category_id"
                                            id="category-{{ category.id }}" autocomplete="off"
                                            value="{{ category.id }}"
                                            {% if request.GET.category_id == category.id|stringformat:"s" %}checked{% endif %}>
-                                    <label class="btn btn-link rounded-3 text-light-gray"
+                                    <label class="btn btn-outline-secondary rounded-pill px-4 py-2"
                                            for="category-{{ category.id }}">{{ category.name }}</label>
                                 {% endfor %}
                             </div>
@@ -31,38 +31,40 @@
         </div>
 
         <!-- 博客列表部分 -->
-        <div class="row row-cols-1 row-cols-md-1 row-gap-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {% for blogDetail in blogs %}
                 <div class="col">
-                    <div class="card shadow-sm d-flex flex-row align-items-start" style="border: none;">
-                        {% if blogDetail.image %}
-                            <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
-                                 alt="{{ blogDetail.title }}"
-                                 style="width: 150px; height: 150px; object-fit: cover; margin-right: 15px;">
-                        {% else %}
-                            <div style="width: 150px; height: 150px; background-color: #f2f2f2; margin-right: 15px; display: flex; align-items: center; justify-content: center;">
-                                <span style="color: #bbb;">无图片</span>
-                            </div>
-                        {% endif %}
-
-                        <div class="flex-grow-1" style="background-color: #f9f9f9; padding: 15px; border-radius: 0.25rem;">
-                            <h5 class="card-title">
-                                <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
-                                   style="text-decoration: none; color: #333;"
-                                   class="text-primary  p-2">
-                                    {{ blogDetail.title }}
-                                </a>
-                            </h5>
-                            <p class="card-text mb-2">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
-                            <div class="text-body-secondary d-flex justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ blogDetail.author.profile_picture.url }}"
-                                         class="rounded-circle"
-                                         width="30" height="30" alt="{{ blogDetail.author.username }}">
-                                    <span class="ms-2">{{ blogDetail.author.username }}</span>
+                    <div class="card shadow-lg border-0 rounded-3">
+                        <div class="row g-0">
+                            {% if blogDetail.image %}
+                                <div class="col-md-4">
+                                    <img src="{{ blogDetail.image.url }}" class="img-fluid rounded-start"
+                                         alt="{{ blogDetail.title }}"
+                                         style="object-fit: cover; height: 200px;">
                                 </div>
-                                <div>
-                                    发布时间：{{ blogDetail.pub_time|date:"Y年m月d日: h时i分" }}
+                            {% else %}
+                                <div class="col-md-4 d-flex align-items-center justify-content-center bg-light">
+                                    <span class="text-muted">无图片</span>
+                                </div>
+                            {% endif %}
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{% url 'blog:blog_detail' blog_id=blogDetail.id %}"
+                                           class="text-dark text-decoration-none">
+                                            {{ blogDetail.title }}
+                                        </a>
+                                    </h5>
+                                    <p class="card-text mb-3">{{ blogDetail.content|striptags|truncatechars:100|safe }}</p>
+                                    <div class="d-flex justify-content-between text-muted">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{ blogDetail.author.profile_picture.url }}"
+                                                 class="rounded-circle" width="30" height="30"
+                                                 alt="{{ blogDetail.author.username }}">
+                                            <span class="ms-2">{{ blogDetail.author.username }}</span>
+                                        </div>
+                                        <div>{{ blogDetail.pub_time|date:"Y年m月d日: h时i分" }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +76,7 @@
         <!-- 分页部分 -->
         <div class="pagination-container mt-4 d-flex justify-content-center align-items-center">
             <nav>
-                <ul class="pagination pagination-sm justify-content-center shadow-sm rounded-3">
+                <ul class="pagination pagination-sm justify-content-center shadow-lg rounded-3">
                     <!-- "上一页" 按钮 -->
                     {% if blogs.has_previous %}
                         <li class="page-item">
@@ -126,6 +128,13 @@
     </div>
 
     <style>
+        /* 分类按钮优化 */
+        .btn-check:checked + .btn {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
         /* 优化分页按钮的样式 */
         .pagination .page-item {
             margin: 0 6px;
@@ -156,6 +165,7 @@
             cursor: not-allowed;
         }
 
+        /* 跳转输入框优化 */
         .pagination-container .input-group {
             margin-left: 16px;
         }
