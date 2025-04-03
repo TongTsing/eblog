@@ -7,51 +7,42 @@
     <script src="{% static 'jquery/jquery-3.7.1.js' %}"></script>
     <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    <style>
+    {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-2 bg-white">
-    <div class="header-overlay"></div>
-    <div class="container-fluid header-content">
+<header class="p-3 bg-white">
+    <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <!-- 左侧 Logo 和导航 -->
-            <div class="d-flex align-items-center header-logo">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-2">
-                    <img src="/media/images/blog.jpg" alt="Blog Icon">
+            <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none">
+                <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
+            </a>
+            <ul class="nav flex-nowrap mb-2">
+                <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark">首页</a></li>
+                <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-dark">发布博客</a></li>
+                <li class="nav-item"><a href="/blog_list" class="nav-link px-2 text-dark">博客列表</a></li>
+            </ul>
+
+            <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search' %}" method="get">
+                <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
+            </form>
+
+            {% if user.is_authenticated %}
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle">
                 </a>
-                <ul class="nav flex-nowrap mb-2 ms-1">
-                    <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link text-dark">首页</a></li>
-                    <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link text-dark">发布博客</a></li>
-                    <li class="nav-item"><a href="/blog_list" class="nav-link text-dark">博客列表</a></li>
+                <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="{% url 'auth:profile' %}">个人信息</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{% url 'auth:logout' %}">退出登录</a></li>
                 </ul>
             </div>
-
-            <!-- 右侧 搜索框、用户信息 -->
-            <div class="d-flex align-items-center ms-auto">
-                <div class="search-bar">
-                    <form class="d-flex me-3" role="search" action="{% url 'blog:search' %}" method="get">
-                        <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
-                    </form>
-                </div>
-
-                {% if user.is_authenticated %}
-                <div class="dropdown text-end user-profile">
-                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}">
-                    </a>
-                    <ul class="dropdown-menu text-small">
-                        <li><a class="dropdown-item" href="{% url 'auth:profile' %}">个人信息</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'auth:logout' %}">退出登录</a></li>
-                    </ul>
-                </div>
-                {% else %}
-                <div class="user-buttons text-end">
-                    <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary me-2">登陆</a>
-                    <a href="{% url 'auth:register' %}" type="button" class="btn btn-warning">注册</a>
-                </div>
-                {% endif %}
+            {% else %}
+            <div class="text-end">
+                <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary me-2">登陆</a>
+                <a href="{% url 'auth:register' %}" type="button" class="btn btn-warning">注册</a>
             </div>
+            {% endif %}
         </div>
     </div>
 </header>
