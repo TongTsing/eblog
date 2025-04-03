@@ -124,3 +124,33 @@
 
 </body>
 </html>
+{% block footer %}
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <p class="mb-0">© {{ current_year }} Your Blog Name. All rights reserved.</p>
+                </div>
+                <div class="col-12 col-md-6 text-md-end">
+                    <ul class="list-unstyled d-inline-flex">
+                        <li class="ms-3">
+                            <a href="#" class="text-light" target="_blank" rel="noopener">
+                                <i class="fab fa-facebook-f"></i> Facebook
+                            </a>
+                        </li>
+                        <li class="ms-3">
+                            <a href="#" class="text-light" target="_blank" rel="noopener">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </a>
+                        </li>
+                        <li class="ms-3">
+                            <a href="#" class="text-light" target="_blank" rel="noopener">
+                                <i class="fab fa-instagram"></i> Instagram
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
