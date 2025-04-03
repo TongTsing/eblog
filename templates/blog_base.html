@@ -21,9 +21,12 @@
             font-weight: 500;
             color: #333;
             text-decoration: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 25px;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .nav-link:hover, .nav-link:focus {
             background-color: #f0ad4e;
@@ -37,6 +40,9 @@
             padding: 10px 20px;
             border: none;
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .btn-highlight:hover {
             background-color: #ec971f;
@@ -81,15 +87,15 @@
             height: 40px;
             padding: 0 15px;
             font-size: 0.9rem;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            line-height: 40px; /* Ensure the text stays on one line */
+            line-height: normal; /* Ensure the text stays on one line */
         }
 
         /* Adjust the nav-link style to match button style */
         .nav-link {
-            display: inline-block;
+            display: inline-flex;
             padding: 10px 20px;
             font-size: 1.125rem;
             border-radius: 25px;
@@ -97,7 +103,8 @@
             color: white;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
-            line-height: 40px; /* Keep the text on a single line */
+            align-items: center;
+            justify-content: center;
         }
 
         .nav-link:hover, .nav-link:focus {
@@ -149,6 +156,7 @@
         </div>
     </div>
 </header>
+
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
