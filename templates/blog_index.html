@@ -80,119 +80,119 @@
     </div>
 
     <!-- 分页部分 -->
-<div class="pagination-container mt-4 d-flex justify-content-center align-items-center">
-    <nav class="w-100">
-        <ul class="pagination pagination-lg justify-content-center shadow-sm rounded-3">
-            <!-- "上一页" 按钮 -->
-            {% if blogs.has_previous %}
-                <li class="page-item">
-                    <a class="page-link text-primary fw-bold"
-                       href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}"
-                       aria-label="Previous">
-                        &laquo; 上一页
-                    </a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link text-muted"> &laquo; 上一页 </span>
-                </li>
-            {% endif %}
-
-            <!-- 动态显示页码 (省略分页) -->
-            {% for i in blogs.paginator.page_range %}
-                {% if i == 1 or i == blogs.paginator.num_pages or (i >= blogs.number|add:"-2" and i <= blogs.number|add:"2") %}
-                    <li class="page-item {% if blogs.number == i %}active{% endif %}">
-                        <a class="page-link {% if blogs.number == i %}bg-primary text-white fw-bold{% else %}text-dark{% endif %}"
-                           href="?page={{ i }}&category_id={{ request.GET.category_id }}">
-                            {{ i }}
+    <div class="pagination-container mt-4 d-flex justify-content-center align-items-center">
+        <nav class="w-100">
+            <ul class="pagination pagination-lg justify-content-center shadow-sm rounded-3">
+                <!-- "上一页" 按钮 -->
+                {% if blogs.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link text-primary fw-bold"
+                           href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}"
+                           aria-label="Previous">
+                            &laquo; 上一页
                         </a>
                     </li>
-                {% elif i == blogs.number|add:"-3" or i == blogs.number|add:"3" %}
+                {% else %}
                     <li class="page-item disabled">
-                        <span class="page-link">...</span>
+                        <span class="page-link text-muted"> &laquo; 上一页 </span>
                     </li>
                 {% endif %}
-            {% endfor %}
 
-            <!-- "下一页" 按钮 -->
-            {% if blogs.has_next %}
-                <li class="page-item">
-                    <a class="page-link text-primary fw-bold"
-                       href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}"
-                       aria-label="Next">
-                        下一页 &raquo;
-                    </a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <span class="page-link text-muted"> 下一页 &raquo; </span>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
+                <!-- 动态显示页码 (省略分页) -->
+                {% for i in blogs.paginator.page_range %}
+                    {% if i == 1 or i == blogs.paginator.num_pages or (i >= blogs.number|add:"-2" and i <= blogs.number|add:"2") %}
+                        <li class="page-item {% if blogs.number == i %}active{% endif %}">
+                            <a class="page-link {% if blogs.number == i %}bg-primary text-white fw-bold{% else %}text-dark{% endif %}"
+                               href="?page={{ i }}&category_id={{ request.GET.category_id }}">
+                                {{ i }}
+                            </a>
+                        </li>
+                    {% elif i == blogs.number|add:"-3" or i == blogs.number|add:"3" %}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
 
-    <!-- 跳转到指定页的输入框 -->
-    <form method="GET" action="{% url 'blog:index' %}" class="d-flex ms-4 align-items-center">
-        <label for="page-input" class="text-secondary me-2">跳转到：</label>
-        <div class="input-group" style="max-width: 200px;">
-            <input type="number" class="form-control" name="page" id="page-input" min="1" max="{{ blogs.paginator.num_pages }}"
-                   value="{{ blogs.number }}" placeholder="页码" style="width: 100px;">
-            <button class="btn btn-primary" type="submit">跳转</button>
-        </div>
-        <input type="hidden" name="category_id" value="{{ request.GET.category_id }}">
-    </form>
-</div>
+                <!-- "下一页" 按钮 -->
+                {% if blogs.has_next %}
+                    <li class="page-item">
+                        <a class="page-link text-primary fw-bold"
+                           href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}"
+                           aria-label="Next">
+                            下一页 &raquo;
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link text-muted"> 下一页 &raquo; </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
 
-<style>
-    /* 优化分页按钮的样式 */
-    .pagination .page-item {
-        margin: 0 8px;
-    }
+        <!-- 跳转到指定页的输入框 -->
+        <form method="GET" action="{% url 'blog:index' %}" class="d-flex ms-4 align-items-center">
+            <label for="page-input" class="text-secondary me-2">跳转到：</label>
+            <div class="input-group" style="max-width: 200px;">
+                <input type="number" class="form-control" name="page" id="page-input" min="1" max="{{ blogs.paginator.num_pages }}"
+                       value="{{ blogs.number }}" placeholder="页码" style="width: 100px;">
+                <button class="btn btn-primary" type="submit">跳转</button>
+            </div>
+            <input type="hidden" name="category_id" value="{{ request.GET.category_id }}">
+        </form>
+    </div>
 
-    .pagination .page-item .page-link {
-        border-radius: 12px;
-        transition: all 0.3s ease-in-out;
-        border: none;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+    <style>
+        /* 优化分页按钮的样式 */
+        .pagination .page-item {
+            margin: 0 8px;
+        }
 
-    .pagination .page-item .page-link:hover {
-        background-color: #007bff;
-        color: #fff;
-    }
+        .pagination .page-item .page-link {
+            border-radius: 12px;
+            transition: all 0.3s ease-in-out;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .pagination .page-item.active .page-link {
-        background-color: #007bff;
-        color: #fff;
-        font-weight: bold;
-        border-radius: 12px;
-    }
+        .pagination .page-item .page-link:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
 
-    .pagination .page-item.disabled .page-link {
-        background-color: #f8f9fa;
-        color: #aaa;
-        cursor: not-allowed;
-    }
+        .pagination .page-item.active .page-link {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 12px;
+        }
 
-    /* 优化输入框和按钮的布局 */
-    .pagination-container .input-group {
-        margin-left: 20px;
-    }
+        .pagination .page-item.disabled .page-link {
+            background-color: #f8f9fa;
+            color: #aaa;
+            cursor: not-allowed;
+        }
 
-    .pagination-container .input-group .form-control {
-        border-radius: 8px;
-        font-size: 14px;
-    }
+        /* 优化输入框和按钮的布局 */
+        .pagination-container .input-group {
+            margin-left: 20px;
+        }
 
-    .pagination-container .input-group button {
-        border-radius: 8px;
-        padding: 0 16px;
-    }
+        .pagination-container .input-group .form-control {
+            border-radius: 8px;
+            font-size: 14px;
+        }
 
-    .pagination-container .page-link {
-        font-size: 16px;
-    }
-</style>
+        .pagination-container .input-group button {
+            border-radius: 8px;
+            padding: 0 16px;
+        }
+
+        .pagination-container .page-link {
+            font-size: 16px;
+        }
+    </style>
 
     <script>
         // 监听所有radio按钮的点击事件
