@@ -20,11 +20,15 @@
             font-size: 1.125rem;
             font-weight: 500;
             color: #333;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         .nav-link:hover, .nav-link:focus {
-            color: #007bff;
+            background-color: #f0ad4e;
+            color: white;
             transform: scale(1.05);
-            text-decoration: underline;
         }
         .btn-highlight {
             background-color: #f0ad4e;
@@ -65,10 +69,38 @@
         .container-fluid {
             max-width: 1200px;
         }
-        /* Adjust the login/register buttons to be inline */
+
+        /* Ensure the buttons are the same height and aligned correctly */
         .auth-buttons {
             display: flex;
             gap: 10px;
+            align-items: center;
+        }
+
+        .auth-buttons .btn {
+            height: 40px;
+            padding: 0 15px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Adjust the nav-link style to match button style */
+        .nav-link {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.125rem;
+            border-radius: 25px;
+            background-color: #f0ad4e;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            background-color: #ec971f;
+            transform: scale(1.05);
         }
     </style>
     <div class="container-fluid">
@@ -79,10 +111,10 @@
                 </a>
                 <ul class="nav flex-nowrap mb-2">
                     <li class="nav-item">
-                        <a href="{% url 'blog:index' %}" class="nav-link hover-link">首页</a>
+                        <a href="{% url 'blog:index' %}" class="nav-link">首页</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/blog_list" class="nav-link hover-link">博客列表</a>
+                        <a href="/blog_list" class="nav-link">博客列表</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'blog:pub_blog' %}" class="nav-link btn-highlight">发布博客</a>
@@ -115,6 +147,7 @@
         </div>
     </div>
 </header>
+π
 
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
