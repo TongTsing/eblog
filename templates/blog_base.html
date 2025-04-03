@@ -10,13 +10,14 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-3 bg-white shadow-sm rounded-3 position-relative">
-    <div class="container-fluid position-relative" style="z-index: 2;">
+<header class="p-3 bg-white shadow-sm rounded-3">
+    <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
             <!-- Logo and Blog Title -->
             <div class="d-flex align-items-center">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                    <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="max-width: 40px; height: auto;">
+                    <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="width: 40px; height: auto;">
+                    <span class="blog-quote text-primary fw-bold">无产者在这个革命中失去的只是锁链，<br>他们获得的将是整个世界。</span>
                 </a>
             </div>
 
@@ -61,25 +62,13 @@
 </header>
 
 <style>
-    /* 背景文字 */
-    header::before {
-        content: "无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 40px;
-        font-weight: bold;
-        color: rgba(0, 0, 0, 0.1);  /* 透明度 */
-        white-space: nowrap;
-        z-index: 1;
-        pointer-events: none;  /* 避免影响交互 */
-    }
-
-    /* 确保 header 里的内容在背景文字之上 */
-    header .container-fluid {
-        position: relative;
-        z-index: 2;
+    /* 限制文本最大宽度，使其换行 */
+    .blog-quote {
+        max-width: 250px; /* 控制文本宽度，保证两行 */
+        display: inline-block;
+        line-height: 1.4; /* 调整行间距，使两行显示更紧凑 */
+        font-size: 16px; /* 保证字体适中 */
+        white-space: normal; /* 允许换行 */
     }
 </style>
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
