@@ -65,7 +65,6 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "django.template.preview.state": "SHOW_EDITOR",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/tongqing/PycharmProjects/Django/eblog",
@@ -176,15 +175,7 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="624000" />
-    </task>
-    <task id="LOCAL-00154" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741427277766</created>
-      <option name="number" value="00154" />
-      <option name="presentableId" value="LOCAL-00154" />
-      <option name="project" value="LOCAL" />
-      <updated>1741427277766</updated>
+      <workItem from="1743647538871" duration="766000" />
     </task>
     <task id="LOCAL-00155" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -570,7 +561,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743647633488</updated>
     </task>
-    <option name="localTasksCounter" value="203" />
+    <task id="LOCAL-00203" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743648168216</created>
+      <option name="number" value="00203" />
+      <option name="presentableId" value="LOCAL-00203" />
+      <option name="project" value="LOCAL" />
+      <updated>1743648168216</updated>
+    </task>
+    <option name="localTasksCounter" value="204" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
