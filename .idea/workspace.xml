@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,39 +174,7 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="3531000" />
-    </task>
-    <task id="LOCAL-00183" summary="新增web调试器接口">
-      <option name="closed" value="true" />
-      <created>1742468312383</created>
-      <option name="number" value="00183" />
-      <option name="presentableId" value="LOCAL-00183" />
-      <option name="project" value="LOCAL" />
-      <updated>1742468312383</updated>
-    </task>
-    <task id="LOCAL-00184" summary="新增web调试器接口">
-      <option name="closed" value="true" />
-      <created>1742468802110</created>
-      <option name="number" value="00184" />
-      <option name="presentableId" value="LOCAL-00184" />
-      <option name="project" value="LOCAL" />
-      <updated>1742468802110</updated>
-    </task>
-    <task id="LOCAL-00185" summary="新增web调试器接口">
-      <option name="closed" value="true" />
-      <created>1742468928621</created>
-      <option name="number" value="00185" />
-      <option name="presentableId" value="LOCAL-00185" />
-      <option name="project" value="LOCAL" />
-      <updated>1742468928621</updated>
-    </task>
-    <task id="LOCAL-00186" summary="新增web调试器接口">
-      <option name="closed" value="true" />
-      <created>1742469115912</created>
-      <option name="number" value="00186" />
-      <option name="presentableId" value="LOCAL-00186" />
-      <option name="project" value="LOCAL" />
-      <updated>1742469115912</updated>
+      <workItem from="1743647538871" duration="4338000" />
     </task>
     <task id="LOCAL-00187" summary="新增web调试器接口">
       <option name="closed" value="true" />
@@ -569,7 +536,39 @@
       <option name="project" value="LOCAL" />
       <updated>1743651057105</updated>
     </task>
-    <option name="localTasksCounter" value="232" />
+    <task id="LOCAL-00232" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743651083619</created>
+      <option name="number" value="00232" />
+      <option name="presentableId" value="LOCAL-00232" />
+      <option name="project" value="LOCAL" />
+      <updated>1743651083619</updated>
+    </task>
+    <task id="LOCAL-00233" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743651211087</created>
+      <option name="number" value="00233" />
+      <option name="presentableId" value="LOCAL-00233" />
+      <option name="project" value="LOCAL" />
+      <updated>1743651211087</updated>
+    </task>
+    <task id="LOCAL-00234" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743651300204</created>
+      <option name="number" value="00234" />
+      <option name="presentableId" value="LOCAL-00234" />
+      <option name="project" value="LOCAL" />
+      <updated>1743651300204</updated>
+    </task>
+    <task id="LOCAL-00235" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743651557836</created>
+      <option name="number" value="00235" />
+      <option name="presentableId" value="LOCAL-00235" />
+      <option name="project" value="LOCAL" />
+      <updated>1743651557836</updated>
+    </task>
+    <option name="localTasksCounter" value="236" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
