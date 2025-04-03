@@ -10,128 +10,24 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-3 bg-white shadow-sm">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-        }
-        .nav-link {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: #333;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .nav-link:hover, .nav-link:focus {
-            background-color: #f0ad4e;
-            color: white;
-            transform: scale(1.05);
-        }
-        .btn-highlight {
-            background-color: #f0ad4e;
-            color: white;
-            border-radius: 25px;
-            padding: 10px 20px;
-            border: none;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-highlight:hover {
-            background-color: #ec971f;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        header {
-            background-color: #f8f9fa;
-        }
-        .nav-item {
-            margin-right: 1.5rem;
-        }
-        .search-form {
-            max-width: 320px;
-            width: 100%;
-        }
-        .search-form input {
-            border-radius: 25px;
-            padding-left: 15px;
-        }
-        .dropdown-menu {
-            border-radius: 8px;
-        }
-        .dropdown-item {
-            font-size: 0.95rem;
-        }
-        .dropdown-item:hover {
-            background-color: #007bff;
-            color: white;
-        }
-        .container-fluid {
-            max-width: 1200px;
-        }
-
-        /* Ensure the buttons are the same height and aligned correctly */
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .auth-buttons .btn {
-            height: 40px;
-            padding: 0 15px;
-            font-size: 0.9rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            line-height: normal; /* Ensure the text stays on one line */
-        }
-
-        /* Adjust the nav-link style to match button style */
-        .nav-link {
-            display: inline-flex;
-            padding: 10px 20px;
-            font-size: 1.125rem;
-            border-radius: 25px;
-            background-color: #f0ad4e;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-link:hover, .nav-link:focus {
-            background-color: #ec971f;
-            transform: scale(1.05);
-        }
-    </style>
+<header class="p-2 bg-white">
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <div class="d-flex align-items-center ms-3">
-                <a href="/" class="text-dark text-decoration-none me-3">
+            <!-- 左侧 Logo 和导航 -->
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-2">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32">
                 </a>
-                <ul class="nav flex-nowrap mb-2">
-                    <li class="nav-item">
-                        <a href="{% url 'blog:index' %}" class="nav-link">首页</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/blog_list" class="nav-link">博客列表</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'blog:pub_blog' %}" class="nav-link btn-highlight">发布博客</a>
-                    </li>
+                <ul class="nav flex-nowrap mb-2 ms-1">
+                    <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark">首页</a></li>
+                    <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-32 text-dark">发布博客</a></li>
+                    <li class="nav-item"><a href="/blog_list" class="nav-link px-2 text-dark">博客列表</a></li>
                 </ul>
             </div>
+
+            <!-- 右侧 搜索框、用户信息 -->
             <div class="d-flex align-items-center ms-auto">
-                <form class="search-form d-flex me-3" role="search" action="{% url 'blog:search' %}" method="get">
+                <form class="d-flex me-3" role="search" action="{% url 'blog:search' %}" method="get">
                     <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
                 </form>
 
@@ -147,8 +43,8 @@
                     </ul>
                 </div>
                 {% else %}
-                <div class="auth-buttons text-end">
-                    <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary">登陆</a>
+                <div class="text-end">
+                    <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary me-2">登陆</a>
                     <a href="{% url 'auth:register' %}" type="button" class="btn btn-warning">注册</a>
                 </div>
                 {% endif %}
@@ -156,8 +52,7 @@
         </div>
     </div>
 </header>
-
-<main class="container-fluid bg-light p-0 rounded" style="min-height: calc(100vh - 64px); margin-top: 0;">
+<main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
         {{ message }}
