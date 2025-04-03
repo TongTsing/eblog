@@ -8,31 +8,66 @@
     <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block head %}{% endblock %}
+    <style>
+        /* Adjust the header background to blend with the main content */
+        header {
+            background-color: #f8f9fa;  /* Light background for a smooth transition */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  /* Subtle shadow to lift the header */
+            margin-bottom: 0; /* Remove margin between header and main content */
+        }
+
+        /* Make the main content's background match the header's background */
+        main {
+            background-color: #f8f9fa; /* Same as the header's background color */
+            min-height: 100vh;  /* Ensure the main content takes the full viewport height */
+            padding-top: 10px; /* Add some space after the header */
+        }
+
+        /* Ensure the carousel doesn't push content down */
+        #quoteCarousel {
+            height: 60px;
+            overflow: hidden;
+        }
+
+        .blog-quote {
+            max-width: 250px;
+            line-height: 1.4;
+            font-size: 16px;
+            white-space: normal;
+        }
+
+        /* Adjust the message box styling for a better visual fit */
+        .alert {
+            margin-top: 0;
+            border-radius: 0.375rem; /* Rounded corners for message boxes */
+        }
+
+        /* Set spacing for navigation and authentication area */
+        .nav-item {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    </style>
 </head>
 <body>
-<header class="p-3 bg-white shadow-sm rounded-3">
+<header class="p-3 rounded-3">
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
             <!-- Logo and Blog Title -->
             <div class="d-flex align-items-center">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="width: 40px; height: auto;">
-                    <!-- Start of the Carousel -->
                     <div id="quoteCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width: 300px; overflow: hidden;">
                         <div class="carousel-inner">
-                            <!-- First Quote -->
                             <div class="carousel-item active">
                                 <span class="blog-quote text-primary fw-bold">马克思：“无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。”</span>
                             </div>
-                            <!-- Second Quote -->
                             <div class="carousel-item">
                                 <span class="blog-quote text-primary fw-bold">马克思：“历史上，所有的社会变革都是阶级斗争的结果。”</span>
                             </div>
-                            <!-- Third Quote -->
                             <div class="carousel-item">
                                 <span class="blog-quote text-primary fw-bold">马克思：“哲学家们只是用不同的方式解释世界，问题在于改变世界。”</span>
                             </div>
-                            <!-- Fourth Quote -->
                             <div class="carousel-item">
                                 <span class="blog-quote text-primary fw-bold">马克思：“劳动是创造一切财富的源泉。”</span>
                             </div>
@@ -46,21 +81,14 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-                    <!-- End of Carousel -->
                 </a>
             </div>
 
             <!-- Navigation Links -->
             <ul class="nav mb-0 d-flex align-items-center">
-                <li class="nav-item">
-                    <a href="{% url 'blog:index' %}" class="nav-link px-3 text-dark fw-semibold">首页</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'blog:pub_blog' %}" class="nav-link px-3 text-dark fw-semibold">发布博客</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/blog_list" class="nav-link px-3 text-dark fw-semibold">博客列表</a>
-                </li>
+                <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link text-dark fw-semibold">首页</a></li>
+                <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link text-dark fw-semibold">发布博客</a></li>
+                <li class="nav-item"><a href="/blog_list" class="nav-link text-dark fw-semibold">博客列表</a></li>
             </ul>
 
             <!-- Search Bar -->
@@ -82,48 +110,28 @@
             </div>
             {% else %}
             <div class="text-end ms-3">
-                <a href="{% url 'auth:login' %}" type="button" class="btn btn-outline-primary btn-sm px-4 py-2">登陆</a>
-                <a href="{% url 'auth:register' %}" type="button" class="btn btn-outline-warning btn-sm px-4 py-2 ms-2">注册</a>
+                <a href="{% url 'auth:login' %}" class="btn btn-outline-primary btn-sm px-4 py-2">登陆</a>
+                <a href="{% url 'auth:register' %}" class="btn btn-outline-warning btn-sm px-4 py-2 ms-2">注册</a>
             </div>
             {% endif %}
         </div>
     </div>
 </header>
 
-<style>
-    /* 控制文本最大宽度，确保两行显示 */
-    .blog-quote {
-        max-width: 250px;  /* 设置一个最大宽度，确保两行显示 */
-        line-height: 1.4; /* 控制行间距，优化显示效果 */
-        font-size: 16px; /* 适中的字体大小 */
-        white-space: normal; /* 允许换行 */
-    }
-
-    /* 使得轮播区域高度不超过一定范围，避免影响其他内容 */
-    #quoteCarousel {
-        height: 60px;  /* 设定固定高度，确保轮播不会影响到其他元素 */
-        overflow: hidden;
-    }
-</style>
-
-<main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
+<main class="container-fluid bg-light p-0 rounded">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
         {{ message }}
     </div>
-
     <script>
-        // 设置显示时间，单位是毫秒
         setTimeout(function () {
             document.getElementById("message_{{ forloop.counter }}").style.display = 'none';
-        }, 5000);  // 5秒后消失
+        }, 5000);
     </script>
     {% endfor %}
     {% block main %}{% endblock %}
 </main>
 
-</body>
-</html>
 {% block footer %}
     <footer class="bg-dark text-light py-4 mt-5">
         <div class="container">
@@ -133,24 +141,14 @@
                 </div>
                 <div class="col-12 col-md-6 text-md-end">
                     <ul class="list-unstyled d-inline-flex">
-                        <li class="ms-3">
-                            <a href="#" class="text-light" target="_blank" rel="noopener">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </a>
-                        </li>
-                        <li class="ms-3">
-                            <a href="#" class="text-light" target="_blank" rel="noopener">
-                                <i class="fab fa-twitter"></i> Twitter
-                            </a>
-                        </li>
-                        <li class="ms-3">
-                            <a href="#" class="text-light" target="_blank" rel="noopener">
-                                <i class="fab fa-instagram"></i> Instagram
-                            </a>
-                        </li>
+                        <li class="ms-3"><a href="#" class="text-light" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                        <li class="ms-3"><a href="#" class="text-light" target="_blank" rel="noopener"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li class="ms-3"><a href="#" class="text-light" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </footer>
 {% endblock %}
+</body>
+</html>

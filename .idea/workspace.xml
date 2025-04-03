@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
-      <change beforePath="$PROJECT_DIR$/templates/blog_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,23 +180,7 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="9329000" />
-    </task>
-    <task id="LOCAL-00226" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743650480996</created>
-      <option name="number" value="00226" />
-      <option name="presentableId" value="LOCAL-00226" />
-      <option name="project" value="LOCAL" />
-      <updated>1743650480996</updated>
-    </task>
-    <task id="LOCAL-00227" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743650700617</created>
-      <option name="number" value="00227" />
-      <option name="presentableId" value="LOCAL-00227" />
-      <option name="project" value="LOCAL" />
-      <updated>1743650700617</updated>
+      <workItem from="1743647538871" duration="9510000" />
     </task>
     <task id="LOCAL-00228" summary="更改index、bloglist博客标题样式">
       <option name="closed" value="true" />
@@ -573,7 +558,23 @@
       <option name="project" value="LOCAL" />
       <updated>1743664127420</updated>
     </task>
-    <option name="localTasksCounter" value="275" />
+    <task id="LOCAL-00275" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664159725</created>
+      <option name="number" value="00275" />
+      <option name="presentableId" value="LOCAL-00275" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664159725</updated>
+    </task>
+    <task id="LOCAL-00276" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664228132</created>
+      <option name="number" value="00276" />
+      <option name="presentableId" value="LOCAL-00276" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664228132</updated>
+    </task>
+    <option name="localTasksCounter" value="277" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -634,7 +635,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="django-line">
           <url>file://$PROJECT_DIR$/templates/blog_base.html</url>
-          <line>12</line>
+          <line>52</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
