@@ -13,57 +13,44 @@
 <header class="p-2 bg-white">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* 设置网站全局字体 */
         body {
             font-family: 'Roboto', sans-serif;
         }
-
-        /* 调整导航字体 */
         .nav-link {
-            font-size: 1.25rem; /* 字体大小 */
+            font-size: 1.25rem;
             font-weight: 500;
         }
-
-        /* 自定义 hover 效果 */
         .hover-link {
             transition: color 0.3s ease, transform 0.3s ease;
         }
-
         .hover-link:hover {
-            color: #007bff; /* 鼠标悬停时文字变蓝 */
-            transform: scale(1.1); /* 鼠标悬停时略微放大 */
+            color: #007bff;
+            transform: scale(1.1);
         }
-
-        /* 突出显示的按钮 (发布博客) */
+        /* 发布博客按钮样式 */
         .btn-highlight {
-            background-color: #ff9800; /* 橙色背景 */
+            background-color: #f0ad4e; /* 统一颜色 */
             color: white;
             border-radius: 25px;
             padding: 10px 20px;
+            border: none; /* 去掉边框 */
+            transition: background-color 0.3s ease;
         }
-
         .btn-highlight:hover {
-            background-color: #e68900; /* 悬停时加深橙色 */
+            background-color: #ec971f; /* 悬停时颜色 */
         }
-
-        /* 调整导航栏的背景颜色 */
         header {
-            background-color: #f8f9fa; /* 浅色背景 */
+            background-color: #f8f9fa;
         }
-
-        /* 调整导航项间距 */
         .nav-item {
-            margin-right: 1rem; /* 添加右间距 */
+            margin-right: 1rem;
         }
-
-        /* 搜索框样式 */
         .search-form {
-            max-width: 300px; /* 限制搜索框宽度 */
+            max-width: 300px;
         }
     </style>
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <!-- 左侧 Logo 和导航 -->
             <div class="d-flex align-items-center ms-3">
                 <a href="/" class="text-dark text-decoration-none me-3">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32">
@@ -80,8 +67,6 @@
                     </li>
                 </ul>
             </div>
-
-            <!-- 右侧 搜索框、用户信息 -->
             <div class="d-flex align-items-center ms-auto">
                 <form class="search-form d-flex me-3" role="search" action="{% url 'blog:search' %}" method="get">
                     <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
