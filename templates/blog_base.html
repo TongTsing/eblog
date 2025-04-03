@@ -65,6 +65,11 @@
         .container-fluid {
             max-width: 1200px;
         }
+        /* Adjust the login/register buttons to be inline */
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
     </style>
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
@@ -101,8 +106,8 @@
                     </ul>
                 </div>
                 {% else %}
-                <div class="text-end">
-                    <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary me-2">登陆</a>
+                <div class="auth-buttons text-end">
+                    <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary">登陆</a>
                     <a href="{% url 'auth:register' %}" type="button" class="btn btn-warning">注册</a>
                 </div>
                 {% endif %}
