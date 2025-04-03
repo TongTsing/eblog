@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
+    <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <changelist_data name="mac" email="" automatic="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
     </list>
@@ -27,9 +28,9 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="mac" />
         <option value="windows" />
         <option value="tongqing &lt;toneqing@163.com&gt;" />
-        <option value="mac" />
       </list>
     </option>
     <option name="PUSH_AUTO_UPDATE" value="true" />
@@ -175,71 +176,7 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="1217000" />
-    </task>
-    <task id="LOCAL-00160" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741428569400</created>
-      <option name="number" value="00160" />
-      <option name="presentableId" value="LOCAL-00160" />
-      <option name="project" value="LOCAL" />
-      <updated>1741428569400</updated>
-    </task>
-    <task id="LOCAL-00161" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741428618417</created>
-      <option name="number" value="00161" />
-      <option name="presentableId" value="LOCAL-00161" />
-      <option name="project" value="LOCAL" />
-      <updated>1741428618417</updated>
-    </task>
-    <task id="LOCAL-00162" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741428720146</created>
-      <option name="number" value="00162" />
-      <option name="presentableId" value="LOCAL-00162" />
-      <option name="project" value="LOCAL" />
-      <updated>1741428720146</updated>
-    </task>
-    <task id="LOCAL-00163" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741428935191</created>
-      <option name="number" value="00163" />
-      <option name="presentableId" value="LOCAL-00163" />
-      <option name="project" value="LOCAL" />
-      <updated>1741428935191</updated>
-    </task>
-    <task id="LOCAL-00164" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741428976333</created>
-      <option name="number" value="00164" />
-      <option name="presentableId" value="LOCAL-00164" />
-      <option name="project" value="LOCAL" />
-      <updated>1741428976333</updated>
-    </task>
-    <task id="LOCAL-00165" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741429113714</created>
-      <option name="number" value="00165" />
-      <option name="presentableId" value="LOCAL-00165" />
-      <option name="project" value="LOCAL" />
-      <updated>1741429113714</updated>
-    </task>
-    <task id="LOCAL-00166" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741429296957</created>
-      <option name="number" value="00166" />
-      <option name="presentableId" value="LOCAL-00166" />
-      <option name="project" value="LOCAL" />
-      <updated>1741429296957</updated>
-    </task>
-    <task id="LOCAL-00167" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
-      <option name="closed" value="true" />
-      <created>1741429403558</created>
-      <option name="number" value="00167" />
-      <option name="presentableId" value="LOCAL-00167" />
-      <option name="project" value="LOCAL" />
-      <updated>1741429403558</updated>
+      <workItem from="1743647538871" duration="1979000" />
     </task>
     <task id="LOCAL-00168" summary="使用Django-cron定时更新访问计数到数据库中&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
       <option name="closed" value="true" />
@@ -569,7 +506,71 @@
       <option name="project" value="LOCAL" />
       <updated>1743648734468</updated>
     </task>
-    <option name="localTasksCounter" value="209" />
+    <task id="LOCAL-00209" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743648761140</created>
+      <option name="number" value="00209" />
+      <option name="presentableId" value="LOCAL-00209" />
+      <option name="project" value="LOCAL" />
+      <updated>1743648761140</updated>
+    </task>
+    <task id="LOCAL-00210" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743648935218</created>
+      <option name="number" value="00210" />
+      <option name="presentableId" value="LOCAL-00210" />
+      <option name="project" value="LOCAL" />
+      <updated>1743648935218</updated>
+    </task>
+    <task id="LOCAL-00211" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743649021729</created>
+      <option name="number" value="00211" />
+      <option name="presentableId" value="LOCAL-00211" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649021729</updated>
+    </task>
+    <task id="LOCAL-00212" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743649114022</created>
+      <option name="number" value="00212" />
+      <option name="presentableId" value="LOCAL-00212" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649114022</updated>
+    </task>
+    <task id="LOCAL-00213" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743649178558</created>
+      <option name="number" value="00213" />
+      <option name="presentableId" value="LOCAL-00213" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649178558</updated>
+    </task>
+    <task id="LOCAL-00214" summary="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1743649304462</created>
+      <option name="number" value="00214" />
+      <option name="presentableId" value="LOCAL-00214" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649304462</updated>
+    </task>
+    <task id="LOCAL-00215" summary="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1743649377265</created>
+      <option name="number" value="00215" />
+      <option name="presentableId" value="LOCAL-00215" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649377265</updated>
+    </task>
+    <task id="LOCAL-00216" summary="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;">
+      <option name="closed" value="true" />
+      <created>1743649401901</created>
+      <option name="number" value="00216" />
+      <option name="presentableId" value="LOCAL-00216" />
+      <option name="project" value="LOCAL" />
+      <updated>1743649401901</updated>
+    </task>
+    <option name="localTasksCounter" value="217" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -622,6 +623,7 @@
     <MESSAGE value="搜索、首页使用博客发布时间倒序" />
     <MESSAGE value="更改index博客标题样式" />
     <MESSAGE value="更改index、bloglist博客标题样式" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改index、bloglist博客标题样式" />
+    <MESSAGE value="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
   </component>
 </project>
