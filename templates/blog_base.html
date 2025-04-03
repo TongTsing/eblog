@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block head %}{% endblock %}
     <style>
+        /* 清除所有元素的默认边距和内边距 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         /* 移除header和main之间的空隙，确保它们紧密连接 */
         header {
             background-color: #ffffff; /* 背景色统一 */
