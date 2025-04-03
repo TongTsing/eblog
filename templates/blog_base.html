@@ -24,7 +24,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+            background: rgba(0, 0, 0, 0.3);
             z-index: 1;
         }
 
@@ -106,6 +106,24 @@
         .nav-item:last-child {
             margin-right: 0;
         }
+
+        /* Main section styling */
+        main {
+            background-image: url('https://www.example.com/path-to-your-image.jpg');  /* Replace with your chosen blog-style image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Optional: makes the background scroll with the page */
+            min-height: 100vh;
+            padding: 40px 0;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.8); /* Slight white overlay for better content visibility */
+        }
+
+        .container-fluid.bg-light {
+            background-color: transparent !important; /* Ensure the container has no additional background */
+        }
+
     </style>
     {% block head %}{% endblock %}
 </head>
