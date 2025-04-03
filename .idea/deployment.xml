@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="tencent-vm" uploadOnCheckin="84ac0cdc-f131-43b5-bfb7-707c3a6b1da4" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="tencent-vm">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/usr/local/eblog" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="tencent-vm" />
+  </component>
+</project>
