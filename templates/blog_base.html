@@ -10,24 +10,38 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-3 bg-white">
+<header class="p-3 bg-white shadow-sm">
     <div class="container-fluid">
-        <div class="d-flex flex-wrap align-items-center justify-content-between">
-            <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none">
-                <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
-            </a>
-            <ul class="nav flex-nowrap mb-2">
-                <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark">首页</a></li>
-                <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-dark">发布博客</a></li>
-                <li class="nav-item"><a href="/blog_list" class="nav-link px-2 text-dark">博客列表</a></li>
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- Logo and Blog Title -->
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
+                    <h5 class="mb-0">易博客</h5>
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav mb-0 d-flex align-items-center">
+                <li class="nav-item">
+                    <a href="{% url 'blog:index' %}" class="nav-link px-3 text-dark">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'blog:pub_blog' %}" class="nav-link px-3 text-dark">发布博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/blog_list" class="nav-link px-3 text-dark">博客列表</a>
+                </li>
             </ul>
 
-            <form class="d-flex mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'blog:search' %}" method="get">
-                <input type="search" class="form-control" placeholder="搜索..." aria-label="Search" name="q">
+            <!-- Search Bar -->
+            <form class="d-flex mb-0 ms-3" role="search" action="{% url 'blog:search' %}" method="get">
+                <input type="search" class="form-control form-control-sm" placeholder="搜索..." aria-label="Search" name="q">
             </form>
 
+            <!-- User Authentication -->
             {% if user.is_authenticated %}
-            <div class="dropdown text-end">
+            <div class="dropdown text-end ms-3">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle">
                 </a>
@@ -38,9 +52,9 @@
                 </ul>
             </div>
             {% else %}
-            <div class="text-end">
-                <a href="{% url 'auth:login' %}" type="button" class="btn btn-primary me-2">登陆</a>
-                <a href="{% url 'auth:register' %}" type="button" class="btn btn-warning">注册</a>
+            <div class="text-end ms-3">
+                <a href="{% url 'auth:login' %}" type="button" class="btn btn-outline-primary btn-sm">登陆</a>
+                <a href="{% url 'auth:register' %}" type="button" class="btn btn-outline-warning btn-sm ms-2">注册</a>
             </div>
             {% endif %}
         </div>
