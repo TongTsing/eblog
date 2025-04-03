@@ -84,6 +84,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 40px; /* Ensure the text stays on one line */
         }
 
         /* Adjust the nav-link style to match button style */
@@ -96,6 +97,7 @@
             color: white;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.3s ease;
+            line-height: 40px; /* Keep the text on a single line */
         }
 
         .nav-link:hover, .nav-link:focus {
@@ -147,8 +149,6 @@
         </div>
     </div>
 </header>
-π
-
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
