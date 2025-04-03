@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -180,63 +181,7 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="9733000" />
-    </task>
-    <task id="LOCAL-00230" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651019220</created>
-      <option name="number" value="00230" />
-      <option name="presentableId" value="LOCAL-00230" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651019220</updated>
-    </task>
-    <task id="LOCAL-00231" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651057105</created>
-      <option name="number" value="00231" />
-      <option name="presentableId" value="LOCAL-00231" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651057105</updated>
-    </task>
-    <task id="LOCAL-00232" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651083619</created>
-      <option name="number" value="00232" />
-      <option name="presentableId" value="LOCAL-00232" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651083619</updated>
-    </task>
-    <task id="LOCAL-00233" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651211087</created>
-      <option name="number" value="00233" />
-      <option name="presentableId" value="LOCAL-00233" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651211087</updated>
-    </task>
-    <task id="LOCAL-00234" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651300204</created>
-      <option name="number" value="00234" />
-      <option name="presentableId" value="LOCAL-00234" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651300204</updated>
-    </task>
-    <task id="LOCAL-00235" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651557836</created>
-      <option name="number" value="00235" />
-      <option name="presentableId" value="LOCAL-00235" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651557836</updated>
-    </task>
-    <task id="LOCAL-00236" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743651888371</created>
-      <option name="number" value="00236" />
-      <option name="presentableId" value="LOCAL-00236" />
-      <option name="project" value="LOCAL" />
-      <updated>1743651888371</updated>
+      <workItem from="1743647538871" duration="10557000" />
     </task>
     <task id="LOCAL-00237" summary="更改index、bloglist博客标题样式">
       <option name="closed" value="true" />
@@ -574,7 +519,63 @@
       <option name="project" value="LOCAL" />
       <updated>1743664416619</updated>
     </task>
-    <option name="localTasksCounter" value="279" />
+    <task id="LOCAL-00279" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664546913</created>
+      <option name="number" value="00279" />
+      <option name="presentableId" value="LOCAL-00279" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664546913</updated>
+    </task>
+    <task id="LOCAL-00280" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664685833</created>
+      <option name="number" value="00280" />
+      <option name="presentableId" value="LOCAL-00280" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664685833</updated>
+    </task>
+    <task id="LOCAL-00281" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664791862</created>
+      <option name="number" value="00281" />
+      <option name="presentableId" value="LOCAL-00281" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664791862</updated>
+    </task>
+    <task id="LOCAL-00282" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743664842821</created>
+      <option name="number" value="00282" />
+      <option name="presentableId" value="LOCAL-00282" />
+      <option name="project" value="LOCAL" />
+      <updated>1743664842821</updated>
+    </task>
+    <task id="LOCAL-00283" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743665002611</created>
+      <option name="number" value="00283" />
+      <option name="presentableId" value="LOCAL-00283" />
+      <option name="project" value="LOCAL" />
+      <updated>1743665002611</updated>
+    </task>
+    <task id="LOCAL-00284" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743665119461</created>
+      <option name="number" value="00284" />
+      <option name="presentableId" value="LOCAL-00284" />
+      <option name="project" value="LOCAL" />
+      <updated>1743665119461</updated>
+    </task>
+    <task id="LOCAL-00285" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743665259130</created>
+      <option name="number" value="00285" />
+      <option name="presentableId" value="LOCAL-00285" />
+      <option name="project" value="LOCAL" />
+      <updated>1743665259130</updated>
+    </task>
+    <option name="localTasksCounter" value="286" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
