@@ -79,55 +79,84 @@
         </div>
     </div>
 
-    <!-- 分页部分 (Moved to the Bottom) -->
-    <div class="pagination-container mt-4">
-        <nav>
-            <ul class="pagination justify-content-center">
-                <!-- 处理 "上一页" 按钮 -->
-                {% if blogs.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link"
-                           href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}"
-                           aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                    <span class="page-link" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </span>
-                    </li>
-                {% endif %}
+<!-- 分页部分 -->
+<div class="pagination-container mt-4 d-flex justify-content-center">
+    <nav>
+        <ul class="pagination pagination-lg shadow-sm rounded-3">
+            <!-- "上一页" 按钮 -->
+            {% if blogs.has_previous %}
+                <li class="page-item">
+                    <a class="page-link text-primary fw-bold"
+                       href="?page={{ blogs.previous_page_number }}&category_id={{ request.GET.category_id }}"
+                       aria-label="Previous">
+                        &laquo; 上一页
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link text-muted"> &laquo; 上一页 </span>
+                </li>
+            {% endif %}
 
-                <!-- 页码列表 -->
-                {% for i in blogs.paginator.page_range %}
-                    <li class="page-item {% if blogs.number == i %}active{% endif %}">
-                        <a class="page-link" href="?page={{ i }}&category_id={{ request.GET.category_id }}">
-                            {{ i }}
-                        </a>
-                    </li>
-                {% endfor %}
+            <!-- 页码列表 -->
+            {% for i in blogs.paginator.page_range %}
+                <li class="page-item {% if blogs.number == i %}active{% endif %}">
+                    <a class="page-link {% if blogs.number == i %}bg-primary text-white fw-bold{% else %}text-dark{% endif %}"
+                       href="?page={{ i }}&category_id={{ request.GET.category_id }}">
+                        {{ i }}
+                    </a>
+                </li>
+            {% endfor %}
 
-                <!-- 处理 "下一页" 按钮 -->
-                {% if blogs.has_next %}
-                    <li class="page-item">
-                        <a class="page-link"
-                           href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}"
-                           aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                    <span class="page-link" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </span>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
-    </div>
+            <!-- "下一页" 按钮 -->
+            {% if blogs.has_next %}
+                <li class="page-item">
+                    <a class="page-link text-primary fw-bold"
+                       href="?page={{ blogs.next_page_number }}&category_id={{ request.GET.category_id }}"
+                       aria-label="Next">
+                        下一页 &raquo;
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link text-muted"> 下一页 &raquo; </span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+<style>
+    /* 美化分页 */
+    .pagination .page-item {
+        margin: 0 4px;
+    }
+
+    .pagination .page-item .page-link {
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination .page-item .page-link:hover {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff;
+        color: #fff;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        background-color: #f8f9fa;
+        color: #aaa;
+        cursor: not-allowed;
+    }
+</style>
 
 
     <script>
