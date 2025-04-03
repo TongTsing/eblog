@@ -10,11 +10,11 @@
     {% block head %}{% endblock %}
 </head>
 <body>
-<header class="p-3 bg-white">
+<header class="p-2 bg-white">
     <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
             <a href="/" class="d-flex align-items-center mb-2 text-dark text-decoration-none">
-                <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
+                <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-1"> <!-- 减小 margin -->
             </a>
             <ul class="nav flex-nowrap mb-2">
                 <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark">首页</a></li>
@@ -29,7 +29,7 @@
             {% if user.is_authenticated %}
             <div class="dropdown text-end">
                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle">
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" width="32" height="32" class="rounded-circle me-1"> <!-- 减小 margin -->
                 </a>
                 <ul class="dropdown-menu text-small">
                     <li><a class="dropdown-item" href="{% url 'auth:profile' %}">个人信息</a></li>
