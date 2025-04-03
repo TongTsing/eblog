@@ -18,7 +18,7 @@
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="width: 40px; height: auto;">
                     <!-- Start of the Carousel -->
-                    <div id="quoteCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div id="quoteCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width: 300px; overflow: hidden;">
                         <div class="carousel-inner">
                             <!-- First Quote -->
                             <div class="carousel-item active">
@@ -93,10 +93,16 @@
 <style>
     /* 控制文本最大宽度，确保两行显示 */
     .blog-quote {
-        max-width: 300px;  /* 设置一个最大宽度，确保两行显示 */
+        max-width: 250px;  /* 设置一个最大宽度，确保两行显示 */
         line-height: 1.4; /* 控制行间距，优化显示效果 */
         font-size: 16px; /* 适中的字体大小 */
         white-space: normal; /* 允许换行 */
+    }
+
+    /* 使得轮播区域高度不超过一定范围，避免影响其他内容 */
+    #quoteCarousel {
+        height: 60px;  /* 设定固定高度，确保轮播不会影响到其他元素 */
+        overflow: hidden;
     }
 </style>
 
