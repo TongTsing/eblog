@@ -27,17 +27,16 @@
             color: #007bff;
             transform: scale(1.1);
         }
-        /* 发布博客按钮样式 */
         .btn-highlight {
-            background-color: #f0ad4e; /* 统一颜色 */
+            background-color: #f0ad4e;
             color: white;
             border-radius: 25px;
             padding: 10px 20px;
-            border: none; /* 去掉边框 */
+            border: none;
             transition: background-color 0.3s ease;
         }
         .btn-highlight:hover {
-            background-color: #ec971f; /* 悬停时颜色 */
+            background-color: #ec971f;
         }
         header {
             background-color: #f8f9fa;
@@ -60,10 +59,10 @@
                         <a href="{% url 'blog:index' %}" class="nav-link hover-link">首页</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'blog:pub_blog' %}" class="nav-link btn-highlight">发布博客</a>
+                        <a href="/blog_list" class="nav-link hover-link">博客列表</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/blog_list" class="nav-link hover-link">博客列表</a>
+                        <a href="{% url 'blog:pub_blog' %}" class="nav-link btn-highlight">发布博客</a>
                     </li>
                 </ul>
             </div>
