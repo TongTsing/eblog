@@ -17,7 +17,8 @@
             <div class="d-flex align-items-center">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="max-width: 40px; height: auto;">
-                    <p class="mb-0 fw-bold text-primary">“无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。”</p>
+                    <!-- Adjusted quote text -->
+                    <p class="mb-0 fw-bold text-primary" style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">“无产者在这个革命中失去的只是锁链，他们获得的将是整个世界。”</p>
                 </a>
             </div>
 
@@ -68,6 +69,15 @@
         height: auto; /* Maintain aspect ratio */
     }
 
+    /* Ensure the quote text doesn't take too much space and doesn't interfere */
+    header p {
+        max-width: 250px;
+        white-space: nowrap; /* Avoid text wrapping */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Add ellipsis if the text overflows */
+        margin-bottom: 0;
+    }
+
     /* Hover effect on nav links */
     .nav-link:hover {
         color: #007bff;
@@ -89,9 +99,10 @@
 
     /* Dropdown user avatar border effect */
     .dropdown-toggle:hover img {
-        border-color: #007bff;π
+        border-color: #007bff;
     }
 </style>
+
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
     {% for message in messages %}
     <div class="alert alert-{{ message.level_tag }}" id="message_{{ forloop.counter }}">
