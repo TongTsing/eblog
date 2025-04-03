@@ -10,14 +10,33 @@
     <style>
         /* Custom header styling */
         header {
-            background-color: #ffffff;
+            position: relative;
+            background-image: url('/media/images/blog.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 200px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 10px 0;
+        }
+
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px 0;
         }
 
         .header-logo img {
-            width: 40px;
-            height: 32px;
+            width: 50px;
+            height: 40px;
             transition: transform 0.3s ease;
         }
 
@@ -26,15 +45,17 @@
         }
 
         .nav-link {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
             padding: 0.8rem 1rem;
             text-transform: uppercase;
-            font-weight: 600;
+            letter-spacing: 1px;
             transition: background-color 0.3s, color 0.3s;
         }
 
         .nav-link:hover {
-            background-color: #f8f9fa;
+            background-color: rgba(255, 255, 255, 0.6);
             color: #007bff;
         }
 
@@ -90,7 +111,8 @@
 </head>
 <body>
 <header class="p-2 bg-white">
-    <div class="container-fluid">
+    <div class="header-overlay"></div>
+    <div class="container-fluid header-content">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
             <!-- 左侧 Logo 和导航 -->
             <div class="d-flex align-items-center header-logo">
