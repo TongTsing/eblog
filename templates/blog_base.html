@@ -16,7 +16,8 @@
             <!-- Logo and Blog Title -->
             <div class="d-flex align-items-center">
                 <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                    <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32" class="me-2">
+                    <img src="/media/images/blog.jpg" alt="Blog Icon" class="me-2" style="max-width: 40px; height: auto;">
+                    <h4 class="mb-0 fw-bold text-primary">易博客</h4>
                 </a>
             </div>
 
@@ -61,9 +62,10 @@
 </header>
 
 <style>
-    /* Header background color remains white */
-    header {
-        background-color: #ffffff;
+    /* Ensure blog.jpg doesn't overflow its container */
+    header img {
+        max-width: 40px; /* Limit width to 40px */
+        height: auto; /* Maintain aspect ratio */
     }
 
     /* Hover effect on nav links */
@@ -87,7 +89,7 @@
 
     /* Dropdown user avatar border effect */
     .dropdown-toggle:hover img {
-        border-color: #007bff;
+        border-color: #007bff;π
     }
 </style>
 <main class="container-fluid bg-light p-0 rounded" style="min-height: 100vh; margin-top: -18px;">
