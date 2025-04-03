@@ -55,7 +55,7 @@ def index(request):
             blogs = Blog.objects.filter(is_delete=False).all()
 
     # 分页
-    paginator = Paginator(blogs, 40)  # 每页显示10篇博客
+    paginator = Paginator(blogs, 30)  # 每页显示10篇博客
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
