@@ -23,18 +23,56 @@
           font-weight: 500;
         }
     </style>
-<div class="container-fluid">
+    <style>
+        /* 自定义 hover 效果 */
+        .hover-link {
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hover-link:hover {
+            color: #007bff; /* 鼠标悬停时文字变蓝 */
+            transform: scale(1.1); /* 鼠标悬停时略微放大 */
+        }
+
+        /* 突出显示的按钮 (发布博客) */
+        .btn-highlight {
+            background-color: #ff9800; /* 使用橙色背景 */
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+
+        .btn-highlight:hover {
+            background-color: #e68900; /* 悬停时加深橙色 */
+        }
+
+        /* 调整导航栏的背景颜色 */
+        header {
+            background-color: #f8f9fa; /* 浅色背景 */
+        }
+
+        /* 调整字体大小 */
+        .nav-link {
+            font-size: 1.25rem; /* 字体略大 */
+        }
+    </style>
+    <div class="container-fluid">
         <div class="d-flex flex-wrap align-items-center justify-content-between">
             <!-- 左侧 Logo 和导航 -->
-            <div class="d-flex align-items-center ms-5"> <!-- 增加 ms-3 使容器向右移动一些 -->
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-2">
+            <div class="d-flex align-items-center ms-3">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none me-3">
                     <img src="/media/images/blog.jpg" alt="Blog Icon" width="40" height="32">
                 </a>
                 <ul class="nav flex-nowrap mb-2 ms-1">
-                    <li class="nav-item"><a href="{% url 'blog:index' %}" class="nav-link px-2 text-dark fs-5">首页</a></li>
-                    <li class="nav-item"><a href="{% url 'blog:pub_blog' %}" class="nav-link px-2 text-dark fs-5">发布博客</a></li>
-                    <li class="nav-item"><a href="/blog_list" class="nav-link px-2 text-dark fs-5">博客列表</a></li>
-                    <li class="nav-item"><a href="/categories" class="nav-link px-2 text-dark fs-5">分类</a></li>
+                    <li class="nav-item">
+                        <a href="{% url 'blog:index' %}" class="nav-link px-3 text-dark fs-5 hover-link">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'blog:pub_blog' %}" class="nav-link px-3 text-dark fs-5 btn-highlight">发布博客</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/blog_list" class="nav-link px-3 text-dark fs-5 hover-link">博客列表</a>
+                    </li>
                 </ul>
             </div>
 
