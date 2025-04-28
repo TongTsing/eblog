@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/blog_pub.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_pub.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,32 +61,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Django 服务器.tx-django.executor": "Run",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/tongqing/PycharmProjects/Django/eblog",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "web.server",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Django 服务器.tx-django.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tongqing/PycharmProjects/Django/eblog&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.deploy.options&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Django 服务器.eblog">
     <configuration name="eblog" type="Python.DjangoServer" factoryName="Django server">
       <module name="eblog" />
@@ -180,47 +185,8 @@
       <workItem from="1743042597121" duration="1293000" />
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
-      <workItem from="1743647538871" duration="11018000" />
-    </task>
-    <task id="LOCAL-00242" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661169063</created>
-      <option name="number" value="00242" />
-      <option name="presentableId" value="LOCAL-00242" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661169063</updated>
-    </task>
-    <task id="LOCAL-00243" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661267539</created>
-      <option name="number" value="00243" />
-      <option name="presentableId" value="LOCAL-00243" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661267539</updated>
-    </task>
-    <task id="LOCAL-00244" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661329241</created>
-      <option name="number" value="00244" />
-      <option name="presentableId" value="LOCAL-00244" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661329241</updated>
-    </task>
-    <task id="LOCAL-00245" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661440737</created>
-      <option name="number" value="00245" />
-      <option name="presentableId" value="LOCAL-00245" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661440737</updated>
-    </task>
-    <task id="LOCAL-00246" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661462095</created>
-      <option name="number" value="00246" />
-      <option name="presentableId" value="LOCAL-00246" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661462095</updated>
+      <workItem from="1743647538871" duration="13639000" />
+      <workItem from="1745834772422" duration="168000" />
     </task>
     <task id="LOCAL-00247" summary="更改index、bloglist博客标题样式">
       <option name="closed" value="true" />
@@ -574,7 +540,47 @@
       <option name="project" value="LOCAL" />
       <updated>1743665670806</updated>
     </task>
-    <option name="localTasksCounter" value="291" />
+    <task id="LOCAL-00291" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743665832221</created>
+      <option name="number" value="00291" />
+      <option name="presentableId" value="LOCAL-00291" />
+      <option name="project" value="LOCAL" />
+      <updated>1743665832221</updated>
+    </task>
+    <task id="LOCAL-00292" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743665984200</created>
+      <option name="number" value="00292" />
+      <option name="presentableId" value="LOCAL-00292" />
+      <option name="project" value="LOCAL" />
+      <updated>1743665984200</updated>
+    </task>
+    <task id="LOCAL-00293" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743666020385</created>
+      <option name="number" value="00293" />
+      <option name="presentableId" value="LOCAL-00293" />
+      <option name="project" value="LOCAL" />
+      <updated>1743666020385</updated>
+    </task>
+    <task id="LOCAL-00294" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743666053988</created>
+      <option name="number" value="00294" />
+      <option name="presentableId" value="LOCAL-00294" />
+      <option name="project" value="LOCAL" />
+      <updated>1743666053988</updated>
+    </task>
+    <task id="LOCAL-00295" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1743666238829</created>
+      <option name="number" value="00295" />
+      <option name="presentableId" value="LOCAL-00295" />
+      <option name="project" value="LOCAL" />
+      <updated>1743666238829</updated>
+    </task>
+    <option name="localTasksCounter" value="296" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -629,16 +635,5 @@
     <MESSAGE value="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
     <MESSAGE value="更改index、bloglist博客标题样式" />
     <option name="LAST_COMMIT_MESSAGE" value="更改index、bloglist博客标题样式" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="django-line">
-          <url>file://$PROJECT_DIR$/templates/blog_base.html</url>
-          <line>52</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

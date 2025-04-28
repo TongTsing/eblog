@@ -402,7 +402,7 @@ def upload_image(request):
     if request.method == 'POST' and request.FILES.get('file'):
         logger.info(f'upload image...')
         image = request.FILES['file']
-        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'images/'), base_url='/blog/media/images/')
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'images/'), base_url='/media/images/')
         filename = fs.save(image.name, image)
         file_url = fs.url(filename)
         logger.info(f'upload image... name={filename}, url={file_url}')
@@ -418,7 +418,7 @@ def upload_image(request):
 def upload_video(request):
     if request.method == 'POST' and request.FILES.get('file'):
         video = request.FILES['file']
-        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/blog/media/videos/')
+        fs = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'videos/'), base_url='/media/videos/')
         filename = fs.save(video.name, video)
         file_url = fs.url(filename)
         logger.info(f'upload video save succeed! name={filename}, url={file_url}')

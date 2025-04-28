@@ -9,23 +9,15 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     {% block head %}{% endblock %}
     <style>
-        /* 清除所有元素的默认边距和内边距 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         /* 移除header和main之间的空隙，确保它们紧密连接 */
         header {
-            background-color: #ffffff; /* 背景色统一 */
+            background-color: #ffffff; /* 让背景色和main一致 */
             padding: 0.5rem 0; /* 稍微减少header内边距 */
-            box-shadow: none; /* 移除阴影 */
-            margin-bottom: 0; /* 去掉header底部的间距 */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* 保持微弱的阴影 */
         }
 
         main {
-            background-color: #ffffff; /* 背景色统一 */
+            background-color: #ffffff; /* 确保主内容区和header的背景色一致 */
             padding: 0; /* 去除不必要的内边距 */
             min-height: 100vh;
             margin-top: 0; /* 去除顶部间距，确保header和main紧密连接 */
@@ -57,7 +49,7 @@
     </style>
 </head>
 <body>
-<header class="p-3 rounded-top-2">
+<header class= "p-4 rounded-3 mb-0">
     <div class="container-fluid">
         <div class="d-flex justify-content-between align-items-center">
             <!-- Logo and Blog Title -->
