@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="更改index、bloglist博客标题样式">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/blog_pub.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/blog_pub.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +67,7 @@
     &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
     &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/tongqing/PycharmProjects/Django/eblog&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/tongqing/PycharmProjects/eblog&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -186,15 +181,8 @@
       <workItem from="1743143009430" duration="31000" />
       <workItem from="1743143042900" duration="835000" />
       <workItem from="1743647538871" duration="13639000" />
-      <workItem from="1745834772422" duration="168000" />
-    </task>
-    <task id="LOCAL-00247" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661610237</created>
-      <option name="number" value="00247" />
-      <option name="presentableId" value="LOCAL-00247" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661610237</updated>
+      <workItem from="1745834772422" duration="797000" />
+      <workItem from="1746591401016" duration="333000" />
     </task>
     <task id="LOCAL-00248" summary="更改index、bloglist博客标题样式">
       <option name="closed" value="true" />
@@ -580,7 +568,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743666238829</updated>
     </task>
-    <option name="localTasksCounter" value="296" />
+    <task id="LOCAL-00296" summary="更改index、bloglist博客标题样式">
+      <option name="closed" value="true" />
+      <created>1745834949399</created>
+      <option name="number" value="00296" />
+      <option name="presentableId" value="LOCAL-00296" />
+      <option name="project" value="LOCAL" />
+      <updated>1745834949399</updated>
+    </task>
+    <option name="localTasksCounter" value="297" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

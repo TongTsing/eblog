@@ -235,7 +235,7 @@ class coment_management(View):
         except Exception as e:
             # 捕获并记录异常
             logger.error(f"{request.user.username} 发布评论失败: {content}, 错误信息: {str(e)}")
-            return JsonResponse({"error": "评论发布失败，请稍后再试。"}, status=500)
+            return JsonResponse({"error": f"评论发布失败，请稍后再试。{e}"}, status=500)
 
         # 若不使用 AJAX，可以继续使用原来的重定向
         return redirect('blog:blog_detail', blog_id=blog_id)
