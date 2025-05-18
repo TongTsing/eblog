@@ -15,7 +15,7 @@ $(function () {
 
         // 发送GET请求到指定的URL
         $.ajax({
-            url: '/auth/captcha/',  // 发送验证码请求的 URL
+            url: '/captcha/',  // 发送验证码请求的 URL
             method: 'GET',
             data: {
                 'email': email  // 邮箱作为查询参数
