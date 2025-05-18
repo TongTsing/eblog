@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="84ac0cdc-f131-43b5-bfb7-707c3a6b1da4" name="tencent-vm">
-        <fileTransfer accessType="SFTP" host="ip.qingtong.asia" port="22211" sshConfigId="0a01fd92-b062-4a4e-90dc-34cf32462258" sshConfig="tongqing@ip.qingtong.asia:22211 agent" authAgent="true">
+        <fileTransfer accessType="SFTP" host="ip.qingtong.asia" port="22211" sshConfigId="0a01fd92-b062-4a4e-90dc-34cf32462258" sshConfig="tongqing@ip.qingtong.asia:22211 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="60000" passiveMode="true" shareSSLContext="true" isUseRsync="true" />
           </advancedOptions>

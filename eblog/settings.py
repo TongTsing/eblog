@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(oma$ph=wzqf%&v40on7y+*qv3vml(x)m!^6te*n$1^aps=_k&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['https://mfy.hwserver.cn', 'https://blog.hwserver.cn', 'https://ip.hwserver.cn']
+CSRF_TRUSTED_ORIGINS = ['https://mfy.hwserver.cn', 'https://blog.qingtong.asia', 'https://ip.hwserver.cn']
 
 # Application definition
 

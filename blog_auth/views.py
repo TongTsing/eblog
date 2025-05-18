@@ -18,6 +18,7 @@ from urllib3 import request
 
 from utils.utils import redisMixin
 from .forms import registerForm, LoginForm, EditProfileForm, ChangePasswordForm
+from django.conf import settings
 
 User = get_user_model()
 logger = logging.getLogger("django")
@@ -127,9 +128,9 @@ class register_view(redisMixin, View):
 
 def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> int:
     redis_client = redis.StrictRedis(
-        host='ip.hwserver.cn',  # Redis 主机地址
+        host='ip.qingtong.asia',  # Redis 主机地址
         port=6379,  # Redis 端口
-        password='tq113211',
+        password=settings.redis['passwd'],
         db=db,  # 数据库编号
         decode_responses=True  # 确保返回的数据是字符串
     )
@@ -143,9 +144,9 @@ def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> 
 
 def get_redis_cache(key: str = "", db=1) -> str:
     redis_client = redis.StrictRedis(
-        host='ip.hwserver.cn',  # Redis 主机地址
+        host='ip.qingtong.asia',  # Redis 主机地址
         port=6379,  # Redis 端口
-        password='tq113211',
+        password=settings.redis['passwd'],
         db=db,  # 数据库编号
         decode_responses=True  # 确保返回的数据是字符串
     )
