@@ -130,7 +130,7 @@ def set_redis_cache(key: str = "", value: str = "", timeout: int = 60, db=1) -> 
     redis_client = redis.StrictRedis(
         host='ip.qingtong.asia',  # Redis 主机地址
         port=6379,  # Redis 端口
-        password=settings.redis['passwd'],
+        password=settings.RedisConfig['passwd'],
         db=db,  # 数据库编号
         decode_responses=True  # 确保返回的数据是字符串
     )
@@ -146,7 +146,7 @@ def get_redis_cache(key: str = "", db=1) -> str:
     redis_client = redis.StrictRedis(
         host='ip.qingtong.asia',  # Redis 主机地址
         port=6379,  # Redis 端口
-        password=settings.redis['passwd'],
+        password=settings.RedisConfig['passwd'],
         db=db,  # 数据库编号
         decode_responses=True  # 确保返回的数据是字符串
     )

@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3ea8981-48cb-4836-b02e-906469bf0cc7" name="更改" comment="发送邮件接口变更">
-      <change beforePath="$PROJECT_DIR$/.idea/webServers.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog_auth/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog_auth/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eblog/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/eblog/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,15 +184,7 @@
       <workItem from="1745834772422" duration="797000" />
       <workItem from="1746591401016" duration="333000" />
       <workItem from="1747557263057" duration="966000" />
-      <workItem from="1747558465082" duration="329000" />
-    </task>
-    <task id="LOCAL-00249" summary="更改index、bloglist博客标题样式">
-      <option name="closed" value="true" />
-      <created>1743661706930</created>
-      <option name="number" value="00249" />
-      <option name="presentableId" value="LOCAL-00249" />
-      <option name="project" value="LOCAL" />
-      <updated>1743661706930</updated>
+      <workItem from="1747558465082" duration="422000" />
     </task>
     <task id="LOCAL-00250" summary="更改index、bloglist博客标题样式">
       <option name="closed" value="true" />
@@ -580,7 +570,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747557448943</updated>
     </task>
-    <option name="localTasksCounter" value="298" />
+    <task id="LOCAL-00298" summary="发送邮件接口变更">
+      <option name="closed" value="true" />
+      <created>1747558806850</created>
+      <option name="number" value="00298" />
+      <option name="presentableId" value="LOCAL-00298" />
+      <option name="project" value="LOCAL" />
+      <updated>1747558806850</updated>
+    </task>
+    <option name="localTasksCounter" value="299" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,8 +630,9 @@
     <MESSAGE value="新增web调试器接口" />
     <MESSAGE value="搜索、首页使用博客发布时间倒序" />
     <MESSAGE value="更改index博客标题样式" />
-    <MESSAGE value="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
     <MESSAGE value="更改index、bloglist博客标题样式" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改index、bloglist博客标题样式" />
+    <MESSAGE value="更改index、bloglist博客标题样式&#10;&#10;Signed-off-by: tongqing &lt;toneqing@163.com&gt;" />
+    <MESSAGE value="发送邮件接口变更" />
+    <option name="LAST_COMMIT_MESSAGE" value="发送邮件接口变更" />
   </component>
 </project>
