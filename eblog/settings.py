@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import json
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -85,6 +86,10 @@ WSGI_APPLICATION = 'eblog.wsgi.application'
 Config = json.load(open(BASE_DIR / 'conf/conf.json'))
 MysqlConfig = Config["Mysql"]
 RedisConfig = Config["Redis"]
+# 注册到settings供app-views使用
+sys.modules['django.conf'].settings.RedisConfig = RedisConfig
+sys.modules['django.conf'].settings.MysqlConfig = MysqlConfig
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
